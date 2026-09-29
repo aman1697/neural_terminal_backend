@@ -7,12 +7,10 @@ class Settings(BaseSettings):
 	app_name: str = "Neural Terminal Backend"
 	debug: bool = False
 
-	db_url: str | None = None
-	db_host: str = "localhost"
-	db_port: int = 5432
-	db_user: str = ""
-	db_password: str = ""
-	db_name: str = "neural_terminal"
+	cloudflare_account_id: str
+	cloudflare_d1_database_id: str
+	cloudflare_api_token: str
+	cloudflare_api_base_url: str = "https://api.cloudflare.com/client/v4"
 
 	server_port: int = 3000
 	ai_api_key: str = ""
@@ -23,12 +21,10 @@ class Settings(BaseSettings):
 	refresh_token_expire_days: int = 7
 
 	@property
-	def database_url(self) -> str:
-		if self.db_url:
-			return self.db_url
+	def d1_query_url(self) -> str:
 		return (
-			f"postgresql+asyncpg://{self.db_user}:{self.db_password}"
-			f"@{self.db_host}:{self.db_port}/{self.db_name}"
+			f"{self.cloudflare_api_base_url}/accounts/{self.cloudflare_account_id}"
+			f"/d1/database/{self.cloudflare_d1_database_id}/query"
 		)
 
 

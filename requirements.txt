@@ -1,8 +1,6 @@
 fastapi
 uvicorn[standard]
-sqlalchemy[asyncio]
-asyncpg
-alembic
+httpx
 pydantic-settings
 passlib[bcrypt]
 python-jose[cryptography]

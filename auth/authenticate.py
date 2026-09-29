@@ -5,11 +5,9 @@ from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from passlib.context import CryptContext
-from sqlalchemy import select
-from sqlalchemy.ext.asyncio import AsyncSession
 
 from config.settings import settings
-from db.connection import get_db
+from db.connection import D1Client, get_db
 from db.models import User
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
@@ -68,10 +66,19 @@ class Authenticator:
 			)
 		return payload
 
+	@staticmethod
+	async def get_user_by_email(db: D1Client, email: str) -> User | None:
+		rows = await db.execute("SELECT * FROM users WHERE email = ?", [email])
+		return User.from_row(rows[0]) if rows else None
+
+	@staticmethod
+	async def get_user_by_id(db: D1Client, user_id: uuid.UUID) -> User | None:
+		rows = await db.execute("SELECT * FROM users WHERE id = ?", [str(user_id)])
+		return User.from_row(rows[0]) if rows else None
+
 	@classmethod
-	async def authenticate_user(cls, db: AsyncSession, email: str, password: str) -> User:
-		result = await db.execute(select(User).where(User.email == email))
-		user = result.scalar_one_or_none()
+	async def authenticate_user(cls, db: D1Client, email: str, password: str) -> User:
+		user = await cls.get_user_by_email(db, email)
 		if user is None or not cls.verify_password(password, user.hashed_password):
 			raise HTTPException(
 				status_code=status.HTTP_401_UNAUTHORIZED,
@@ -86,7 +93,7 @@ class Authenticator:
 
 
 async def get_current_user(
-	token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)
+	token: str = Depends(oauth2_scheme), db: D1Client = Depends(get_db)
 ) -> User:
 	payload = Authenticator.decode_token(token, expected_type="access")
 
@@ -103,8 +110,7 @@ async def get_current_user(
 			status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token payload"
 		)
 
-	result = await db.execute(select(User).where(User.id == user_id))
-	user = result.scalar_one_or_none()
+	user = await Authenticator.get_user_by_id(db, user_id)
 	if user is None or not user.is_active:
 		raise HTTPException(
 			status_code=status.HTTP_401_UNAUTHORIZED, detail="User not found or inactive"

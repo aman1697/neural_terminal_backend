@@ -1,16 +1,14 @@
 import asyncio
 import json
 import uuid
+from datetime import datetime, timezone
 from pathlib import Path
 
 from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
-from sqlalchemy import select
-from sqlalchemy.exc import IntegrityError
-from sqlalchemy.ext.asyncio import AsyncSession
 
 from auth.authenticate import Authenticator, get_current_user
-from db.connection import get_db
+from db.connection import D1Client, D1QueryError, get_db
 from db.models import User
 from db.schemas import LoginRequest, RefreshRequest, SignupRequest, TokenResponse, UserOut
 from src.helpers.constants import AI_PATH, DL_PATH, ML_PATH
@@ -75,20 +73,34 @@ async def get_paths(refresh: bool = False):
 
 
 @app.post("/auth/signup", response_model=UserOut, status_code=status.HTTP_201_CREATED)
-async def signup(body: SignupRequest, db: AsyncSession = Depends(get_db)):
-	user = User(email=body.email, hashed_password=Authenticator.hash_password(body.password))
-	db.add(user)
-	try:
-		await db.commit()
-	except IntegrityError:
-		await db.rollback()
+async def signup(body: SignupRequest, db: D1Client = Depends(get_db)):
+	existing = await Authenticator.get_user_by_email(db, body.email)
+	if existing is not None:
 		raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Email already registered")
-	await db.refresh(user)
-	return user
+
+	user_id = uuid.uuid4()
+	now = datetime.now(timezone.utc).isoformat()
+	try:
+		await db.execute(
+			"INSERT INTO users (id, email, hashed_password, is_active, created_at, updated_at) "
+			"VALUES (?, ?, ?, ?, ?, ?)",
+			[str(user_id), body.email, Authenticator.hash_password(body.password), 1, now, now],
+		)
+	except D1QueryError:
+		raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Email already registered")
+
+	return User(
+		id=user_id,
+		email=body.email,
+		hashed_password="",
+		is_active=True,
+		created_at=datetime.fromisoformat(now),
+		updated_at=datetime.fromisoformat(now),
+	)
 
 
 @app.post("/auth/login", response_model=TokenResponse)
-async def login(body: LoginRequest, db: AsyncSession = Depends(get_db)):
+async def login(body: LoginRequest, db: D1Client = Depends(get_db)):
 	user = await Authenticator.authenticate_user(db, body.email, body.password)
 	return TokenResponse(
 		access_token=Authenticator.create_access_token(user.id),
@@ -97,7 +109,7 @@ async def login(body: LoginRequest, db: AsyncSession = Depends(get_db)):
 
 
 @app.post("/auth/refresh", response_model=TokenResponse)
-async def refresh(body: RefreshRequest, db: AsyncSession = Depends(get_db)):
+async def refresh(body: RefreshRequest, db: D1Client = Depends(get_db)):
 	payload = Authenticator.decode_token(body.refresh_token, expected_type="refresh")
 
 	subject = payload.get("sub")
@@ -106,8 +118,7 @@ async def refresh(body: RefreshRequest, db: AsyncSession = Depends(get_db)):
 	except (TypeError, ValueError):
 		raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token payload")
 
-	result = await db.execute(select(User).where(User.id == user_id))
-	user = result.scalar_one_or_none()
+	user = await Authenticator.get_user_by_id(db, user_id)
 	if user is None or not user.is_active:
 		raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="User not found or inactive")
 
