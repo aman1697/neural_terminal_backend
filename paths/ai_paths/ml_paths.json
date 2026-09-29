@@ -1,0 +1,756 @@
+[
+  {
+    "id": "ml-introduction",
+    "title": "Introduction to Machine Learning",
+    "category": "Foundations",
+    "difficulty": "beginner",
+    "estimatedTime": "1h 30m",
+    "prerequisites": [],
+    "tags": ["overview", "supervised", "unsupervised"],
+    "overview": "Learn what machine learning is, where it is used, and how the full ML workflow looks from data to deployment.",
+    "objectives": [
+      "Differentiate AI, ML, and deep learning",
+      "Identify common ML problem types",
+      "Understand a beginner friendly ML roadmap"
+    ],
+    "paper": null,
+    "method": [
+      {"title": "Problem framing", "body": "Translate business questions into ML tasks."},
+      {"title": "Data and labels", "body": "Understand features, targets, and dataset quality."},
+      {"title": "Model lifecycle", "body": "Learn train, evaluate, deploy, and monitor loop."}
+    ],
+    "pseudocode": "task = identify_problem_type(problem)\ndata = collect_and_clean()\nmodel = train(task, data)\nmetric = evaluate(model)",
+    "playground": {"language": "python", "starterCode": "print('ML roadmap: data -> model -> evaluation -> deployment')"},
+    "output": {"mockResult": "ML roadmap: data -> model -> evaluation -> deployment", "visual": "pipeline"},
+    "quiz": [
+      {"question": "Spam detection is usually:", "options": ["Regression", "Classification", "Clustering", "Dimensionality reduction"], "answer": 1},
+      {"question": "A key ML lifecycle step after deployment is:", "options": ["Monitoring", "Ignoring drift", "Removing logs", "Skipping evaluation"], "answer": 0}
+    ],
+    "relatedTopicIds": ["python-for-ml", "linear-algebra"]
+  },
+  {
+    "id": "python-for-ml",
+    "title": "Python for Machine Learning",
+    "category": "Foundations",
+    "difficulty": "beginner",
+    "estimatedTime": "3h",
+    "prerequisites": ["ml-introduction"],
+    "tags": ["python", "numpy", "pandas"],
+    "overview": "Build practical Python basics for ML using arrays, data frames, plotting, and notebooks.",
+    "objectives": [
+      "Use NumPy for numeric computation",
+      "Use pandas for tabular data",
+      "Visualize data with matplotlib"
+    ],
+    "paper": null,
+    "method": [
+      {"title": "Numerical arrays", "body": "Use vectorized operations for speed."},
+      {"title": "Tabular operations", "body": "Filter, group, and aggregate data frames."},
+      {"title": "Visualization", "body": "Plot distributions and relationships before modeling."}
+    ],
+    "pseudocode": "import numpy as np\nimport pandas as pd\nX = np.array([[1,2],[3,4]])\ndf = pd.DataFrame(X, columns=['a','b'])",
+    "playground": {"language": "python", "starterCode": "import numpy as np\nprint(np.mean([1,2,3,4]))"},
+    "output": {"mockResult": "2.5", "visual": "table"},
+    "quiz": [
+      {"question": "pandas is mainly used for:", "options": ["GPU kernels", "Tabular data", "Compilers", "Web routing"], "answer": 1},
+      {"question": "Vectorization usually gives:", "options": ["Slower code", "Faster numeric code", "No change", "More memory leaks"], "answer": 1}
+    ],
+    "relatedTopicIds": ["statistics-probability", "data-preprocessing"]
+  },
+  {
+    "id": "linear-algebra",
+    "title": "Linear Algebra for ML",
+    "category": "Math",
+    "difficulty": "beginner",
+    "estimatedTime": "3h",
+    "prerequisites": ["python-for-ml"],
+    "tags": ["vectors", "matrices", "eigenvalues"],
+    "overview": "Understand vectors, matrices, matrix multiplication, and decomposition used by almost all ML algorithms.",
+    "objectives": [
+      "Interpret vectors and dot products",
+      "Track matrix shapes correctly",
+      "Understand eigenvectors in PCA"
+    ],
+    "paper": null,
+    "method": [
+      {"title": "Vector math", "body": "Represent features and compute similarity."},
+      {"title": "Matrix operations", "body": "Apply transformations and solve systems."},
+      {"title": "Decomposition", "body": "Use eigen and singular value decomposition intuition."}
+    ],
+    "pseudocode": "y = W @ x + b",
+    "playground": {"language": "python", "starterCode": "import numpy as np\nA = np.array([[1,2],[3,4]])\nx = np.array([1,1])\nprint(A @ x)"},
+    "output": {"mockResult": "[3 7]", "visual": "tensor"},
+    "quiz": [
+      {"question": "(m x n) @ (n x p) output shape is:", "options": ["(m x p)", "(n x p)", "(m x n)", "Invalid always"], "answer": 0},
+      {"question": "Orthogonal vectors have dot product:", "options": ["1", "0", "-1", "Undefined"], "answer": 1}
+    ],
+    "relatedTopicIds": ["statistics-probability", "gradient-descent"]
+  },
+  {
+    "id": "statistics-probability",
+    "title": "Statistics and Probability",
+    "category": "Math",
+    "difficulty": "beginner",
+    "estimatedTime": "3h",
+    "prerequisites": ["linear-algebra"],
+    "tags": ["distributions", "bayes", "expectation"],
+    "overview": "Learn probability distributions, expectation, variance, and statistical reasoning required for uncertainty and inference.",
+    "objectives": [
+      "Compute mean, variance, and covariance",
+      "Apply Bayes theorem",
+      "Understand sampling and confidence"
+    ],
+    "paper": null,
+    "method": [
+      {"title": "Random variables", "body": "Model uncertainty mathematically."},
+      {"title": "Distributions", "body": "Use Bernoulli, Gaussian, and related distributions."},
+      {"title": "Inference", "body": "Estimate and compare hypotheses from samples."}
+    ],
+    "pseudocode": "posterior = likelihood * prior / evidence",
+    "playground": {"language": "python", "starterCode": "p_a = 0.2\np_b_given_a = 0.7\np_b = 0.3\nprint((p_b_given_a * p_a)/p_b)"},
+    "output": {"mockResult": "0.4666666666666667", "visual": "distribution"},
+    "quiz": [
+      {"question": "Variance measures:", "options": ["Center", "Spread", "Class count", "Bias only"], "answer": 1},
+      {"question": "Bayes theorem updates:", "options": ["Features", "Beliefs using evidence", "Learning rate", "Embeddings"], "answer": 1}
+    ],
+    "relatedTopicIds": ["data-preprocessing", "model-evaluation"]
+  },
+  {
+    "id": "data-preprocessing",
+    "title": "Data Collection and Preprocessing",
+    "category": "Fundamentals",
+    "difficulty": "beginner",
+    "estimatedTime": "3h 30m",
+    "prerequisites": ["statistics-probability"],
+    "tags": ["cleaning", "missing-values", "scaling"],
+    "overview": "Prepare real world data by cleaning records, handling missing values, encoding categories, and scaling numeric features.",
+    "objectives": [
+      "Clean and validate raw data",
+      "Prevent leakage during preprocessing",
+      "Build repeatable data pipelines"
+    ],
+    "paper": null,
+    "method": [
+      {"title": "Cleaning", "body": "Handle duplicates, nulls, and invalid values."},
+      {"title": "Transforms", "body": "Encode and scale features consistently."},
+      {"title": "Split discipline", "body": "Fit preprocessors on train set only."}
+    ],
+    "pseudocode": "X_train, X_test = split(X)\nscaler.fit(X_train)\nX_train = scaler.transform(X_train)\nX_test = scaler.transform(X_test)",
+    "playground": {"language": "python", "starterCode": "from sklearn.preprocessing import StandardScaler\nX = [[1,2],[3,4],[5,6]]\nprint(StandardScaler().fit_transform(X))"},
+    "output": {"mockResult": "scaled_matrix", "visual": "table"},
+    "quiz": [
+      {"question": "To avoid leakage, fit scaler on:", "options": ["All data", "Train only", "Test only", "Validation only"], "answer": 1},
+      {"question": "One hot encoding handles:", "options": ["Images", "Text only", "Categorical columns", "Outliers"], "answer": 2}
+    ],
+    "relatedTopicIds": ["feature-engineering", "exploratory-data-analysis"]
+  },
+  {
+    "id": "exploratory-data-analysis",
+    "title": "Exploratory Data Analysis",
+    "category": "Fundamentals",
+    "difficulty": "beginner",
+    "estimatedTime": "2h 30m",
+    "prerequisites": ["data-preprocessing"],
+    "tags": ["eda", "visualization", "outliers"],
+    "overview": "Use descriptive statistics and plots to understand distributions, correlations, skew, class imbalance, and outliers before modeling.",
+    "objectives": [
+      "Summarize data with descriptive stats",
+      "Visualize important feature patterns",
+      "Identify quality issues early"
+    ],
+    "paper": null,
+    "method": [
+      {"title": "Univariate analysis", "body": "Inspect one feature at a time."},
+      {"title": "Bivariate analysis", "body": "Study relationships between features and targets."},
+      {"title": "Issue detection", "body": "Catch outliers, drift, and imbalance."}
+    ],
+    "pseudocode": "for col in features:\n    plot_distribution(df[col])",
+    "playground": {"language": "python", "starterCode": "import pandas as pd\nprint(pd.DataFrame({'x':[1,2,3]}).describe())"},
+    "output": {"mockResult": "summary_stats", "visual": "histogram"},
+    "quiz": [
+      {"question": "EDA is primarily done:", "options": ["After deployment", "Before modeling", "After RLHF", "Never"], "answer": 1},
+      {"question": "Boxplots are useful for:", "options": ["Language translation", "Outlier detection", "GPU tuning", "Tokenization"], "answer": 1}
+    ],
+    "relatedTopicIds": ["feature-engineering", "linear-regression"]
+  },
+  {
+    "id": "feature-engineering",
+    "title": "Feature Engineering",
+    "category": "Fundamentals",
+    "difficulty": "intermediate",
+    "estimatedTime": "3h",
+    "prerequisites": ["exploratory-data-analysis"],
+    "tags": ["features", "selection", "encoding"],
+    "overview": "Create, transform, and select informative features to improve model performance and reduce overfitting.",
+    "objectives": [
+      "Create domain driven features",
+      "Select informative features",
+      "Reduce noise and redundancy"
+    ],
+    "paper": null,
+    "method": [
+      {"title": "Feature creation", "body": "Build ratios, interactions, and aggregates."},
+      {"title": "Feature selection", "body": "Use filter, wrapper, and embedded methods."},
+      {"title": "Feature transforms", "body": "Apply log, bins, and scaling where needed."}
+    ],
+    "pseudocode": "X['ratio'] = X['a'] / (X['b'] + 1e-9)",
+    "playground": {"language": "python", "starterCode": "import pandas as pd\ndf = pd.DataFrame({'a':[2,4],'b':[1,2]})\ndf['ratio'] = df['a']/df['b']\nprint(df)"},
+    "output": {"mockResult": "feature_table_with_ratio", "visual": "table"},
+    "quiz": [
+      {"question": "Feature engineering can:", "options": ["Only reduce accuracy", "Improve signal for models", "Replace labels", "Remove need for data"], "answer": 1},
+      {"question": "Leakage can happen when features use:", "options": ["Past data only", "Future information", "Scaled values", "Integer ids"], "answer": 1}
+    ],
+    "relatedTopicIds": ["linear-regression", "logistic-regression"]
+  },
+  {
+    "id": "linear-regression",
+    "title": "Linear Regression",
+    "category": "Supervised Learning",
+    "difficulty": "beginner",
+    "estimatedTime": "2h 30m",
+    "prerequisites": ["feature-engineering"],
+    "tags": ["regression", "mse", "baseline"],
+    "overview": "Start supervised learning with linear regression for continuous prediction tasks.",
+    "objectives": [
+      "Fit and interpret a regression model",
+      "Understand MSE loss",
+      "Use regularized linear models"
+    ],
+    "paper": null,
+    "method": [
+      {"title": "Model equation", "body": "Predict target as weighted feature sum.", "equation": "y_hat = w^T x + b"},
+      {"title": "Loss", "body": "Minimize squared residual errors.", "equation": "L = mean((y - y_hat)^2)"},
+      {"title": "Regularization", "body": "Apply ridge or lasso when needed."}
+    ],
+    "pseudocode": "model.fit(X_train, y_train)\ny_pred = model.predict(X_test)",
+    "playground": {"language": "python", "starterCode": "from sklearn.linear_model import LinearRegression\nX = [[1],[2],[3]]\ny = [2,4,6]\nprint(LinearRegression().fit(X,y).coef_)"},
+    "output": {"mockResult": "[2.]", "visual": "line"},
+    "quiz": [
+      {"question": "Linear regression predicts:", "options": ["Categories", "Continuous values", "Clusters", "Embeddings only"], "answer": 1},
+      {"question": "Ridge adds:", "options": ["L1 penalty", "L2 penalty", "No penalty", "Dropout"], "answer": 1}
+    ],
+    "relatedTopicIds": ["logistic-regression", "model-evaluation"]
+  },
+  {
+    "id": "logistic-regression",
+    "title": "Logistic Regression",
+    "category": "Supervised Learning",
+    "difficulty": "beginner",
+    "estimatedTime": "2h 30m",
+    "prerequisites": ["linear-regression"],
+    "tags": ["classification", "sigmoid", "cross-entropy"],
+    "overview": "Learn binary classification with logistic regression and probability outputs.",
+    "objectives": [
+      "Model class probabilities",
+      "Optimize cross entropy loss",
+      "Use decision thresholds"
+    ],
+    "paper": null,
+    "method": [
+      {"title": "Sigmoid mapping", "body": "Convert scores to probabilities."},
+      {"title": "Log loss", "body": "Penalize confident wrong predictions."},
+      {"title": "Thresholding", "body": "Select threshold based on business objective."}
+    ],
+    "pseudocode": "p = sigmoid(X @ w + b)\ny_hat = (p >= 0.5)",
+    "playground": {"language": "python", "starterCode": "from sklearn.linear_model import LogisticRegression\nX = [[0],[1],[2],[3]]\ny = [0,0,1,1]\nclf = LogisticRegression().fit(X,y)\nprint(clf.predict_proba([[1.5]])[0][1])"},
+    "output": {"mockResult": "0.5", "visual": "decision-boundary"},
+    "quiz": [
+      {"question": "Logistic regression output is usually:", "options": ["Probability", "Distance only", "Cluster id", "Token id"], "answer": 0},
+      {"question": "Main binary classification loss:", "options": ["MSE", "Cross entropy", "Huber", "Cosine loss"], "answer": 1}
+    ],
+    "relatedTopicIds": ["model-evaluation", "tree-ensembles"]
+  },
+  {
+    "id": "model-evaluation",
+    "title": "Model Evaluation and Validation",
+    "category": "Fundamentals",
+    "difficulty": "intermediate",
+    "estimatedTime": "3h",
+    "prerequisites": ["logistic-regression"],
+    "tags": ["metrics", "cross-validation", "overfitting"],
+    "overview": "Evaluate models correctly with train validation test splits, metrics, and cross validation.",
+    "objectives": [
+      "Choose correct metrics by task",
+      "Detect overfitting and underfitting",
+      "Use robust validation workflows"
+    ],
+    "paper": null,
+    "method": [
+      {"title": "Metric selection", "body": "Use RMSE, F1, AUC, or task specific metrics."},
+      {"title": "Validation", "body": "Apply holdout and k fold strategies."},
+      {"title": "Error analysis", "body": "Inspect failure cases for model improvement."}
+    ],
+    "pseudocode": "scores = cross_validate(model, X, y, cv=5)",
+    "playground": {"language": "python", "starterCode": "from sklearn.model_selection import cross_val_score\nfrom sklearn.linear_model import LogisticRegression\nX = [[0],[1],[2],[3],[4],[5]]\ny = [0,0,0,1,1,1]\nprint(cross_val_score(LogisticRegression(), X, y, cv=3))"},
+    "output": {"mockResult": "[1. 1. 1.]", "visual": "curve"},
+    "quiz": [
+      {"question": "F1 is harmonic mean of:", "options": ["Precision and recall", "Accuracy and recall", "TPR and FPR", "MSE and MAE"], "answer": 0},
+      {"question": "Cross validation estimates:", "options": ["Inference cost only", "Generalization", "Data size", "GPU model"], "answer": 1}
+    ],
+    "relatedTopicIds": ["tree-ensembles", "unsupervised-learning"]
+  },
+  {
+    "id": "tree-ensembles",
+    "title": "Decision Trees and Ensemble Methods",
+    "category": "Supervised Learning",
+    "difficulty": "intermediate",
+    "estimatedTime": "3h 30m",
+    "prerequisites": ["model-evaluation"],
+    "tags": ["decision-tree", "random-forest", "gradient-boosting"],
+    "overview": "Master powerful tabular data models such as decision trees, random forests, and gradient boosting.",
+    "objectives": [
+      "Understand tree split criteria",
+      "Compare bagging and boosting",
+      "Tune depth, learning rate, and estimators"
+    ],
+    "paper": null,
+    "method": [
+      {"title": "Decision trees", "body": "Split features greedily to reduce impurity."},
+      {"title": "Random forests", "body": "Average many decorrelated trees."},
+      {"title": "Gradient boosting", "body": "Fit learners on residuals stage by stage."}
+    ],
+    "pseudocode": "for m in range(M):\n    r = y - pred\n    tree = fit_tree(X, r)\n    pred += lr * tree.predict(X)",
+    "playground": {"language": "python", "starterCode": "from sklearn.ensemble import RandomForestClassifier\nX = [[0,0],[1,1],[0,1],[1,0]]\ny = [0,1,0,1]\nprint(RandomForestClassifier(random_state=0).fit(X,y).predict([[1,1]])[0])"},
+    "output": {"mockResult": "1", "visual": "tree"},
+    "quiz": [
+      {"question": "Random forest is mainly:", "options": ["Bagging", "Boosting", "Linear", "Distance based"], "answer": 0},
+      {"question": "Boosting trains next learner on:", "options": ["Random labels", "Residual errors", "Only test set", "Only null rows"], "answer": 1}
+    ],
+    "relatedTopicIds": ["unsupervised-learning", "gradient-descent"]
+  },
+  {
+    "id": "unsupervised-learning",
+    "title": "Unsupervised Learning",
+    "category": "Core ML",
+    "difficulty": "intermediate",
+    "estimatedTime": "3h",
+    "prerequisites": ["model-evaluation"],
+    "tags": ["clustering", "kmeans", "anomaly-detection"],
+    "overview": "Learn pattern discovery without labels using clustering, density methods, and anomaly detection.",
+    "objectives": [
+      "Apply k means and hierarchical clustering",
+      "Evaluate cluster quality",
+      "Use unsupervised methods for exploration"
+    ],
+    "paper": null,
+    "method": [
+      {"title": "K means", "body": "Partition points by nearest centroid."},
+      {"title": "Hierarchical", "body": "Build nested grouping structure."},
+      {"title": "Anomaly detection", "body": "Detect unusual samples without explicit labels."}
+    ],
+    "pseudocode": "centroids = init()\nrepeat:\n    assign_points()\n    recompute_centroids()",
+    "playground": {"language": "python", "starterCode": "from sklearn.cluster import KMeans\nX = [[1,1],[1,2],[8,8],[9,8]]\nprint(KMeans(n_clusters=2, random_state=0).fit_predict(X))"},
+    "output": {"mockResult": "[1 1 0 0]", "visual": "scatter"},
+    "quiz": [
+      {"question": "Unsupervised learning usually has:", "options": ["No labels", "Only labels", "Only images", "Only time series"], "answer": 0},
+      {"question": "K means optimizes:", "options": ["Cross entropy", "Within cluster distance", "Language fluency", "Token count"], "answer": 1}
+    ],
+    "relatedTopicIds": ["dimensionality-reduction", "time-series-forecasting"]
+  },
+  {
+    "id": "dimensionality-reduction",
+    "title": "Dimensionality Reduction",
+    "category": "Core ML",
+    "difficulty": "intermediate",
+    "estimatedTime": "2h 30m",
+    "prerequisites": ["unsupervised-learning"],
+    "tags": ["pca", "svd", "manifold"],
+    "overview": "Reduce feature space for visualization, noise reduction, and faster training with PCA and related techniques.",
+    "objectives": [
+      "Apply PCA for projection",
+      "Explain variance retention",
+      "Use reduced features in downstream models"
+    ],
+    "paper": null,
+    "method": [
+      {"title": "PCA", "body": "Project onto principal components."},
+      {"title": "SVD", "body": "Factorize matrices into low rank structure."},
+      {"title": "Usage", "body": "Use reduced dimensions to denoise and speed up models."}
+    ],
+    "pseudocode": "X_centered = X - mean(X)\nZ = X_centered @ W_k",
+    "playground": {"language": "python", "starterCode": "from sklearn.decomposition import PCA\nX = [[1,2],[2,3],[3,4]]\nprint(PCA(n_components=1).fit_transform(X))"},
+    "output": {"mockResult": "projected_values", "visual": "scatter"},
+    "quiz": [
+      {"question": "PCA is primarily used for:", "options": ["Classification labels", "Dimensionality reduction", "Tokenization", "Regular expressions"], "answer": 1},
+      {"question": "Principal components capture:", "options": ["Least variance", "Most variance", "No variance", "Random noise only"], "answer": 1}
+    ],
+    "relatedTopicIds": ["gradient-descent", "neural-networks-basics"]
+  },
+  {
+    "id": "gradient-descent",
+    "title": "Optimization and Gradient Descent",
+    "category": "Optimization",
+    "difficulty": "intermediate",
+    "estimatedTime": "2h",
+    "prerequisites": ["dimensionality-reduction"],
+    "tags": ["optimization", "sgd", "adam"],
+    "overview": "Understand how models learn via gradients and why optimizer choice impacts convergence and stability.",
+    "objectives": [
+      "Derive basic update rules",
+      "Compare SGD, momentum, and Adam",
+      "Tune learning rate schedules"
+    ],
+    "paper": null,
+    "method": [
+      {"title": "Gradient computation", "body": "Compute direction of steepest ascent."},
+      {"title": "Parameter update", "body": "Move opposite gradient for descent."},
+      {"title": "Adaptive optimization", "body": "Use moment based methods for robustness."}
+    ],
+    "pseudocode": "for step in range(T):\n    g = grad(loss, theta)\n    theta = theta - lr * g",
+    "playground": {"language": "python", "starterCode": "x, lr = 10.0, 0.1\nfor _ in range(10):\n    x -= lr * 2 * (x - 3)\nprint(round(x, 4))"},
+    "output": {"mockResult": "3.752", "visual": "loss"},
+    "quiz": [
+      {"question": "Too high learning rate often leads to:", "options": ["Divergence", "Guaranteed convergence", "No updates", "Better calibration always"], "answer": 0},
+      {"question": "Adam uses:", "options": ["Only first moment", "Only second moment", "First and second moments", "No gradients"], "answer": 2}
+    ],
+    "relatedTopicIds": ["neural-networks-basics", "regularization-and-tuning"]
+  },
+  {
+    "id": "neural-networks-basics",
+    "title": "Neural Networks Basics",
+    "category": "Deep Learning",
+    "difficulty": "intermediate",
+    "estimatedTime": "3h",
+    "prerequisites": ["gradient-descent"],
+    "tags": ["mlp", "backpropagation", "activations"],
+    "overview": "Build intuition for feedforward neural networks, activation functions, backpropagation, and training loops.",
+    "objectives": [
+      "Explain perceptrons and hidden layers",
+      "Understand forward and backward passes",
+      "Implement a basic training loop"
+    ],
+    "paper": null,
+    "method": [
+      {"title": "Forward pass", "body": "Compute outputs layer by layer."},
+      {"title": "Backpropagation", "body": "Propagate gradients to update parameters."},
+      {"title": "Training", "body": "Iterate mini batches until convergence."}
+    ],
+    "pseudocode": "for x, y in loader:\n    y_hat = model(x)\n    loss = criterion(y_hat, y)\n    loss.backward()\n    opt.step()",
+    "playground": {"language": "python", "starterCode": "import torch\nimport torch.nn as nn\nnet = nn.Sequential(nn.Linear(4,8), nn.ReLU(), nn.Linear(8,1))\nprint(net(torch.randn(2,4)).shape)"},
+    "output": {"mockResult": "torch.Size([2, 1])", "visual": "tensor"},
+    "quiz": [
+      {"question": "Backpropagation computes:", "options": ["Metrics only", "Gradients", "Data splits", "SQL queries"], "answer": 1},
+      {"question": "ReLU is a:", "options": ["Loss function", "Activation function", "Optimizer", "Tokenizer"], "answer": 1}
+    ],
+    "relatedTopicIds": ["regularization-and-tuning", "cnn"]
+  },
+  {
+    "id": "regularization-and-tuning",
+    "title": "Regularization and Hyperparameter Tuning",
+    "category": "Deep Learning",
+    "difficulty": "intermediate",
+    "estimatedTime": "2h 30m",
+    "prerequisites": ["neural-networks-basics"],
+    "tags": ["dropout", "batchnorm", "hyperparameters"],
+    "overview": "Improve generalization with regularization and systematic hyperparameter search.",
+    "objectives": [
+      "Apply dropout and weight decay",
+      "Tune batch size and learning rate",
+      "Use early stopping and validation tracking"
+    ],
+    "paper": null,
+    "method": [
+      {"title": "Regularization", "body": "Penalize complexity and reduce overfit."},
+      {"title": "Normalization", "body": "Stabilize deep network training."},
+      {"title": "Search", "body": "Run grid, random, or Bayesian tuning."}
+    ],
+    "pseudocode": "best = None\nfor lr in [1e-2, 1e-3]:\n    train_model(lr)",
+    "playground": {"language": "python", "starterCode": "print('try lr in [1e-2, 1e-3, 1e-4] and compare val loss')"},
+    "output": {"mockResult": "best_lr=0.001", "visual": "loss"},
+    "quiz": [
+      {"question": "Early stopping helps reduce:", "options": ["Underfitting", "Overfitting", "Data collection", "Token count"], "answer": 1},
+      {"question": "Dropout randomly:", "options": ["Changes labels", "Drops activations", "Adds features", "Adds data leakage"], "answer": 1}
+    ],
+    "relatedTopicIds": ["cnn", "rnn-lstm"]
+  },
+  {
+    "id": "cnn",
+    "title": "Convolutional Neural Networks",
+    "category": "Deep Learning",
+    "difficulty": "intermediate",
+    "estimatedTime": "3h",
+    "prerequisites": ["regularization-and-tuning"],
+    "tags": ["vision", "convolution", "pooling"],
+    "overview": "Learn image modeling with CNNs including convolution, pooling, and transfer learning basics.",
+    "objectives": [
+      "Compute convolution output sizes",
+      "Understand feature hierarchy in CNNs",
+      "Train image classifiers"
+    ],
+    "paper": null,
+    "method": [
+      {"title": "Convolution", "body": "Apply shared kernels over images."},
+      {"title": "Pooling", "body": "Reduce spatial size while keeping key activations."},
+      {"title": "Transfer learning", "body": "Fine tune pretrained models for small datasets."}
+    ],
+    "pseudocode": "out = conv2d(x, w)\nout = relu(out)\nout = maxpool(out)",
+    "playground": {"language": "python", "starterCode": "import torch, torch.nn as nn\nnet = nn.Conv2d(1,8,3,padding=1)\nprint(net(torch.randn(1,1,28,28)).shape)"},
+    "output": {"mockResult": "torch.Size([1, 8, 28, 28])", "visual": "image"},
+    "quiz": [
+      {"question": "Weight sharing in CNN gives:", "options": ["More parameters", "Fewer parameters", "No gradients", "No activations"], "answer": 1},
+      {"question": "Pooling usually reduces:", "options": ["Channels only", "Spatial dimensions", "Batch size", "Learning rate"], "answer": 1}
+    ],
+    "relatedTopicIds": ["rnn-lstm", "transformers"]
+  },
+  {
+    "id": "rnn-lstm",
+    "title": "Sequence Models: RNN and LSTM",
+    "category": "Deep Learning",
+    "difficulty": "intermediate",
+    "estimatedTime": "3h",
+    "prerequisites": ["regularization-and-tuning"],
+    "tags": ["sequence", "lstm", "nlp"],
+    "overview": "Model sequences with recurrent networks and understand how LSTM gates help long term dependencies.",
+    "objectives": [
+      "Understand recurrent computation",
+      "Explain vanishing gradients",
+      "Use LSTM for sequence tasks"
+    ],
+    "paper": null,
+    "method": [
+      {"title": "Recurrence", "body": "Reuse hidden state across time steps."},
+      {"title": "LSTM gates", "body": "Control write, keep, and read operations."},
+      {"title": "Applications", "body": "Apply to text and time sequence modeling."}
+    ],
+    "pseudocode": "for t in sequence:\n    h, c = lstm_cell(x[t], h, c)",
+    "playground": {"language": "python", "starterCode": "import torch, torch.nn as nn\nl = nn.LSTM(input_size=16, hidden_size=32, batch_first=True)\nout, _ = l(torch.randn(4,10,16))\nprint(out.shape)"},
+    "output": {"mockResult": "torch.Size([4, 10, 32])", "visual": "tensor"},
+    "quiz": [
+      {"question": "LSTM is designed to reduce:", "options": ["GPU memory", "Vanishing gradient issues", "Dataset size", "Matrix multiplications"], "answer": 1},
+      {"question": "RNNs are useful for:", "options": ["Sequences", "Only static tabular data", "Only clustering", "Only PCA"], "answer": 0}
+    ],
+    "relatedTopicIds": ["transformers", "time-series-forecasting"]
+  },
+  {
+    "id": "transformers",
+    "title": "Attention and Transformers",
+    "category": "Deep Learning",
+    "difficulty": "advanced",
+    "estimatedTime": "4h",
+    "prerequisites": ["rnn-lstm", "cnn"],
+    "tags": ["attention", "transformer", "llm"],
+    "overview": "Study modern sequence modeling with attention and transformer blocks used in language and multimodal models.",
+    "objectives": [
+      "Compute scaled dot product attention",
+      "Explain multi head attention",
+      "Understand masking and positional encoding"
+    ],
+    "paper": null,
+    "method": [
+      {"title": "QKV projections", "body": "Project embeddings to query, key, value."},
+      {"title": "Self attention", "body": "Let each token attend to all others."},
+      {"title": "Transformer block", "body": "Stack attention and feed forward with residuals."}
+    ],
+    "pseudocode": "scores = Q @ K.T / sqrt(dk)\nweights = softmax(scores)\nout = weights @ V",
+    "playground": {"language": "python", "starterCode": "import torch\nq = torch.randn(4,8)\nk = torch.randn(4,8)\nprint((q @ k.T).shape)"},
+    "output": {"mockResult": "torch.Size([4, 4])", "visual": "heatmap"},
+    "quiz": [
+      {"question": "Attention weights per row after softmax sum to:", "options": ["0", "1", "d_k", "n^2"], "answer": 1},
+      {"question": "Transformers replaced much of:", "options": ["Attention", "Recurrence", "Optimization", "Embeddings"], "answer": 1}
+    ],
+    "relatedTopicIds": ["generative-models", "rlhf"]
+  },
+  {
+    "id": "time-series-forecasting",
+    "title": "Time Series Forecasting",
+    "category": "Applied ML",
+    "difficulty": "intermediate",
+    "estimatedTime": "3h",
+    "prerequisites": ["rnn-lstm", "model-evaluation"],
+    "tags": ["forecasting", "arima", "sequence"],
+    "overview": "Forecast temporal data with classical and ML methods while preserving timeline aware validation.",
+    "objectives": [
+      "Build lag and rolling window features",
+      "Use time aware train validation splits",
+      "Evaluate MAE and MAPE for forecasts"
+    ],
+    "paper": null,
+    "method": [
+      {"title": "Temporal features", "body": "Create lag and seasonal features."},
+      {"title": "Modeling", "body": "Use baseline, tree, and sequence models."},
+      {"title": "Validation", "body": "Avoid random shuffle in time series."}
+    ],
+    "pseudocode": "for t in range(window, T):\n    X_t = series[t-window:t]\n    y_t = series[t]",
+    "playground": {"language": "python", "starterCode": "series = [10,12,13,15]\nnaive_forecast = series[-1]\nprint(naive_forecast)"},
+    "output": {"mockResult": "15", "visual": "line"},
+    "quiz": [
+      {"question": "For time series validation, use:", "options": ["Random shuffle split", "Time ordered split", "No split", "Only test set"], "answer": 1},
+      {"question": "Lag feature uses:", "options": ["Future value", "Past value", "Random noise", "Label encoder"], "answer": 1}
+    ],
+    "relatedTopicIds": ["recommender-systems", "mlops-basics"]
+  },
+  {
+    "id": "recommender-systems",
+    "title": "Recommender Systems",
+    "category": "Applied ML",
+    "difficulty": "intermediate",
+    "estimatedTime": "2h 30m",
+    "prerequisites": ["tree-ensembles", "dimensionality-reduction"],
+    "tags": ["collaborative-filtering", "ranking", "implicit-feedback"],
+    "overview": "Learn recommendation basics with collaborative filtering, matrix factorization, and ranking metrics.",
+    "objectives": [
+      "Understand user item interaction matrices",
+      "Compare content and collaborative approaches",
+      "Evaluate ranking quality"
+    ],
+    "paper": null,
+    "method": [
+      {"title": "Collaborative filtering", "body": "Recommend from similar users and items."},
+      {"title": "Matrix factorization", "body": "Learn latent embeddings for users and items."},
+      {"title": "Ranking evaluation", "body": "Measure precision at k and NDCG."}
+    ],
+    "pseudocode": "score(u, i) = dot(P[u], Q[i])",
+    "playground": {"language": "python", "starterCode": "print('recommend top_k items by predicted score')"},
+    "output": {"mockResult": "top_k_items", "visual": "matrix"},
+    "quiz": [
+      {"question": "Collaborative filtering relies on:", "options": ["Only item text", "Interaction patterns", "Only timestamps", "Only images"], "answer": 1},
+      {"question": "A ranking metric is:", "options": ["MSE", "NDCG", "R2", "RMSE only"], "answer": 1}
+    ],
+    "relatedTopicIds": ["mlops-basics", "responsible-ai"]
+  },
+  {
+    "id": "generative-models",
+    "title": "Generative Models",
+    "category": "Advanced ML",
+    "difficulty": "advanced",
+    "estimatedTime": "3h 30m",
+    "prerequisites": ["transformers"],
+    "tags": ["vae", "gan", "diffusion"],
+    "overview": "Study major generative model families including VAE, GAN, and diffusion models for content generation.",
+    "objectives": [
+      "Compare VAE, GAN, diffusion",
+      "Understand sampling processes",
+      "Recognize evaluation challenges"
+    ],
+    "paper": null,
+    "method": [
+      {"title": "Latent variable models", "body": "Sample from latent spaces to generate outputs."},
+      {"title": "Adversarial training", "body": "Use generator discriminator games."},
+      {"title": "Diffusion", "body": "Denoise step by step from noise."}
+    ],
+    "pseudocode": "x = noise()\nfor t in reversed(range(T)):\n    x = denoise(x, t)",
+    "playground": {"language": "python", "starterCode": "print('sample -> denoise loop concept')"},
+    "output": {"mockResult": "generated_sample", "visual": "image"},
+    "quiz": [
+      {"question": "Diffusion models generate by:", "options": ["Direct nearest neighbor", "Iterative denoising", "Only clustering", "Only linear regression"], "answer": 1},
+      {"question": "GAN training involves:", "options": ["One network only", "Generator and discriminator", "No optimizer", "No gradients"], "answer": 1}
+    ],
+    "relatedTopicIds": ["rlhf", "mlops-basics"]
+  },
+  {
+    "id": "rlhf",
+    "title": "Alignment and RLHF",
+    "category": "Advanced ML",
+    "difficulty": "advanced",
+    "estimatedTime": "3h",
+    "prerequisites": ["transformers"],
+    "tags": ["alignment", "reward-model", "ppo"],
+    "overview": "Learn how human preference data is used to align model behavior using reward modeling and policy optimization.",
+    "objectives": [
+      "Understand SFT to RLHF pipeline",
+      "Train and use reward models",
+      "Understand KL constrained policy updates"
+    ],
+    "paper": null,
+    "method": [
+      {"title": "SFT", "body": "Train instruction following baseline policy."},
+      {"title": "Reward model", "body": "Learn preference scoring from ranked outputs."},
+      {"title": "Policy optimization", "body": "Optimize reward while controlling drift."}
+    ],
+    "pseudocode": "y = policy.generate(prompt)\nr = reward_model(prompt, y) - beta * kl(policy, ref)",
+    "playground": {"language": "python", "starterCode": "print('reward = preference_score - beta * kl')"},
+    "output": {"mockResult": "reward = preference_score - beta * kl", "visual": "loss"},
+    "quiz": [
+      {"question": "RLHF reward model is trained from:", "options": ["Raw perplexity only", "Human preference pairs", "Random labels", "No labels"], "answer": 1},
+      {"question": "KL term is used to:", "options": ["Increase drift", "Control drift from reference model", "Remove gradients", "Tokenize data"], "answer": 1}
+    ],
+    "relatedTopicIds": ["mlops-basics", "responsible-ai"]
+  },
+  {
+    "id": "mlops-basics",
+    "title": "MLOps and Deployment",
+    "category": "Production",
+    "difficulty": "intermediate",
+    "estimatedTime": "3h",
+    "prerequisites": ["time-series-forecasting", "recommender-systems", "generative-models"],
+    "tags": ["deployment", "monitoring", "drift", "ci-cd"],
+    "overview": "Move models to production with reproducible pipelines, testing, monitoring, and retraining workflows.",
+    "objectives": [
+      "Package and serve ML models",
+      "Monitor data and concept drift",
+      "Automate retraining and rollback"
+    ],
+    "paper": null,
+    "method": [
+      {"title": "Training pipelines", "body": "Version data, code, and models for reproducibility."},
+      {"title": "Deployment patterns", "body": "Use batch, online, shadow, and canary releases."},
+      {"title": "Monitoring", "body": "Track quality, latency, and drift in production."}
+    ],
+    "pseudocode": "if drift > threshold:\n    trigger_retraining()\nif online_metric drops:\n    rollback()",
+    "playground": {"language": "python", "starterCode": "baseline = 0.9\ncurrent = 0.82\nprint('rollback' if current < baseline - 0.05 else 'keep')"},
+    "output": {"mockResult": "rollback", "visual": "pipeline"},
+    "quiz": [
+      {"question": "A safe release strategy is:", "options": ["Canary rollout", "No monitoring", "Delete logs", "Train in prod only"], "answer": 0},
+      {"question": "Concept drift means:", "options": ["API timeout", "Feature target relationship changes", "Hard disk full", "Batch size change"], "answer": 1}
+    ],
+    "relatedTopicIds": ["responsible-ai", "capstone-project"]
+  },
+  {
+    "id": "responsible-ai",
+    "title": "Responsible AI and Ethics",
+    "category": "Production",
+    "difficulty": "intermediate",
+    "estimatedTime": "2h",
+    "prerequisites": ["mlops-basics"],
+    "tags": ["fairness", "bias", "privacy", "explainability"],
+    "overview": "Build safe and trustworthy systems by evaluating fairness, robustness, privacy, and explainability.",
+    "objectives": [
+      "Identify common bias sources",
+      "Apply fairness and privacy checks",
+      "Communicate model limitations clearly"
+    ],
+    "paper": null,
+    "method": [
+      {"title": "Bias analysis", "body": "Measure performance across groups."},
+      {"title": "Privacy", "body": "Protect sensitive data in training and serving."},
+      {"title": "Explainability", "body": "Provide human interpretable model insights."}
+    ],
+    "pseudocode": "for group in groups:\n    report_metric(group)",
+    "playground": {"language": "python", "starterCode": "print('compare precision/recall across demographic groups')"},
+    "output": {"mockResult": "group_metrics_report", "visual": "table"},
+    "quiz": [
+      {"question": "Fairness checks should be done:", "options": ["Only after incident", "Throughout lifecycle", "Never", "Only in research"], "answer": 1},
+      {"question": "Explainability helps with:", "options": ["Trust and debugging", "Data corruption", "Faster disks", "Shorter tokens"], "answer": 0}
+    ],
+    "relatedTopicIds": ["capstone-project"]
+  },
+  {
+    "id": "capstone-project",
+    "title": "End to End ML Capstone",
+    "category": "Project",
+    "difficulty": "advanced",
+    "estimatedTime": "8h",
+    "prerequisites": ["responsible-ai"],
+    "tags": ["project", "portfolio", "end-to-end"],
+    "overview": "Consolidate learning by completing one end to end project from data ingestion to deployment and monitoring.",
+    "objectives": [
+      "Frame a real world ML problem",
+      "Build, compare, and deploy models",
+      "Document results for portfolio"
+    ],
+    "paper": null,
+    "method": [
+      {"title": "Scoping", "body": "Define objective, metric, and constraints."},
+      {"title": "Implementation", "body": "Run full data to deployment workflow."},
+      {"title": "Communication", "body": "Publish report with tradeoffs and lessons."}
+    ],
+    "pseudocode": "problem -> data -> features -> models -> evaluation -> deployment -> monitoring",
+    "playground": {"language": "python", "starterCode": "print('build one complete ML project and publish the report')"},
+    "output": {"mockResult": "portfolio_ready_project", "visual": "pipeline"},
+    "quiz": [
+      {"question": "Capstone goal is to:", "options": ["Memorize formulas only", "Ship an end to end ML solution", "Avoid evaluation", "Skip deployment"], "answer": 1},
+      {"question": "A good capstone report includes:", "options": ["Only code", "Metrics, tradeoffs, and risks", "No assumptions", "No reproducibility"], "answer": 1}
+    ],
+    "relatedTopicIds": []
+  }
+]
