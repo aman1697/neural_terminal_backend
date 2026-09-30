@@ -1,10 +1,12 @@
+import base64
+import hashlib
 import uuid
 from datetime import datetime, timedelta, timezone
 
+import bcrypt
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
-from passlib.context import CryptContext
 
 from config.settings import settings
 from db.connection import D1Client, get_db
@@ -14,15 +16,20 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
 
 class Authenticator:
-	_pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+	@staticmethod
+	def _prehash(password: str) -> bytes:
+		return base64.b64encode(hashlib.sha256(password.encode("utf-8")).digest())
 
 	@classmethod
 	def hash_password(cls, password: str) -> str:
-		return cls._pwd_context.hash(password)
+		return bcrypt.hashpw(cls._prehash(password), bcrypt.gensalt()).decode("utf-8")
 
 	@classmethod
 	def verify_password(cls, plain_password: str, hashed_password: str) -> bool:
-		return cls._pwd_context.verify(plain_password, hashed_password)
+		try:
+			return bcrypt.checkpw(cls._prehash(plain_password), hashed_password.encode("utf-8"))
+		except ValueError:
+			return False
 
 	@staticmethod
 	def _create_token(subject: str, token_type: str, expires_delta: timedelta) -> str:
