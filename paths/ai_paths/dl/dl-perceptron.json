@@ -1,0 +1,73 @@
+{
+  "id": "dl-perceptron",
+  "title": "Perceptron and Artificial Neurons",
+  "category": "Foundations",
+  "difficulty": "beginner",
+  "estimatedTime": "2h",
+  "prerequisites": [],
+  "tags": [
+    "perceptron",
+    "neuron",
+    "linear"
+  ],
+  "overview": "A neuron computes a weighted sum of its inputs plus a bias and passes it through a nonlinearity. The perceptron is the simplest case and the building block of every deep network.",
+  "objectives": [
+    "Compute the output of a single artificial neuron",
+    "Apply the perceptron learning rule",
+    "Explain why a single neuron only learns linear boundaries"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Weighted sum",
+      "body": "The pre-activation is z = w.x + b, a linear function of the inputs."
+    },
+    {
+      "title": "Step activation",
+      "body": "The classic perceptron outputs 1 if z >= 0 and 0 otherwise."
+    },
+    {
+      "title": "Learning rule",
+      "body": "On a mistake, move the weights by lr * (y - y_hat) * x so the example moves toward the correct side."
+    },
+    {
+      "title": "Linear limit",
+      "body": "A single neuron cannot represent XOR because the classes are not linearly separable."
+    }
+  ],
+  "pseudocode": "w = zeros(d); b = 0\nfor epoch in range(E):\n    for x, y in data:\n        y_hat = 1 if dot(w, x) + b >= 0 else 0\n        w += lr * (y - y_hat) * x\n        b += lr * (y - y_hat)",
+  "playground": {
+    "language": "python",
+    "starterCode": "import numpy as np\nX = np.array([[0,0],[0,1],[1,0],[1,1]])\ny = np.array([0,0,0,1])  # AND gate\nw = np.zeros(2); b = 0.0; lr = 0.1\nfor epoch in range(10):\n    for xi, yi in zip(X, y):\n        pred = 1 if xi @ w + b >= 0 else 0\n        w += lr * (yi - pred) * xi\n        b += lr * (yi - pred)\nprint(\"weights\", np.round(w, 2), \"bias\", round(b, 2))\nprint(\"predictions\", [1 if xi @ w + b >= 0 else 0 for xi in X])"
+  },
+  "output": {
+    "mockResult": "weights [0.2 0.1] bias -0.2\npredictions [0, 0, 0, 1]",
+    "visual": "line"
+  },
+  "quiz": [
+    {
+      "question": "Which function can a single perceptron NOT represent?",
+      "options": [
+        "AND",
+        "OR",
+        "XOR",
+        "NOT"
+      ],
+      "answer": 2
+    },
+    {
+      "question": "In z = w.x + b, what does the bias b do?",
+      "options": [
+        "Scales the inputs",
+        "Shifts the decision boundary",
+        "Sets the learning rate",
+        "Normalizes the weights"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "dl-mlp-backprop",
+    "dl-activation-functions"
+  ]
+}

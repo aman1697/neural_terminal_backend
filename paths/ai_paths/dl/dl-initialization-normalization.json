@@ -1,0 +1,86 @@
+{
+  "id": "dl-initialization-normalization",
+  "title": "Initialization and Normalization",
+  "category": "Training",
+  "difficulty": "beginner",
+  "estimatedTime": "3h",
+  "prerequisites": [
+    "dl-activation-functions",
+    "dl-optimizers"
+  ],
+  "tags": [
+    "initialization",
+    "batchnorm",
+    "layernorm"
+  ],
+  "overview": "Good initialization keeps activations and gradients at a sensible scale, and normalization layers keep them there during training. Together they make deep networks trainable.",
+  "objectives": [
+    "Apply Xavier and He initialization",
+    "Compute batch norm and layer norm",
+    "Choose a normalization for CNNs versus transformers"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Variance preservation",
+      "body": "Xavier init scales weights by 1/fan_avg and He init by 2/fan_in so signal variance stays stable across layers."
+    },
+    {
+      "title": "Batch norm",
+      "body": "Normalizes each feature over the batch, then applies a learned scale and shift; it behaves differently at train and eval time."
+    },
+    {
+      "title": "Layer norm",
+      "body": "Normalizes across features of a single example, so it is independent of batch size and standard in transformers."
+    },
+    {
+      "title": "Benefits",
+      "body": "Allows higher learning rates and reduces sensitivity to initialization."
+    }
+  ],
+  "pseudocode": "# He init\nW = randn(fan_in, fan_out) * sqrt(2 / fan_in)\n# layer norm\nmu = x.mean(-1); var = x.var(-1)\ny = gamma * (x - mu) / sqrt(var + eps) + beta",
+  "playground": {
+    "language": "python",
+    "starterCode": "import numpy as np\nrng = np.random.default_rng(1)\nx = rng.normal(5.0, 3.0, size=(4, 6))\nmu = x.mean(axis=-1, keepdims=True)\nvar = x.var(axis=-1, keepdims=True)\ny = (x - mu) / np.sqrt(var + 1e-5)\nprint(\"row means:\", np.round(y.mean(axis=-1), 3))\nprint(\"row stds: \", np.round(y.std(axis=-1), 3))\nh = rng.normal(size=(1000, 256))\nfor name, scale in ((\"naive 0.01\", 0.01), (\"He\", np.sqrt(2 / 256))):\n    a = np.maximum(0, h @ (rng.normal(size=(256, 256)) * scale))\n    print(name, \"activation std:\", round(float(a.std()), 3))"
+  },
+  "output": {
+    "mockResult": "row means: [-0.  0. -0. -0.]\nrow stds:  [1. 1. 1. 1.]\nnaive 0.01 activation std: 0.093\nHe activation std: 0.822",
+    "visual": "histogram"
+  },
+  "quiz": [
+    {
+      "question": "Layer norm normalizes over:",
+      "options": [
+        "The batch dimension",
+        "The feature dimension of each example",
+        "The spatial dimensions only",
+        "The whole dataset"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "He initialization is designed for:",
+      "options": [
+        "Sigmoid outputs only",
+        "Embedding tables",
+        "ReLU-style activations",
+        "Bias vectors"
+      ],
+      "answer": 2
+    },
+    {
+      "question": "Batch norm behaves differently at inference because it:",
+      "options": [
+        "Turns off the scale parameter",
+        "Drops units",
+        "Doubles the learning rate",
+        "Uses running statistics instead of batch statistics"
+      ],
+      "answer": 3
+    }
+  ],
+  "relatedTopicIds": [
+    "dl-activation-functions",
+    "dl-regularization"
+  ]
+}

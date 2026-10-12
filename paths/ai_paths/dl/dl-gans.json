@@ -1,0 +1,76 @@
+{
+  "id": "dl-gans",
+  "title": "Generative Adversarial Networks",
+  "category": "Generative Models",
+  "difficulty": "advanced",
+  "estimatedTime": "3h 30m",
+  "prerequisites": [
+    "dl-cnn",
+    "dl-loss-functions"
+  ],
+  "tags": [
+    "gan",
+    "generator",
+    "discriminator"
+  ],
+  "overview": "A GAN trains a generator and a discriminator in a minimax game. The generator learns to produce samples the discriminator cannot tell from real data.",
+  "objectives": [
+    "Describe the generator and discriminator objectives",
+    "Write the alternating training loop",
+    "Recognize instability and mode collapse"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Two players",
+      "body": "The generator maps noise to samples; the discriminator outputs the probability that a sample is real."
+    },
+    {
+      "title": "Objective",
+      "body": "The discriminator maximizes classification accuracy while the generator tries to fool it; the non-saturating generator loss maximizes log D(G(z))."
+    },
+    {
+      "title": "Alternating updates",
+      "body": "Each iteration updates the discriminator on real and fake batches, then the generator."
+    },
+    {
+      "title": "Failure modes",
+      "body": "Training can oscillate or mode-collapse; techniques include spectral normalization and Wasserstein losses."
+    }
+  ],
+  "pseudocode": "for real in loader:\n    z = randn(B, dz); fake = G(z)\n    loss_D = bce(D(real), 1) + bce(D(fake.detach()), 0)\n    update(D, loss_D)\n    loss_G = bce(D(fake), 1)\n    update(G, loss_G)",
+  "playground": {
+    "language": "python",
+    "starterCode": "import torch, torch.nn as nn\ntorch.manual_seed(0)\nG = nn.Sequential(nn.Linear(4, 16), nn.ReLU(), nn.Linear(16, 2))\nD = nn.Sequential(nn.Linear(2, 16), nn.ReLU(), nn.Linear(16, 1))\nbce = nn.BCEWithLogitsLoss()\nreal = torch.randn(32, 2) + 3.0\nfake = G(torch.randn(32, 4))\nloss_D = bce(D(real), torch.ones(32, 1)) + bce(D(fake.detach()), torch.zeros(32, 1))\nloss_G = bce(D(fake), torch.ones(32, 1))\nprint(\"fake shape:\", tuple(fake.shape))\nprint(\"D loss and G loss computed:\", loss_D.item() > 0, loss_G.item() > 0)"
+  },
+  "output": {
+    "mockResult": "fake shape: (32, 2)\nD loss and G loss computed: True True",
+    "visual": "scatter"
+  },
+  "quiz": [
+    {
+      "question": "Why call fake.detach() when updating the discriminator?",
+      "options": [
+        "To speed up sampling",
+        "To normalize data",
+        "To stop gradients from flowing into the generator",
+        "To freeze the discriminator"
+      ],
+      "answer": 2
+    },
+    {
+      "question": "Mode collapse means the generator:",
+      "options": [
+        "Outputs only noise",
+        "Produces limited variety of outputs",
+        "Stops using the discriminator",
+        "Overfits the labels"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "dl-vae",
+    "dl-diffusion-models"
+  ]
+}

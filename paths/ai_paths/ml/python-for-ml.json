@@ -1,0 +1,71 @@
+{
+  "id": "python-for-ml",
+  "title": "Python for Machine Learning",
+  "category": "Foundations",
+  "difficulty": "beginner",
+  "estimatedTime": "3h",
+  "prerequisites": [
+    "ml-introduction"
+  ],
+  "tags": [
+    "python",
+    "numpy",
+    "pandas"
+  ],
+  "overview": "Build practical Python basics for ML using arrays, data frames, plotting, and notebooks.",
+  "objectives": [
+    "Use NumPy for numeric computation",
+    "Use pandas for tabular data",
+    "Visualize data with matplotlib"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Numerical arrays",
+      "body": "Use vectorized operations for speed."
+    },
+    {
+      "title": "Tabular operations",
+      "body": "Filter, group, and aggregate data frames."
+    },
+    {
+      "title": "Visualization",
+      "body": "Plot distributions and relationships before modeling."
+    }
+  ],
+  "pseudocode": "import numpy as np\nimport pandas as pd\nX = np.array([[1,2],[3,4]])\ndf = pd.DataFrame(X, columns=['a','b'])",
+  "playground": {
+    "language": "python",
+    "starterCode": "import numpy as np\nprint(np.mean([1,2,3,4]))"
+  },
+  "output": {
+    "mockResult": "2.5",
+    "visual": "table"
+  },
+  "quiz": [
+    {
+      "question": "pandas is mainly used for:",
+      "options": [
+        "GPU kernels",
+        "Tabular data",
+        "Compilers",
+        "Web routing"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "Vectorization usually gives:",
+      "options": [
+        "Slower code",
+        "Faster numeric code",
+        "No change",
+        "More memory leaks"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "statistics-probability",
+    "data-preprocessing"
+  ]
+}

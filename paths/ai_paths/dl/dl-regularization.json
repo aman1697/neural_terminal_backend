@@ -1,0 +1,75 @@
+{
+  "id": "dl-regularization",
+  "title": "Regularization: Dropout, Weight Decay, Early Stopping",
+  "category": "Training",
+  "difficulty": "beginner",
+  "estimatedTime": "2h 30m",
+  "prerequisites": [
+    "dl-optimizers"
+  ],
+  "tags": [
+    "regularization",
+    "dropout",
+    "overfitting"
+  ],
+  "overview": "Deep networks can memorize training data. Regularization techniques constrain the model or training procedure so it generalizes better to unseen data.",
+  "objectives": [
+    "Diagnose overfitting from learning curves",
+    "Apply dropout and weight decay",
+    "Use early stopping with a validation set"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Weight decay",
+      "body": "Penalizes large weights (L2), pulling the solution toward simpler functions."
+    },
+    {
+      "title": "Dropout",
+      "body": "Randomly zeroes activations during training and rescales the rest, discouraging co-adapted units; it is disabled at inference."
+    },
+    {
+      "title": "Early stopping",
+      "body": "Stop training when validation loss stops improving and restore the best checkpoint."
+    },
+    {
+      "title": "Data augmentation",
+      "body": "Random transforms of inputs enlarge the effective dataset and are often the strongest regularizer."
+    }
+  ],
+  "pseudocode": "# inverted dropout\nmask = (rand(shape) > p) / (1 - p)\nh = h * mask   # training only\n# early stopping\nif val < best: best = val; save(); wait = 0\nelse: wait += 1\nif wait >= patience: stop",
+  "playground": {
+    "language": "python",
+    "starterCode": "import numpy as np\nrng = np.random.default_rng(0)\nh = np.ones((1, 10000))\np = 0.5\nmask = (rng.random(h.shape) > p) / (1 - p)\nout = h * mask\nprint(\"fraction zeroed:\", round(float((out == 0).mean()), 2))\nprint(\"mean activation (should stay ~1):\", round(float(out.mean()), 2))\nval = [0.9, 0.7, 0.6, 0.62, 0.65, 0.7]\nbest, wait = 1e9, 0\nfor epoch, v in enumerate(val):\n    if v < best: best, wait = v, 0\n    else: wait += 1\n    if wait >= 2: print(\"early stop at epoch\", epoch); break"
+  },
+  "output": {
+    "mockResult": "fraction zeroed: 0.5\nmean activation (should stay ~1): 1.0\nearly stop at epoch 4",
+    "visual": "line"
+  },
+  "quiz": [
+    {
+      "question": "Why does inverted dropout divide by (1 - p)?",
+      "options": [
+        "To increase the learning rate",
+        "To keep the expected activation unchanged",
+        "To normalize gradients",
+        "To prune weights"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "A growing gap between training loss and validation loss indicates:",
+      "options": [
+        "Underfitting",
+        "Perfect fit",
+        "A bug in the optimizer",
+        "Overfitting"
+      ],
+      "answer": 3
+    }
+  ],
+  "relatedTopicIds": [
+    "dl-initialization-normalization",
+    "dl-cnn"
+  ]
+}

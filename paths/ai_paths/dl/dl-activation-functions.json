@@ -1,0 +1,75 @@
+{
+  "id": "dl-activation-functions",
+  "title": "Activation Functions",
+  "category": "Foundations",
+  "difficulty": "beginner",
+  "estimatedTime": "2h",
+  "prerequisites": [
+    "dl-mlp-backprop"
+  ],
+  "tags": [
+    "activation",
+    "relu",
+    "sigmoid"
+  ],
+  "overview": "Activation functions inject nonlinearity so networks can learn more than linear maps. The choice affects gradient flow, convergence speed and output range.",
+  "objectives": [
+    "Compare sigmoid, tanh, ReLU and GELU",
+    "Explain vanishing gradients and dying ReLU",
+    "Choose an activation for hidden and output layers"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Sigmoid and tanh",
+      "body": "They squash values into bounded ranges but saturate, which shrinks gradients in deep stacks."
+    },
+    {
+      "title": "ReLU family",
+      "body": "ReLU = max(0, x) has a constant gradient for positive inputs; Leaky ReLU keeps a small slope for negatives to avoid dead units."
+    },
+    {
+      "title": "GELU and SiLU",
+      "body": "Smooth ReLU-like functions widely used in transformers and modern CNNs."
+    },
+    {
+      "title": "Output layers",
+      "body": "Use sigmoid for binary probabilities, softmax for multi-class, and no activation for regression."
+    }
+  ],
+  "pseudocode": "sigmoid(x) = 1 / (1 + exp(-x))\ntanh(x) = (exp(x) - exp(-x)) / (exp(x) + exp(-x))\nrelu(x) = max(0, x)\nleaky_relu(x) = x if x > 0 else 0.01 * x\nsoftmax(z)_i = exp(z_i - max(z)) / sum_j exp(z_j - max(z))",
+  "playground": {
+    "language": "python",
+    "starterCode": "import numpy as np\nx = np.array([-2.0, -0.5, 0.0, 0.5, 2.0])\nsigmoid = 1 / (1 + np.exp(-x))\nrelu = np.maximum(0, x)\nprint(\"x      \", x)\nprint(\"sigmoid\", np.round(sigmoid, 3))\nprint(\"tanh   \", np.round(np.tanh(x), 3))\nprint(\"relu   \", relu)\nprint(\"sigmoid grad max:\", 0.25)"
+  },
+  "output": {
+    "mockResult": "x       [-2.  -0.5  0.   0.5  2. ]\nsigmoid [0.119 0.378 0.5   0.622 0.881]\ntanh    [-0.964 -0.462  0.     0.462  0.964]\nrelu    [0.  0.  0.  0.5 2. ]\nsigmoid grad max: 0.25",
+    "visual": "curve"
+  },
+  "quiz": [
+    {
+      "question": "Which activation has gradient exactly 0 for all negative inputs?",
+      "options": [
+        "Leaky ReLU",
+        "ReLU",
+        "Tanh",
+        "GELU"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "What is the maximum derivative of the sigmoid function?",
+      "options": [
+        "1.0",
+        "0.5",
+        "0.25",
+        "0.1"
+      ],
+      "answer": 2
+    }
+  ],
+  "relatedTopicIds": [
+    "dl-mlp-backprop",
+    "dl-initialization-normalization"
+  ]
+}

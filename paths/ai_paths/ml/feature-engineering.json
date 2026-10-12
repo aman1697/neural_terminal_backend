@@ -1,0 +1,71 @@
+{
+  "id": "feature-engineering",
+  "title": "Feature Engineering",
+  "category": "Fundamentals",
+  "difficulty": "intermediate",
+  "estimatedTime": "3h",
+  "prerequisites": [
+    "exploratory-data-analysis"
+  ],
+  "tags": [
+    "features",
+    "selection",
+    "encoding"
+  ],
+  "overview": "Create, transform, and select informative features to improve model performance and reduce overfitting.",
+  "objectives": [
+    "Create domain driven features",
+    "Select informative features",
+    "Reduce noise and redundancy"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Feature creation",
+      "body": "Build ratios, interactions, and aggregates."
+    },
+    {
+      "title": "Feature selection",
+      "body": "Use filter, wrapper, and embedded methods."
+    },
+    {
+      "title": "Feature transforms",
+      "body": "Apply log, bins, and scaling where needed."
+    }
+  ],
+  "pseudocode": "X['ratio'] = X['a'] / (X['b'] + 1e-9)",
+  "playground": {
+    "language": "python",
+    "starterCode": "import pandas as pd\ndf = pd.DataFrame({'a':[2,4],'b':[1,2]})\ndf['ratio'] = df['a']/df['b']\nprint(df)"
+  },
+  "output": {
+    "mockResult": "feature_table_with_ratio",
+    "visual": "table"
+  },
+  "quiz": [
+    {
+      "question": "Feature engineering can:",
+      "options": [
+        "Only reduce accuracy",
+        "Improve signal for models",
+        "Replace labels",
+        "Remove need for data"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "Leakage can happen when features use:",
+      "options": [
+        "Past data only",
+        "Future information",
+        "Scaled values",
+        "Integer ids"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "linear-regression",
+    "logistic-regression"
+  ]
+}

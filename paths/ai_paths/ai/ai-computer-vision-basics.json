@@ -1,0 +1,75 @@
+{
+  "id": "ai-computer-vision-basics",
+  "title": "Computer Vision Basics",
+  "category": "Language and Perception",
+  "difficulty": "beginner",
+  "estimatedTime": "2h 30m",
+  "prerequisites": [
+    "ai-intelligent-agents"
+  ],
+  "tags": [
+    "vision",
+    "images",
+    "convolution"
+  ],
+  "overview": "Explore how machines represent images as arrays and extract features for tasks like classification and detection.",
+  "objectives": [
+    "Represent images as pixel arrays",
+    "Apply convolution filters such as edge detectors",
+    "Distinguish classification, detection, and segmentation"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Images as arrays",
+      "body": "A grayscale image is a 2D grid of intensities; color images add a channel dimension."
+    },
+    {
+      "title": "Convolution",
+      "body": "Sliding a small kernel across an image highlights local patterns such as edges."
+    },
+    {
+      "title": "Vision tasks",
+      "body": "Classification labels a whole image, detection locates objects with boxes, and segmentation labels each pixel."
+    },
+    {
+      "title": "Learned features",
+      "body": "Convolutional neural networks learn their filters from data instead of relying on hand-designed ones."
+    }
+  ],
+  "pseudocode": "for each position (i, j):\n    patch = image[i:i+k, j:j+k]\n    out[i, j] = sum(patch * kernel)\nfeatures = pool(relu(out))",
+  "playground": {
+    "language": "python",
+    "starterCode": "import numpy as np\nimg = np.array([[0,0,9,9],[0,0,9,9],[0,0,9,9],[0,0,9,9]])\nk = np.array([-1,1])\nedges = np.array([[row[j]*k[0] + row[j+1]*k[1] for j in range(3)] for row in img])\nprint(edges)"
+  },
+  "output": {
+    "mockResult": "[[0 9 0]\n [0 9 0]\n [0 9 0]\n [0 9 0]]",
+    "visual": "grid"
+  },
+  "quiz": [
+    {
+      "question": "Convolution kernels are used to:",
+      "options": [
+        "Sort pixels",
+        "Detect local patterns",
+        "Compress labels",
+        "Rename classes"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "Segmentation assigns labels to:",
+      "options": [
+        "The whole image",
+        "Each pixel",
+        "Bounding boxes only",
+        "Datasets"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "ai-ml-in-ai",
+    "ai-nlp-basics"
+  ]
+}

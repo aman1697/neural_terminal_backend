@@ -1,0 +1,388 @@
+[
+  {
+    "id": "ai-what-is-ai",
+    "title": "What Is Artificial Intelligence?",
+    "category": "Foundations",
+    "difficulty": "beginner",
+    "estimatedTime": "1h 30m",
+    "prerequisites": [],
+    "tags": [
+      "overview",
+      "history",
+      "definitions"
+    ],
+    "overview": "Understand how AI is defined, the main approaches to building intelligent systems, and the key eras in the field's history."
+  },
+  {
+    "id": "ai-intelligent-agents",
+    "title": "Intelligent Agents and Environments",
+    "category": "Foundations",
+    "difficulty": "beginner",
+    "estimatedTime": "2h",
+    "prerequisites": [
+      "ai-what-is-ai"
+    ],
+    "tags": [
+      "agents",
+      "environments",
+      "rationality"
+    ],
+    "overview": "Model an AI system as an agent that perceives an environment through sensors and acts through actuators to maximize a performance measure."
+  },
+  {
+    "id": "ai-problem-solving-search",
+    "title": "Problem Solving as Search",
+    "category": "Search and Planning",
+    "difficulty": "beginner",
+    "estimatedTime": "2h",
+    "prerequisites": [
+      "ai-intelligent-agents"
+    ],
+    "tags": [
+      "search",
+      "state-space",
+      "formulation"
+    ],
+    "overview": "Formulate tasks as search problems with states, actions, transition models, goal tests, and path costs."
+  },
+  {
+    "id": "ai-uninformed-search",
+    "title": "Uninformed Search: BFS, DFS, UCS",
+    "category": "Search and Planning",
+    "difficulty": "beginner",
+    "estimatedTime": "2h 30m",
+    "prerequisites": [
+      "ai-problem-solving-search"
+    ],
+    "tags": [
+      "bfs",
+      "dfs",
+      "ucs"
+    ],
+    "overview": "Study search strategies that use only the problem definition, without any estimate of distance to the goal."
+  },
+  {
+    "id": "ai-expert-systems",
+    "title": "Expert Systems and Rule-Based AI",
+    "category": "Knowledge and Reasoning",
+    "difficulty": "beginner",
+    "estimatedTime": "2h",
+    "prerequisites": [
+      "ai-intelligent-agents"
+    ],
+    "tags": [
+      "expert-systems",
+      "rules",
+      "inference"
+    ],
+    "overview": "Learn how knowledge bases of if-then rules and an inference engine capture expert decision making."
+  },
+  {
+    "id": "ai-nlp-basics",
+    "title": "Natural Language Processing Basics",
+    "category": "Language and Perception",
+    "difficulty": "beginner",
+    "estimatedTime": "2h 30m",
+    "prerequisites": [
+      "ai-intelligent-agents"
+    ],
+    "tags": [
+      "nlp",
+      "tokenization",
+      "text"
+    ],
+    "overview": "Cover how text is turned into numbers and how classic NLP tasks such as classification and tagging are approached."
+  },
+  {
+    "id": "ai-computer-vision-basics",
+    "title": "Computer Vision Basics",
+    "category": "Language and Perception",
+    "difficulty": "beginner",
+    "estimatedTime": "2h 30m",
+    "prerequisites": [
+      "ai-intelligent-agents"
+    ],
+    "tags": [
+      "vision",
+      "images",
+      "convolution"
+    ],
+    "overview": "Explore how machines represent images as arrays and extract features for tasks like classification and detection."
+  },
+  {
+    "id": "ai-informed-search",
+    "title": "Informed Search: Heuristics and A*",
+    "category": "Search and Planning",
+    "difficulty": "intermediate",
+    "estimatedTime": "3h",
+    "prerequisites": [
+      "ai-uninformed-search"
+    ],
+    "tags": [
+      "a-star",
+      "heuristics",
+      "greedy"
+    ],
+    "overview": "Use heuristic estimates of remaining cost to guide search toward the goal efficiently."
+  },
+  {
+    "id": "ai-local-search",
+    "title": "Local Search and Optimization",
+    "category": "Search and Planning",
+    "difficulty": "intermediate",
+    "estimatedTime": "3h",
+    "prerequisites": [
+      "ai-informed-search"
+    ],
+    "tags": [
+      "hill-climbing",
+      "annealing",
+      "genetic-algorithms"
+    ],
+    "overview": "Optimize objective functions by moving through neighboring states, without tracking full paths."
+  },
+  {
+    "id": "ai-adversarial-search",
+    "title": "Adversarial Search and Game Playing",
+    "category": "Search and Planning",
+    "difficulty": "intermediate",
+    "estimatedTime": "3h",
+    "prerequisites": [
+      "ai-informed-search"
+    ],
+    "tags": [
+      "minimax",
+      "alpha-beta",
+      "games"
+    ],
+    "overview": "Choose moves in competitive two-player games by searching game trees under the assumption of an optimal opponent."
+  },
+  {
+    "id": "ai-constraint-satisfaction",
+    "title": "Constraint Satisfaction Problems",
+    "category": "Search and Planning",
+    "difficulty": "intermediate",
+    "estimatedTime": "3h",
+    "prerequisites": [
+      "ai-uninformed-search"
+    ],
+    "tags": [
+      "csp",
+      "backtracking",
+      "constraints"
+    ],
+    "overview": "Solve problems defined by variables, domains, and constraints using backtracking and constraint propagation."
+  },
+  {
+    "id": "ai-logic-knowledge",
+    "title": "Logic and Knowledge Representation",
+    "category": "Knowledge and Reasoning",
+    "difficulty": "intermediate",
+    "estimatedTime": "3h 30m",
+    "prerequisites": [
+      "ai-expert-systems"
+    ],
+    "tags": [
+      "logic",
+      "propositional",
+      "first-order"
+    ],
+    "overview": "Represent facts about the world in formal logic and derive new conclusions through inference."
+  },
+  {
+    "id": "ai-ml-in-ai",
+    "title": "Machine Learning in the AI Landscape",
+    "category": "Learning Agents",
+    "difficulty": "intermediate",
+    "estimatedTime": "2h 30m",
+    "prerequisites": [
+      "ai-intelligent-agents"
+    ],
+    "tags": [
+      "machine-learning",
+      "deep-learning",
+      "learning-agents"
+    ],
+    "overview": "See how learning from data fits within AI and how supervised, unsupervised, and reinforcement learning differ."
+  },
+  {
+    "id": "ai-ethics-governance",
+    "title": "AI Ethics, Fairness and Governance",
+    "category": "Responsible AI",
+    "difficulty": "intermediate",
+    "estimatedTime": "3h",
+    "prerequisites": [
+      "ai-ml-in-ai"
+    ],
+    "tags": [
+      "ethics",
+      "fairness",
+      "governance"
+    ],
+    "overview": "Understand the social impacts of AI, how bias arises, how fairness is measured, and how organizations govern AI use."
+  },
+  {
+    "id": "ai-explainable-ai",
+    "title": "Explainable AI",
+    "category": "Responsible AI",
+    "difficulty": "intermediate",
+    "estimatedTime": "2h 30m",
+    "prerequisites": [
+      "ai-ml-in-ai"
+    ],
+    "tags": [
+      "xai",
+      "interpretability",
+      "transparency"
+    ],
+    "overview": "Learn why model decisions need explanation and survey methods for interpreting predictions."
+  },
+  {
+    "id": "ai-probabilistic-reasoning",
+    "title": "Probabilistic Reasoning and Bayesian Networks",
+    "category": "Knowledge and Reasoning",
+    "difficulty": "advanced",
+    "estimatedTime": "4h",
+    "prerequisites": [
+      "ai-logic-knowledge"
+    ],
+    "tags": [
+      "bayes",
+      "bayesian-networks",
+      "uncertainty"
+    ],
+    "overview": "Reason under uncertainty using probability, Bayes' rule, and graphical models that encode conditional independence."
+  },
+  {
+    "id": "ai-markov-decision-processes",
+    "title": "Markov Decision Processes",
+    "category": "Learning Agents",
+    "difficulty": "intermediate",
+    "estimatedTime": "3h 30m",
+    "prerequisites": [
+      "ai-probabilistic-reasoning"
+    ],
+    "tags": [
+      "mdp",
+      "bellman",
+      "value-iteration"
+    ],
+    "overview": "Model sequential decision making under uncertainty with states, actions, transition probabilities, and rewards."
+  },
+  {
+    "id": "ai-automated-planning",
+    "title": "Automated Planning",
+    "category": "Search and Planning",
+    "difficulty": "intermediate",
+    "estimatedTime": "3h",
+    "prerequisites": [
+      "ai-logic-knowledge",
+      "ai-informed-search"
+    ],
+    "tags": [
+      "planning",
+      "strips",
+      "pddl"
+    ],
+    "overview": "Generate sequences of actions that achieve goals using symbolic descriptions of states and actions."
+  },
+  {
+    "id": "ai-reinforcement-learning",
+    "title": "Reinforcement Learning Basics",
+    "category": "Learning Agents",
+    "difficulty": "advanced",
+    "estimatedTime": "4h",
+    "prerequisites": [
+      "ai-markov-decision-processes"
+    ],
+    "tags": [
+      "reinforcement-learning",
+      "q-learning",
+      "exploration"
+    ],
+    "overview": "Learn how agents improve behavior from reward feedback when the environment model is unknown."
+  },
+  {
+    "id": "ai-llm-basics",
+    "title": "Large Language Models",
+    "category": "Modern AI",
+    "difficulty": "advanced",
+    "estimatedTime": "3h 30m",
+    "prerequisites": [
+      "ai-nlp-basics",
+      "ai-ml-in-ai"
+    ],
+    "tags": [
+      "llm",
+      "transformers",
+      "generative-ai"
+    ],
+    "overview": "Understand how transformer-based language models are trained to predict tokens and how they are adapted for use."
+  },
+  {
+    "id": "ai-retrieval-augmented-generation",
+    "title": "Retrieval-Augmented Generation",
+    "category": "Modern AI",
+    "difficulty": "advanced",
+    "estimatedTime": "3h",
+    "prerequisites": [
+      "ai-llm-basics"
+    ],
+    "tags": [
+      "rag",
+      "embeddings",
+      "retrieval"
+    ],
+    "overview": "Ground language model answers in external documents by retrieving relevant passages at query time."
+  },
+  {
+    "id": "ai-agents-tool-use",
+    "title": "AI Agents and Tool Use",
+    "category": "Modern AI",
+    "difficulty": "advanced",
+    "estimatedTime": "3h",
+    "prerequisites": [
+      "ai-llm-basics"
+    ],
+    "tags": [
+      "agents",
+      "tool-use",
+      "llm"
+    ],
+    "overview": "Build LLM-driven agents that plan, call external tools, observe results, and iterate toward a goal."
+  },
+  {
+    "id": "ai-multi-agent-systems",
+    "title": "Multi-Agent Systems",
+    "category": "Modern AI",
+    "difficulty": "advanced",
+    "estimatedTime": "3h",
+    "prerequisites": [
+      "ai-agents-tool-use",
+      "ai-reinforcement-learning"
+    ],
+    "tags": [
+      "multi-agent",
+      "coordination",
+      "game-theory"
+    ],
+    "overview": "Study settings where several agents interact, cooperating, competing, or negotiating."
+  },
+  {
+    "id": "ai-safety-alignment",
+    "title": "AI Safety and Alignment",
+    "category": "Responsible AI",
+    "difficulty": "advanced",
+    "estimatedTime": "3h",
+    "prerequisites": [
+      "ai-explainable-ai",
+      "ai-reinforcement-learning"
+    ],
+    "tags": [
+      "safety",
+      "alignment",
+      "robustness"
+    ],
+    "overview": "Examine how to make AI systems behave as intended and remain robust, even when objectives are hard to specify."
+  }
+]

@@ -1,0 +1,76 @@
+{
+  "id": "dl-gnn",
+  "title": "Graph Neural Networks",
+  "category": "Advanced Architectures",
+  "difficulty": "advanced",
+  "estimatedTime": "3h 30m",
+  "prerequisites": [
+    "dl-mlp-backprop",
+    "dl-transformers"
+  ],
+  "tags": [
+    "gnn",
+    "graph",
+    "message-passing"
+  ],
+  "overview": "Graph neural networks learn from nodes and edges by passing messages between neighbors. They suit molecules, social networks and other relational data.",
+  "objectives": [
+    "Implement one round of message passing",
+    "Use adjacency normalization",
+    "Explain over-smoothing and readout"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Message passing",
+      "body": "Each node aggregates features from its neighbors, then updates its own representation."
+    },
+    {
+      "title": "GCN layer",
+      "body": "H' = act(A_hat H W), where A_hat is the adjacency matrix with self-loops, degree-normalized."
+    },
+    {
+      "title": "Depth",
+      "body": "Stacking k layers lets information travel k hops, but too many layers make node features indistinguishable (over-smoothing)."
+    },
+    {
+      "title": "Readout",
+      "body": "Graph-level tasks pool node embeddings into one vector by sum, mean or attention."
+    }
+  ],
+  "pseudocode": "A_hat = D^-1/2 (A + I) D^-1/2\nH = relu(A_hat @ H @ W)\n# graph readout\ng = mean(H, axis=0)",
+  "playground": {
+    "language": "python",
+    "starterCode": "import numpy as np\nA = np.array([[0,1,0],[1,0,1],[0,1,0]], dtype=float)  # path graph 0-1-2\nA_hat = A + np.eye(3)\nd = A_hat.sum(1)\nA_norm = A_hat / np.sqrt(np.outer(d, d))\nH = np.array([[1.0, 0.0], [0.0, 1.0], [1.0, 1.0]])\nW = np.eye(2)\nH1 = np.maximum(0, A_norm @ H @ W)\nprint(np.round(H1, 3))"
+  },
+  "output": {
+    "mockResult": "[[0.5   0.408]\n [0.816 0.742]\n [0.5   0.908]]",
+    "visual": "graph"
+  },
+  "quiz": [
+    {
+      "question": "In a GCN layer, node features are updated by:",
+      "options": [
+        "Applying convolution over pixels",
+        "Unrolling over time",
+        "Aggregating neighbor features",
+        "Sampling a latent"
+      ],
+      "answer": 2
+    },
+    {
+      "question": "Over-smoothing refers to:",
+      "options": [
+        "Overfitting the labels",
+        "Node embeddings becoming too similar in deep GNNs",
+        "Gradient explosion in RNNs",
+        "Excess dropout"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "dl-transformers",
+    "dl-self-supervised-learning"
+  ]
+}

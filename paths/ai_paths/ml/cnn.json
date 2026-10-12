@@ -1,0 +1,71 @@
+{
+  "id": "cnn",
+  "title": "Convolutional Neural Networks",
+  "category": "Deep Learning",
+  "difficulty": "intermediate",
+  "estimatedTime": "3h",
+  "prerequisites": [
+    "regularization-and-tuning"
+  ],
+  "tags": [
+    "vision",
+    "convolution",
+    "pooling"
+  ],
+  "overview": "Learn image modeling with CNNs including convolution, pooling, and transfer learning basics.",
+  "objectives": [
+    "Compute convolution output sizes",
+    "Understand feature hierarchy in CNNs",
+    "Train image classifiers"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Convolution",
+      "body": "Apply shared kernels over images."
+    },
+    {
+      "title": "Pooling",
+      "body": "Reduce spatial size while keeping key activations."
+    },
+    {
+      "title": "Transfer learning",
+      "body": "Fine tune pretrained models for small datasets."
+    }
+  ],
+  "pseudocode": "out = conv2d(x, w)\nout = relu(out)\nout = maxpool(out)",
+  "playground": {
+    "language": "python",
+    "starterCode": "import torch, torch.nn as nn\nnet = nn.Conv2d(1,8,3,padding=1)\nprint(net(torch.randn(1,1,28,28)).shape)"
+  },
+  "output": {
+    "mockResult": "torch.Size([1, 8, 28, 28])",
+    "visual": "image"
+  },
+  "quiz": [
+    {
+      "question": "Weight sharing in CNN gives:",
+      "options": [
+        "More parameters",
+        "Fewer parameters",
+        "No gradients",
+        "No activations"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "Pooling usually reduces:",
+      "options": [
+        "Channels only",
+        "Spatial dimensions",
+        "Batch size",
+        "Learning rate"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "rnn-lstm",
+    "transformers"
+  ]
+}

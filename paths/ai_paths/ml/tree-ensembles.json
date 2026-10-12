@@ -1,0 +1,71 @@
+{
+  "id": "tree-ensembles",
+  "title": "Decision Trees and Ensemble Methods",
+  "category": "Supervised Learning",
+  "difficulty": "intermediate",
+  "estimatedTime": "3h 30m",
+  "prerequisites": [
+    "model-evaluation"
+  ],
+  "tags": [
+    "decision-tree",
+    "random-forest",
+    "gradient-boosting"
+  ],
+  "overview": "Master powerful tabular data models such as decision trees, random forests, and gradient boosting.",
+  "objectives": [
+    "Understand tree split criteria",
+    "Compare bagging and boosting",
+    "Tune depth, learning rate, and estimators"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Decision trees",
+      "body": "Split features greedily to reduce impurity."
+    },
+    {
+      "title": "Random forests",
+      "body": "Average many decorrelated trees."
+    },
+    {
+      "title": "Gradient boosting",
+      "body": "Fit learners on residuals stage by stage."
+    }
+  ],
+  "pseudocode": "for m in range(M):\n    r = y - pred\n    tree = fit_tree(X, r)\n    pred += lr * tree.predict(X)",
+  "playground": {
+    "language": "python",
+    "starterCode": "from sklearn.ensemble import RandomForestClassifier\nX = [[0,0],[1,1],[0,1],[1,0]]\ny = [0,1,0,1]\nprint(RandomForestClassifier(random_state=0).fit(X,y).predict([[1,1]])[0])"
+  },
+  "output": {
+    "mockResult": "1",
+    "visual": "tree"
+  },
+  "quiz": [
+    {
+      "question": "Random forest is mainly:",
+      "options": [
+        "Bagging",
+        "Boosting",
+        "Linear",
+        "Distance based"
+      ],
+      "answer": 0
+    },
+    {
+      "question": "Boosting trains next learner on:",
+      "options": [
+        "Random labels",
+        "Residual errors",
+        "Only test set",
+        "Only null rows"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "unsupervised-learning",
+    "gradient-descent"
+  ]
+}

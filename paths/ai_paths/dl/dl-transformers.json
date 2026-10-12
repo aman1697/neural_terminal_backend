@@ -1,0 +1,90 @@
+{
+  "id": "dl-transformers",
+  "title": "Transformers",
+  "category": "Advanced Architectures",
+  "difficulty": "intermediate",
+  "estimatedTime": "4h",
+  "prerequisites": [
+    "dl-seq2seq-attention",
+    "dl-initialization-normalization"
+  ],
+  "tags": [
+    "transformer",
+    "self-attention",
+    "architecture"
+  ],
+  "overview": "Transformers replace recurrence with self-attention, letting every token attend to every other token in parallel. They underpin most modern language, vision and multimodal models.",
+  "objectives": [
+    "Compute scaled dot-product self-attention",
+    "Explain multi-head attention and positional information",
+    "Describe a transformer block and masking"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Self-attention",
+      "body": "Each token produces a query, key and value; attention = softmax(QK^T / sqrt(d)) V."
+    },
+    {
+      "title": "Multi-head",
+      "body": "Several attention heads in parallel let the model capture different relations, then outputs are concatenated and projected."
+    },
+    {
+      "title": "Position",
+      "body": "Attention is order-agnostic, so positional encodings or embeddings inject sequence order."
+    },
+    {
+      "title": "Block",
+      "body": "Each block applies attention and a feed-forward network, each wrapped with residual connections and layer norm."
+    },
+    {
+      "title": "Masking",
+      "body": "A causal mask blocks attention to future tokens for autoregressive generation."
+    }
+  ],
+  "pseudocode": "Q, K, V = x @ Wq, x @ Wk, x @ Wv\nscores = Q @ K.T / sqrt(d_k)\nscores += causal_mask   # optional\nout = softmax(scores) @ V\nx = x + out @ Wo\nx = x + ffn(layer_norm(x))",
+  "playground": {
+    "language": "python",
+    "starterCode": "import numpy as np\nrng = np.random.default_rng(0)\nT, d = 4, 8\nx = rng.normal(size=(T, d))\nWq, Wk, Wv = (rng.normal(size=(d, d)) * 0.3 for _ in range(3))\nQ, K, V = x @ Wq, x @ Wk, x @ Wv\nscores = Q @ K.T / np.sqrt(d)\nscores += np.triu(np.full((T, T), -1e9), k=1)  # causal mask\nw = np.exp(scores - scores.max(-1, keepdims=True))\nw /= w.sum(-1, keepdims=True)\nprint(np.round(w, 2))\nprint(\"output shape:\", (w @ V).shape)"
+  },
+  "output": {
+    "mockResult": "[[1.   0.   0.   0.  ]\n [0.98 0.02 0.   0.  ]\n [0.32 0.34 0.35 0.  ]\n [0.23 0.27 0.22 0.28]]\noutput shape: (4, 8)",
+    "visual": "heatmap"
+  },
+  "quiz": [
+    {
+      "question": "Why divide attention scores by sqrt(d_k)?",
+      "options": [
+        "To reduce the number of heads",
+        "To keep dot products from growing too large before softmax",
+        "To mask future tokens",
+        "To normalize the values"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "A causal mask is used to:",
+      "options": [
+        "Drop random tokens",
+        "Speed up the feed-forward layer",
+        "Prevent attending to future tokens",
+        "Add positional information"
+      ],
+      "answer": 2
+    },
+    {
+      "question": "Without positional information, self-attention is:",
+      "options": [
+        "Unable to compute softmax",
+        "Only applicable to images",
+        "Recurrent",
+        "Order-insensitive over the tokens"
+      ],
+      "answer": 3
+    }
+  ],
+  "relatedTopicIds": [
+    "dl-seq2seq-attention",
+    "dl-language-models"
+  ]
+}

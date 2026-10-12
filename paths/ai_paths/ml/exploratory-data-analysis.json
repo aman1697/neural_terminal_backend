@@ -1,0 +1,71 @@
+{
+  "id": "exploratory-data-analysis",
+  "title": "Exploratory Data Analysis",
+  "category": "Fundamentals",
+  "difficulty": "beginner",
+  "estimatedTime": "2h 30m",
+  "prerequisites": [
+    "data-preprocessing"
+  ],
+  "tags": [
+    "eda",
+    "visualization",
+    "outliers"
+  ],
+  "overview": "Use descriptive statistics and plots to understand distributions, correlations, skew, class imbalance, and outliers before modeling.",
+  "objectives": [
+    "Summarize data with descriptive stats",
+    "Visualize important feature patterns",
+    "Identify quality issues early"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Univariate analysis",
+      "body": "Inspect one feature at a time."
+    },
+    {
+      "title": "Bivariate analysis",
+      "body": "Study relationships between features and targets."
+    },
+    {
+      "title": "Issue detection",
+      "body": "Catch outliers, drift, and imbalance."
+    }
+  ],
+  "pseudocode": "for col in features:\n    plot_distribution(df[col])",
+  "playground": {
+    "language": "python",
+    "starterCode": "import pandas as pd\nprint(pd.DataFrame({'x':[1,2,3]}).describe())"
+  },
+  "output": {
+    "mockResult": "summary_stats",
+    "visual": "histogram"
+  },
+  "quiz": [
+    {
+      "question": "EDA is primarily done:",
+      "options": [
+        "After deployment",
+        "Before modeling",
+        "After RLHF",
+        "Never"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "Boxplots are useful for:",
+      "options": [
+        "Language translation",
+        "Outlier detection",
+        "GPU tuning",
+        "Tokenization"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "feature-engineering",
+    "linear-regression"
+  ]
+}

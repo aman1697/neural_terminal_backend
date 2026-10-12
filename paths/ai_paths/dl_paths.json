@@ -1,0 +1,411 @@
+[
+  {
+    "id": "dl-perceptron",
+    "title": "Perceptron and Artificial Neurons",
+    "category": "Foundations",
+    "difficulty": "beginner",
+    "estimatedTime": "2h",
+    "prerequisites": [],
+    "tags": [
+      "perceptron",
+      "neuron",
+      "linear"
+    ],
+    "overview": "A neuron computes a weighted sum of its inputs plus a bias and passes it through a nonlinearity. The perceptron is the simplest case and the building block of every deep network."
+  },
+  {
+    "id": "dl-mlp-backprop",
+    "title": "Multilayer Perceptron and Backpropagation",
+    "category": "Foundations",
+    "difficulty": "beginner",
+    "estimatedTime": "3h",
+    "prerequisites": [
+      "dl-perceptron"
+    ],
+    "tags": [
+      "mlp",
+      "backpropagation",
+      "gradients"
+    ],
+    "overview": "Stacking layers of neurons with nonlinearities lets a network model complex functions. Backpropagation applies the chain rule to compute the gradient of the loss for every weight efficiently."
+  },
+  {
+    "id": "dl-activation-functions",
+    "title": "Activation Functions",
+    "category": "Foundations",
+    "difficulty": "beginner",
+    "estimatedTime": "2h",
+    "prerequisites": [
+      "dl-mlp-backprop"
+    ],
+    "tags": [
+      "activation",
+      "relu",
+      "sigmoid"
+    ],
+    "overview": "Activation functions inject nonlinearity so networks can learn more than linear maps. The choice affects gradient flow, convergence speed and output range."
+  },
+  {
+    "id": "dl-loss-functions",
+    "title": "Loss Functions",
+    "category": "Training",
+    "difficulty": "beginner",
+    "estimatedTime": "2h",
+    "prerequisites": [
+      "dl-mlp-backprop"
+    ],
+    "tags": [
+      "loss",
+      "cross-entropy",
+      "mse"
+    ],
+    "overview": "A loss function turns prediction error into a single number the optimizer can minimize. Matching the loss to the task and output distribution matters for stable training."
+  },
+  {
+    "id": "dl-optimizers",
+    "title": "Optimizers: SGD, Momentum and Adam",
+    "category": "Training",
+    "difficulty": "beginner",
+    "estimatedTime": "3h",
+    "prerequisites": [
+      "dl-loss-functions"
+    ],
+    "tags": [
+      "optimizer",
+      "sgd",
+      "adam"
+    ],
+    "overview": "Optimizers decide how gradients become parameter updates. Momentum and adaptive methods like Adam speed up and stabilize training compared with plain SGD."
+  },
+  {
+    "id": "dl-initialization-normalization",
+    "title": "Initialization and Normalization",
+    "category": "Training",
+    "difficulty": "beginner",
+    "estimatedTime": "3h",
+    "prerequisites": [
+      "dl-activation-functions",
+      "dl-optimizers"
+    ],
+    "tags": [
+      "initialization",
+      "batchnorm",
+      "layernorm"
+    ],
+    "overview": "Good initialization keeps activations and gradients at a sensible scale, and normalization layers keep them there during training. Together they make deep networks trainable."
+  },
+  {
+    "id": "dl-regularization",
+    "title": "Regularization: Dropout, Weight Decay, Early Stopping",
+    "category": "Training",
+    "difficulty": "beginner",
+    "estimatedTime": "2h 30m",
+    "prerequisites": [
+      "dl-optimizers"
+    ],
+    "tags": [
+      "regularization",
+      "dropout",
+      "overfitting"
+    ],
+    "overview": "Deep networks can memorize training data. Regularization techniques constrain the model or training procedure so it generalizes better to unseen data."
+  },
+  {
+    "id": "dl-cnn",
+    "title": "Convolutional Neural Networks",
+    "category": "Computer Vision",
+    "difficulty": "intermediate",
+    "estimatedTime": "3h 30m",
+    "prerequisites": [
+      "dl-regularization"
+    ],
+    "tags": [
+      "cnn",
+      "convolution",
+      "vision"
+    ],
+    "overview": "Convolutional layers slide small shared filters over an image, exploiting locality and translation structure. They need far fewer parameters than fully connected layers on images."
+  },
+  {
+    "id": "dl-cnn-architectures",
+    "title": "Classic CNN Architectures: LeNet, VGG, ResNet",
+    "category": "Computer Vision",
+    "difficulty": "intermediate",
+    "estimatedTime": "3h",
+    "prerequisites": [
+      "dl-cnn"
+    ],
+    "tags": [
+      "lenet",
+      "vgg",
+      "resnet"
+    ],
+    "overview": "The history of CNN design shows how depth, small filters and skip connections made image models both deeper and easier to train."
+  },
+  {
+    "id": "dl-transfer-learning",
+    "title": "Transfer Learning and Fine-Tuning",
+    "category": "Computer Vision",
+    "difficulty": "intermediate",
+    "estimatedTime": "2h 30m",
+    "prerequisites": [
+      "dl-cnn-architectures"
+    ],
+    "tags": [
+      "transfer-learning",
+      "fine-tuning",
+      "pretrained"
+    ],
+    "overview": "Reusing a network pretrained on a large dataset gives strong features with little labeled data. You can freeze the backbone or fine-tune it with a small learning rate."
+  },
+  {
+    "id": "dl-rnn",
+    "title": "Recurrent Neural Networks",
+    "category": "Sequence Models",
+    "difficulty": "intermediate",
+    "estimatedTime": "3h",
+    "prerequisites": [
+      "dl-mlp-backprop",
+      "dl-regularization"
+    ],
+    "tags": [
+      "rnn",
+      "sequence",
+      "bptt"
+    ],
+    "overview": "Recurrent networks process sequences one step at a time while carrying a hidden state. They share weights across time but struggle with long-range dependencies."
+  },
+  {
+    "id": "dl-lstm-gru",
+    "title": "LSTM and GRU",
+    "category": "Sequence Models",
+    "difficulty": "intermediate",
+    "estimatedTime": "3h",
+    "prerequisites": [
+      "dl-rnn"
+    ],
+    "tags": [
+      "lstm",
+      "gru",
+      "gating"
+    ],
+    "overview": "Gated recurrent cells control what to remember and forget, giving gradients a more stable path through time. LSTM and GRU are the standard recurrent building blocks."
+  },
+  {
+    "id": "dl-seq2seq-attention",
+    "title": "Sequence-to-Sequence and Attention",
+    "category": "Sequence Models",
+    "difficulty": "intermediate",
+    "estimatedTime": "3h",
+    "prerequisites": [
+      "dl-lstm-gru"
+    ],
+    "tags": [
+      "seq2seq",
+      "attention",
+      "encoder-decoder"
+    ],
+    "overview": "Encoder-decoder models map one sequence to another, such as translation. Attention lets the decoder look back at all encoder states instead of one fixed vector."
+  },
+  {
+    "id": "dl-transformers",
+    "title": "Transformers",
+    "category": "Advanced Architectures",
+    "difficulty": "intermediate",
+    "estimatedTime": "4h",
+    "prerequisites": [
+      "dl-seq2seq-attention",
+      "dl-initialization-normalization"
+    ],
+    "tags": [
+      "transformer",
+      "self-attention",
+      "architecture"
+    ],
+    "overview": "Transformers replace recurrence with self-attention, letting every token attend to every other token in parallel. They underpin most modern language, vision and multimodal models."
+  },
+  {
+    "id": "dl-language-models",
+    "title": "BERT and GPT Style Language Models",
+    "category": "Advanced Architectures",
+    "difficulty": "intermediate",
+    "estimatedTime": "3h 30m",
+    "prerequisites": [
+      "dl-transformers"
+    ],
+    "tags": [
+      "bert",
+      "gpt",
+      "language-model"
+    ],
+    "overview": "Pretrained transformer language models learn from large text corpora. BERT-style encoders predict masked tokens for understanding tasks, while GPT-style decoders predict the next token for generation."
+  },
+  {
+    "id": "dl-autoencoders",
+    "title": "Autoencoders",
+    "category": "Generative Models",
+    "difficulty": "intermediate",
+    "estimatedTime": "2h 30m",
+    "prerequisites": [
+      "dl-mlp-backprop",
+      "dl-loss-functions"
+    ],
+    "tags": [
+      "autoencoder",
+      "representation",
+      "unsupervised"
+    ],
+    "overview": "An autoencoder compresses inputs into a low-dimensional code and reconstructs them. The bottleneck forces the network to learn useful structure without labels."
+  },
+  {
+    "id": "dl-interpretability",
+    "title": "Interpretability of Deep Networks",
+    "category": "Advanced Architectures",
+    "difficulty": "intermediate",
+    "estimatedTime": "3h",
+    "prerequisites": [
+      "dl-cnn",
+      "dl-transformers"
+    ],
+    "tags": [
+      "interpretability",
+      "saliency",
+      "explainability"
+    ],
+    "overview": "Interpretability methods help us understand why a network produced a prediction. Gradient-based attributions, attention inspection and probing each give partial, imperfect evidence."
+  },
+  {
+    "id": "dl-model-compression",
+    "title": "Model Compression: Pruning, Quantization, Distillation",
+    "category": "Production",
+    "difficulty": "intermediate",
+    "estimatedTime": "3h",
+    "prerequisites": [
+      "dl-language-models"
+    ],
+    "tags": [
+      "compression",
+      "quantization",
+      "distillation"
+    ],
+    "overview": "Compression makes models smaller and faster for deployment. Pruning removes weights, quantization lowers numeric precision and distillation trains a small student to mimic a larger teacher."
+  },
+  {
+    "id": "dl-vae",
+    "title": "Variational Autoencoders",
+    "category": "Generative Models",
+    "difficulty": "advanced",
+    "estimatedTime": "3h",
+    "prerequisites": [
+      "dl-autoencoders"
+    ],
+    "tags": [
+      "vae",
+      "latent",
+      "generative"
+    ],
+    "overview": "A VAE learns a probabilistic latent space: the encoder outputs a distribution rather than a point. Sampling from the prior then lets the decoder generate new data."
+  },
+  {
+    "id": "dl-gans",
+    "title": "Generative Adversarial Networks",
+    "category": "Generative Models",
+    "difficulty": "advanced",
+    "estimatedTime": "3h 30m",
+    "prerequisites": [
+      "dl-cnn",
+      "dl-loss-functions"
+    ],
+    "tags": [
+      "gan",
+      "generator",
+      "discriminator"
+    ],
+    "overview": "A GAN trains a generator and a discriminator in a minimax game. The generator learns to produce samples the discriminator cannot tell from real data."
+  },
+  {
+    "id": "dl-diffusion-models",
+    "title": "Diffusion Models",
+    "category": "Generative Models",
+    "difficulty": "advanced",
+    "estimatedTime": "4h",
+    "prerequisites": [
+      "dl-vae",
+      "dl-cnn"
+    ],
+    "tags": [
+      "diffusion",
+      "denoising",
+      "generative"
+    ],
+    "overview": "Diffusion models learn to reverse a gradual noising process. Sampling starts from pure noise and denoises step by step to produce data."
+  },
+  {
+    "id": "dl-gnn",
+    "title": "Graph Neural Networks",
+    "category": "Advanced Architectures",
+    "difficulty": "advanced",
+    "estimatedTime": "3h 30m",
+    "prerequisites": [
+      "dl-mlp-backprop",
+      "dl-transformers"
+    ],
+    "tags": [
+      "gnn",
+      "graph",
+      "message-passing"
+    ],
+    "overview": "Graph neural networks learn from nodes and edges by passing messages between neighbors. They suit molecules, social networks and other relational data."
+  },
+  {
+    "id": "dl-self-supervised-learning",
+    "title": "Self-Supervised and Contrastive Learning",
+    "category": "Advanced Architectures",
+    "difficulty": "advanced",
+    "estimatedTime": "3h",
+    "prerequisites": [
+      "dl-cnn-architectures",
+      "dl-autoencoders"
+    ],
+    "tags": [
+      "self-supervised",
+      "contrastive",
+      "representation"
+    ],
+    "overview": "Self-supervised learning builds training signals from the data itself, so large unlabeled datasets can teach useful representations. Contrastive methods pull together views of the same example and push apart others."
+  },
+  {
+    "id": "dl-deep-rl",
+    "title": "Deep Reinforcement Learning",
+    "category": "Advanced Architectures",
+    "difficulty": "advanced",
+    "estimatedTime": "4h",
+    "prerequisites": [
+      "dl-mlp-backprop",
+      "dl-optimizers"
+    ],
+    "tags": [
+      "reinforcement-learning",
+      "dqn",
+      "policy-gradient"
+    ],
+    "overview": "Deep reinforcement learning uses neural networks to approximate value functions or policies, learning from rewards through interaction. DQN and policy gradients are two foundational families."
+  },
+  {
+    "id": "dl-distributed-mixed-precision",
+    "title": "Distributed and Mixed-Precision Training",
+    "category": "Production",
+    "difficulty": "advanced",
+    "estimatedTime": "3h 30m",
+    "prerequisites": [
+      "dl-optimizers",
+      "dl-model-compression"
+    ],
+    "tags": [
+      "distributed",
+      "mixed-precision",
+      "scaling"
+    ],
+    "overview": "Large models need many GPUs and efficient numerics. Data and model parallelism split the work, while mixed precision uses 16-bit math to save memory and time."
+  }
+]

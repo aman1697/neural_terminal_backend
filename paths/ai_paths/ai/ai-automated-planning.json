@@ -1,0 +1,76 @@
+{
+  "id": "ai-automated-planning",
+  "title": "Automated Planning",
+  "category": "Search and Planning",
+  "difficulty": "intermediate",
+  "estimatedTime": "3h",
+  "prerequisites": [
+    "ai-logic-knowledge",
+    "ai-informed-search"
+  ],
+  "tags": [
+    "planning",
+    "strips",
+    "pddl"
+  ],
+  "overview": "Generate sequences of actions that achieve goals using symbolic descriptions of states and actions.",
+  "objectives": [
+    "Describe actions with preconditions and effects",
+    "Explain state-space and plan-space planning",
+    "Use heuristics to guide planners"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Action models",
+      "body": "In STRIPS-style planning, actions have preconditions and add and delete effects over a set of facts."
+    },
+    {
+      "title": "Forward planning",
+      "body": "Search forward from the initial state, applying any action whose preconditions hold in the current state."
+    },
+    {
+      "title": "Planning heuristics",
+      "body": "Relaxed problems that ignore delete effects give informative estimates for guiding search."
+    },
+    {
+      "title": "PDDL",
+      "body": "The Planning Domain Definition Language standardizes how domains and problems are written for planners."
+    }
+  ],
+  "pseudocode": "state = init\nplan = []\nwhile not goal <= state:\n    a = choose(applicable(state))\n    state = (state - a.delete) | a.add\n    plan.append(a)",
+  "playground": {
+    "language": "python",
+    "starterCode": "actions = {'pickup': ({'hand_empty','on_table'}, {'holding'}, {'hand_empty','on_table'}),\n           'stack': ({'holding'}, {'on_block','hand_empty'}, {'holding'})}\nstate = {'hand_empty','on_table'}\nplan = []\nfor name in ['pickup','stack']:\n    pre, add, dele = actions[name]\n    assert pre <= state\n    state = (state - dele) | add\n    plan.append(name)\nprint(plan, sorted(state))"
+  },
+  "output": {
+    "mockResult": "['pickup', 'stack'] ['hand_empty', 'on_block']",
+    "visual": "pipeline"
+  },
+  "quiz": [
+    {
+      "question": "A STRIPS action is defined by:",
+      "options": [
+        "Preconditions and effects",
+        "Weights and biases",
+        "Rewards only",
+        "Priors"
+      ],
+      "answer": 0
+    },
+    {
+      "question": "Delete-relaxation heuristics ignore:",
+      "options": [
+        "Preconditions",
+        "Add effects",
+        "Delete effects",
+        "The goal"
+      ],
+      "answer": 2
+    }
+  ],
+  "relatedTopicIds": [
+    "ai-markov-decision-processes",
+    "ai-logic-knowledge"
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "id": "ai-constraint-satisfaction",
+  "title": "Constraint Satisfaction Problems",
+  "category": "Search and Planning",
+  "difficulty": "intermediate",
+  "estimatedTime": "3h",
+  "prerequisites": [
+    "ai-uninformed-search"
+  ],
+  "tags": [
+    "csp",
+    "backtracking",
+    "constraints"
+  ],
+  "overview": "Solve problems defined by variables, domains, and constraints using backtracking and constraint propagation.",
+  "objectives": [
+    "Formulate a problem as a CSP",
+    "Implement backtracking search",
+    "Apply forward checking and arc consistency"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Formulation",
+      "body": "A CSP has variables, a domain of values for each, and constraints restricting allowed combinations."
+    },
+    {
+      "title": "Backtracking",
+      "body": "Assigns one variable at a time and undoes assignments that violate constraints."
+    },
+    {
+      "title": "Propagation",
+      "body": "Forward checking and arc consistency prune domains early and detect dead ends sooner."
+    },
+    {
+      "title": "Heuristics",
+      "body": "Choosing the most constrained variable and least constraining value greatly reduces search effort."
+    }
+  ],
+  "pseudocode": "def solve(assign):\n    if complete(assign): return assign\n    v = pick_unassigned(assign)\n    for val in order_values(v):\n        if consistent(v, val, assign):\n            r = solve(assign | {v: val})\n            if r: return r\n    return None",
+  "playground": {
+    "language": "python",
+    "starterCode": "regions = ['WA','NT','SA']\nadj = {('WA','NT'),('WA','SA'),('NT','SA')}\ncolors = ['red','green','blue']\ndef ok(a, v, c):\n    return all(not (((v,u) in adj or (u,v) in adj) and a[u]==c) for u in a)\ndef solve(a):\n    if len(a)==3: return a\n    v = regions[len(a)]\n    for c in colors:\n        if ok(a, v, c):\n            r = solve({**a, v: c})\n            if r: return r\nprint(solve({}))"
+  },
+  "output": {
+    "mockResult": "{'WA': 'red', 'NT': 'green', 'SA': 'blue'}",
+    "visual": "graph"
+  },
+  "quiz": [
+    {
+      "question": "Backtracking search assigns:",
+      "options": [
+        "All variables at once",
+        "One variable at a time",
+        "Only constants",
+        "Random states"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "Arc consistency is a form of:",
+      "options": [
+        "Constraint propagation",
+        "Evaluation",
+        "Crossover",
+        "Reward shaping"
+      ],
+      "answer": 0
+    }
+  ],
+  "relatedTopicIds": [
+    "ai-logic-knowledge",
+    "ai-adversarial-search"
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "id": "generative-models",
+  "title": "Generative Models",
+  "category": "Advanced ML",
+  "difficulty": "advanced",
+  "estimatedTime": "3h 30m",
+  "prerequisites": [
+    "transformers"
+  ],
+  "tags": [
+    "vae",
+    "gan",
+    "diffusion"
+  ],
+  "overview": "Study major generative model families including VAE, GAN, and diffusion models for content generation.",
+  "objectives": [
+    "Compare VAE, GAN, diffusion",
+    "Understand sampling processes",
+    "Recognize evaluation challenges"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Latent variable models",
+      "body": "Sample from latent spaces to generate outputs."
+    },
+    {
+      "title": "Adversarial training",
+      "body": "Use generator discriminator games."
+    },
+    {
+      "title": "Diffusion",
+      "body": "Denoise step by step from noise."
+    }
+  ],
+  "pseudocode": "x = noise()\nfor t in reversed(range(T)):\n    x = denoise(x, t)",
+  "playground": {
+    "language": "python",
+    "starterCode": "print('sample -> denoise loop concept')"
+  },
+  "output": {
+    "mockResult": "generated_sample",
+    "visual": "image"
+  },
+  "quiz": [
+    {
+      "question": "Diffusion models generate by:",
+      "options": [
+        "Direct nearest neighbor",
+        "Iterative denoising",
+        "Only clustering",
+        "Only linear regression"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "GAN training involves:",
+      "options": [
+        "One network only",
+        "Generator and discriminator",
+        "No optimizer",
+        "No gradients"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "rlhf",
+    "mlops-basics"
+  ]
+}

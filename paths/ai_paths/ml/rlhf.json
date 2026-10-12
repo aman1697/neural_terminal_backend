@@ -1,0 +1,71 @@
+{
+  "id": "rlhf",
+  "title": "Alignment and RLHF",
+  "category": "Advanced ML",
+  "difficulty": "advanced",
+  "estimatedTime": "3h",
+  "prerequisites": [
+    "transformers"
+  ],
+  "tags": [
+    "alignment",
+    "reward-model",
+    "ppo"
+  ],
+  "overview": "Learn how human preference data is used to align model behavior using reward modeling and policy optimization.",
+  "objectives": [
+    "Understand SFT to RLHF pipeline",
+    "Train and use reward models",
+    "Understand KL constrained policy updates"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "SFT",
+      "body": "Train instruction following baseline policy."
+    },
+    {
+      "title": "Reward model",
+      "body": "Learn preference scoring from ranked outputs."
+    },
+    {
+      "title": "Policy optimization",
+      "body": "Optimize reward while controlling drift."
+    }
+  ],
+  "pseudocode": "y = policy.generate(prompt)\nr = reward_model(prompt, y) - beta * kl(policy, ref)",
+  "playground": {
+    "language": "python",
+    "starterCode": "print('reward = preference_score - beta * kl')"
+  },
+  "output": {
+    "mockResult": "reward = preference_score - beta * kl",
+    "visual": "loss"
+  },
+  "quiz": [
+    {
+      "question": "RLHF reward model is trained from:",
+      "options": [
+        "Raw perplexity only",
+        "Human preference pairs",
+        "Random labels",
+        "No labels"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "KL term is used to:",
+      "options": [
+        "Increase drift",
+        "Control drift from reference model",
+        "Remove gradients",
+        "Tokenize data"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "mlops-basics",
+    "responsible-ai"
+  ]
+}

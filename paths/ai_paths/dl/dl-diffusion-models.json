@@ -1,0 +1,76 @@
+{
+  "id": "dl-diffusion-models",
+  "title": "Diffusion Models",
+  "category": "Generative Models",
+  "difficulty": "advanced",
+  "estimatedTime": "4h",
+  "prerequisites": [
+    "dl-vae",
+    "dl-cnn"
+  ],
+  "tags": [
+    "diffusion",
+    "denoising",
+    "generative"
+  ],
+  "overview": "Diffusion models learn to reverse a gradual noising process. Sampling starts from pure noise and denoises step by step to produce data.",
+  "objectives": [
+    "Describe the forward noising process",
+    "Train a network to predict the added noise",
+    "Explain iterative sampling and guidance"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Forward process",
+      "body": "Gaussian noise is added over T steps; x_t = sqrt(a_bar) x_0 + sqrt(1 - a_bar) eps has a closed form for any t."
+    },
+    {
+      "title": "Training",
+      "body": "A network, often a U-Net or transformer, takes x_t and t and predicts eps using an MSE loss."
+    },
+    {
+      "title": "Sampling",
+      "body": "Starting from noise, repeatedly apply the learned denoising step to move toward the data distribution."
+    },
+    {
+      "title": "Guidance",
+      "body": "Conditioning on text or classes, with classifier-free guidance, steers samples toward a prompt at the cost of diversity."
+    }
+  ],
+  "pseudocode": "t = randint(1, T); eps = randn_like(x0)\nxt = sqrt(abar[t]) * x0 + sqrt(1 - abar[t]) * eps\nloss = mse(model(xt, t), eps)\n# sampling\nx = randn(shape)\nfor t in reversed(range(T)): x = denoise_step(model, x, t)",
+  "playground": {
+    "language": "python",
+    "starterCode": "import numpy as np\nT = 10\nbetas = np.linspace(1e-2, 0.3, T)\nabar = np.cumprod(1 - betas)\nrng = np.random.default_rng(0)\nx0 = np.ones(1000)\nfor t in (0, 4, 9):\n    xt = np.sqrt(abar[t]) * x0 + np.sqrt(1 - abar[t]) * rng.normal(size=1000)\n    print(\"t=%d signal weight %.3f, sample mean %.2f\" % (t, np.sqrt(abar[t]), xt.mean()))"
+  },
+  "output": {
+    "mockResult": "t=0 signal weight 0.995, sample mean 0.99\nt=4 signal weight 0.822, sample mean 0.82\nt=9 signal weight 0.418, sample mean 0.38",
+    "visual": "image"
+  },
+  "quiz": [
+    {
+      "question": "What does the network typically predict in DDPM-style training?",
+      "options": [
+        "The class label",
+        "The added noise",
+        "The next token",
+        "The discriminator score"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "Diffusion sampling is:",
+      "options": [
+        "A single forward pass always",
+        "Adversarial",
+        "Iterative, many denoising steps",
+        "Based on recurrence over text"
+      ],
+      "answer": 2
+    }
+  ],
+  "relatedTopicIds": [
+    "dl-gans",
+    "dl-vae"
+  ]
+}

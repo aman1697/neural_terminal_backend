@@ -1,0 +1,75 @@
+{
+  "id": "dl-model-compression",
+  "title": "Model Compression: Pruning, Quantization, Distillation",
+  "category": "Production",
+  "difficulty": "intermediate",
+  "estimatedTime": "3h",
+  "prerequisites": [
+    "dl-language-models"
+  ],
+  "tags": [
+    "compression",
+    "quantization",
+    "distillation"
+  ],
+  "overview": "Compression makes models smaller and faster for deployment. Pruning removes weights, quantization lowers numeric precision and distillation trains a small student to mimic a larger teacher.",
+  "objectives": [
+    "Apply magnitude pruning",
+    "Quantize weights to int8 with a scale",
+    "Write a knowledge distillation loss"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Pruning",
+      "body": "Remove weights with small magnitude (unstructured) or whole channels and heads (structured), usually followed by fine-tuning."
+    },
+    {
+      "title": "Quantization",
+      "body": "Map float weights to low-bit integers using a scale; post-training or quantization-aware training trades a little accuracy for memory and speed."
+    },
+    {
+      "title": "Distillation",
+      "body": "The student matches the teacher's temperature-softened output distribution, optionally with the true labels."
+    },
+    {
+      "title": "Trade-offs",
+      "body": "Structured sparsity and int8 usually give real speedups, while unstructured sparsity needs hardware support."
+    }
+  ],
+  "pseudocode": "# int8 quantization\nscale = max(abs(w)) / 127\nq = round(w / scale).clip(-128, 127)\nw_hat = q * scale\n# distillation\nloss = KL(softmax(t/T), softmax(s/T)) * T**2 + ce(s, y)",
+  "playground": {
+    "language": "python",
+    "starterCode": "import numpy as np\nrng = np.random.default_rng(0)\nw = rng.normal(size=1000).astype(np.float32)\nscale = np.abs(w).max() / 127\nq = np.clip(np.round(w / scale), -128, 127).astype(np.int8)\nw_hat = q.astype(np.float32) * scale\nprint(\"max quantization error:\", round(float(np.abs(w - w_hat).max()), 4))\nthr = np.quantile(np.abs(w), 0.5)\npruned = np.where(np.abs(w) >= thr, w, 0)\nprint(\"sparsity after pruning:\", round(float((pruned == 0).mean()), 2))"
+  },
+  "output": {
+    "mockResult": "max quantization error: 0.0153\nsparsity after pruning: 0.5",
+    "visual": "histogram"
+  },
+  "quiz": [
+    {
+      "question": "Knowledge distillation trains:",
+      "options": [
+        "A small student to mimic a larger teacher",
+        "A larger model from a smaller one",
+        "Two GANs together",
+        "A model with no data"
+      ],
+      "answer": 0
+    },
+    {
+      "question": "Int8 quantization uses a scale factor to:",
+      "options": [
+        "Increase the learning rate",
+        "Prune channels",
+        "Map floats to integers and back",
+        "Normalize labels"
+      ],
+      "answer": 2
+    }
+  ],
+  "relatedTopicIds": [
+    "dl-language-models",
+    "dl-distributed-mixed-precision"
+  ]
+}

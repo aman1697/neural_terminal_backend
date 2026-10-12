@@ -1,0 +1,75 @@
+{
+  "id": "dl-optimizers",
+  "title": "Optimizers: SGD, Momentum and Adam",
+  "category": "Training",
+  "difficulty": "beginner",
+  "estimatedTime": "3h",
+  "prerequisites": [
+    "dl-loss-functions"
+  ],
+  "tags": [
+    "optimizer",
+    "sgd",
+    "adam"
+  ],
+  "overview": "Optimizers decide how gradients become parameter updates. Momentum and adaptive methods like Adam speed up and stabilize training compared with plain SGD.",
+  "objectives": [
+    "Implement SGD with momentum",
+    "Explain Adam's moment estimates and bias correction",
+    "Use learning rate schedules and warmup"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Gradient descent",
+      "body": "Updates follow w -= lr * g; mini-batches give a noisy but cheap gradient estimate."
+    },
+    {
+      "title": "Momentum",
+      "body": "A velocity term accumulates past gradients, damping oscillations and speeding progress along consistent directions."
+    },
+    {
+      "title": "Adam",
+      "body": "Tracks running means of the gradient and squared gradient, giving each parameter its own step size."
+    },
+    {
+      "title": "Schedules",
+      "body": "Warmup, cosine decay or step decay of the learning rate often matter as much as the optimizer choice."
+    }
+  ],
+  "pseudocode": "m = b1*m + (1-b1)*g\nv = b2*v + (1-b2)*g*g\nm_hat = m / (1 - b1**t)\nv_hat = v / (1 - b2**t)\nw -= lr * m_hat / (sqrt(v_hat) + eps)",
+  "playground": {
+    "language": "python",
+    "starterCode": "import numpy as np\ndef grad(w): return 2 * (w - np.array([3.0, -2.0]))  # minimize ||w - target||^2\nw = np.zeros(2); m = np.zeros(2); v = np.zeros(2)\nlr, b1, b2, eps = 0.1, 0.9, 0.999, 1e-8\nfor t in range(1, 201):\n    g = grad(w)\n    m = b1 * m + (1 - b1) * g\n    v = b2 * v + (1 - b2) * g * g\n    w -= lr * (m / (1 - b1 ** t)) / (np.sqrt(v / (1 - b2 ** t)) + eps)\nprint(\"Adam solution:\", np.round(w, 3))"
+  },
+  "output": {
+    "mockResult": "Adam solution: [ 3. -2.]",
+    "visual": "curve"
+  },
+  "quiz": [
+    {
+      "question": "What does momentum primarily do?",
+      "options": [
+        "Accumulates past gradients to smooth updates",
+        "Removes the need for a learning rate",
+        "Normalizes layer outputs",
+        "Randomly drops units"
+      ],
+      "answer": 0
+    },
+    {
+      "question": "Adam keeps running estimates of:",
+      "options": [
+        "Weights and biases",
+        "Loss and accuracy",
+        "Input mean and variance",
+        "Gradient mean and squared gradient"
+      ],
+      "answer": 3
+    }
+  ],
+  "relatedTopicIds": [
+    "dl-loss-functions",
+    "dl-initialization-normalization"
+  ]
+}

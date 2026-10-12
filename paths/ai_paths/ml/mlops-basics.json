@@ -1,0 +1,74 @@
+{
+  "id": "mlops-basics",
+  "title": "MLOps and Deployment",
+  "category": "Production",
+  "difficulty": "intermediate",
+  "estimatedTime": "3h",
+  "prerequisites": [
+    "time-series-forecasting",
+    "recommender-systems",
+    "generative-models"
+  ],
+  "tags": [
+    "deployment",
+    "monitoring",
+    "drift",
+    "ci-cd"
+  ],
+  "overview": "Move models to production with reproducible pipelines, testing, monitoring, and retraining workflows.",
+  "objectives": [
+    "Package and serve ML models",
+    "Monitor data and concept drift",
+    "Automate retraining and rollback"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Training pipelines",
+      "body": "Version data, code, and models for reproducibility."
+    },
+    {
+      "title": "Deployment patterns",
+      "body": "Use batch, online, shadow, and canary releases."
+    },
+    {
+      "title": "Monitoring",
+      "body": "Track quality, latency, and drift in production."
+    }
+  ],
+  "pseudocode": "if drift > threshold:\n    trigger_retraining()\nif online_metric drops:\n    rollback()",
+  "playground": {
+    "language": "python",
+    "starterCode": "baseline = 0.9\ncurrent = 0.82\nprint('rollback' if current < baseline - 0.05 else 'keep')"
+  },
+  "output": {
+    "mockResult": "rollback",
+    "visual": "pipeline"
+  },
+  "quiz": [
+    {
+      "question": "A safe release strategy is:",
+      "options": [
+        "Canary rollout",
+        "No monitoring",
+        "Delete logs",
+        "Train in prod only"
+      ],
+      "answer": 0
+    },
+    {
+      "question": "Concept drift means:",
+      "options": [
+        "API timeout",
+        "Feature target relationship changes",
+        "Hard disk full",
+        "Batch size change"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "responsible-ai",
+    "capstone-project"
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "id": "dl-loss-functions",
+  "title": "Loss Functions",
+  "category": "Training",
+  "difficulty": "beginner",
+  "estimatedTime": "2h",
+  "prerequisites": [
+    "dl-mlp-backprop"
+  ],
+  "tags": [
+    "loss",
+    "cross-entropy",
+    "mse"
+  ],
+  "overview": "A loss function turns prediction error into a single number the optimizer can minimize. Matching the loss to the task and output distribution matters for stable training.",
+  "objectives": [
+    "Implement MSE and cross-entropy",
+    "Relate cross-entropy to maximum likelihood",
+    "Pick a loss for regression, classification and imbalanced data"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Regression losses",
+      "body": "MSE penalizes large errors strongly; MAE and Huber are more robust to outliers."
+    },
+    {
+      "title": "Cross-entropy",
+      "body": "Measures the negative log probability assigned to the true class and is the standard classification loss."
+    },
+    {
+      "title": "Logits and stability",
+      "body": "Combine softmax and log in one step (log-sum-exp) to avoid numerical overflow."
+    },
+    {
+      "title": "Imbalance",
+      "body": "Class weights or focal loss can down-weight easy, frequent examples."
+    }
+  ],
+  "pseudocode": "mse = mean((y_hat - y)**2)\nlogp = z - logsumexp(z)\nce = -mean(logp[range(N), y])\nbce = -mean(y*log(p) + (1-y)*log(1-p))",
+  "playground": {
+    "language": "python",
+    "starterCode": "import numpy as np\nlogits = np.array([[2.0, 0.5, -1.0], [0.1, 0.2, 3.0]])\nlabels = np.array([0, 2])\nz = logits - logits.max(axis=1, keepdims=True)\nlogp = z - np.log(np.exp(z).sum(axis=1, keepdims=True))\nce = -logp[np.arange(2), labels].mean()\nprint(\"cross-entropy:\", round(float(ce), 4))\nprint(\"mse:\", np.mean((np.array([1.0, 2.0]) - np.array([1.5, 1.0])) ** 2))"
+  },
+  "output": {
+    "mockResult": "cross-entropy: 0.1755\nmse: 0.625",
+    "visual": "loss"
+  },
+  "quiz": [
+    {
+      "question": "Cross-entropy for classification corresponds to minimizing:",
+      "options": [
+        "Negative log-likelihood of the labels",
+        "Squared distance to the logits",
+        "The number of misclassified samples",
+        "The L1 norm of weights"
+      ],
+      "answer": 0
+    },
+    {
+      "question": "Which loss is least sensitive to outliers?",
+      "options": [
+        "MSE",
+        "Huber",
+        "Squared hinge",
+        "Exponential loss"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "Why subtract the max logit before softmax?",
+      "options": [
+        "To make outputs sum to 2",
+        "For numerical stability",
+        "To increase accuracy",
+        "To add regularization"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "dl-optimizers",
+    "dl-mlp-backprop"
+  ]
+}

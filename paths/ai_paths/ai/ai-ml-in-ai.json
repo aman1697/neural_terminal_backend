@@ -1,0 +1,75 @@
+{
+  "id": "ai-ml-in-ai",
+  "title": "Machine Learning in the AI Landscape",
+  "category": "Learning Agents",
+  "difficulty": "intermediate",
+  "estimatedTime": "2h 30m",
+  "prerequisites": [
+    "ai-intelligent-agents"
+  ],
+  "tags": [
+    "machine-learning",
+    "deep-learning",
+    "learning-agents"
+  ],
+  "overview": "See how learning from data fits within AI and how supervised, unsupervised, and reinforcement learning differ.",
+  "objectives": [
+    "Relate AI, machine learning, and deep learning",
+    "Match learning paradigms to problem types",
+    "Explain generalization and overfitting"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Learning agents",
+      "body": "A learning agent improves its performance element using feedback from a critic, rather than relying only on hand-coded rules."
+    },
+    {
+      "title": "Paradigms",
+      "body": "Supervised learning uses labeled examples, unsupervised learning finds structure, and reinforcement learning uses rewards."
+    },
+    {
+      "title": "Generalization",
+      "body": "Models should be judged on unseen data; very flexible models can overfit the training set."
+    },
+    {
+      "title": "Deep learning",
+      "body": "Neural networks with many layers learn feature hierarchies and power much of modern vision and language AI."
+    }
+  ],
+  "pseudocode": "split data into train and test\nmodel = fit(train)\ntrain_err = error(model, train)\ntest_err = error(model, test)\nif test_err >> train_err: regularize_or_get_more_data()",
+  "playground": {
+    "language": "python",
+    "starterCode": "import numpy as np\nx = np.array([1,2,3,4,5]); y = np.array([2.1,3.9,6.2,7.8,10.1])\nm, b = np.polyfit(x, y, 1)\nprint(round(m,2), round(b,2))\nprint('pred x=6:', round(m*6+b,2))"
+  },
+  "output": {
+    "mockResult": "1.99 0.05\npred x=6: 11.99",
+    "visual": "scatter"
+  },
+  "quiz": [
+    {
+      "question": "Predicting house prices from labeled sales is:",
+      "options": [
+        "Unsupervised learning",
+        "Supervised learning",
+        "Planning",
+        "Logic"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "Overfitting is revealed by:",
+      "options": [
+        "High train and test error",
+        "Low train error but high test error",
+        "Low test error only",
+        "Equal errors"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "ai-what-is-ai",
+    "ai-reinforcement-learning"
+  ]
+}

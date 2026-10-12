@@ -1,0 +1,71 @@
+{
+  "id": "neural-networks-basics",
+  "title": "Neural Networks Basics",
+  "category": "Deep Learning",
+  "difficulty": "intermediate",
+  "estimatedTime": "3h",
+  "prerequisites": [
+    "gradient-descent"
+  ],
+  "tags": [
+    "mlp",
+    "backpropagation",
+    "activations"
+  ],
+  "overview": "Build intuition for feedforward neural networks, activation functions, backpropagation, and training loops.",
+  "objectives": [
+    "Explain perceptrons and hidden layers",
+    "Understand forward and backward passes",
+    "Implement a basic training loop"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Forward pass",
+      "body": "Compute outputs layer by layer."
+    },
+    {
+      "title": "Backpropagation",
+      "body": "Propagate gradients to update parameters."
+    },
+    {
+      "title": "Training",
+      "body": "Iterate mini batches until convergence."
+    }
+  ],
+  "pseudocode": "for x, y in loader:\n    y_hat = model(x)\n    loss = criterion(y_hat, y)\n    loss.backward()\n    opt.step()",
+  "playground": {
+    "language": "python",
+    "starterCode": "import torch\nimport torch.nn as nn\nnet = nn.Sequential(nn.Linear(4,8), nn.ReLU(), nn.Linear(8,1))\nprint(net(torch.randn(2,4)).shape)"
+  },
+  "output": {
+    "mockResult": "torch.Size([2, 1])",
+    "visual": "tensor"
+  },
+  "quiz": [
+    {
+      "question": "Backpropagation computes:",
+      "options": [
+        "Metrics only",
+        "Gradients",
+        "Data splits",
+        "SQL queries"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "ReLU is a:",
+      "options": [
+        "Loss function",
+        "Activation function",
+        "Optimizer",
+        "Tokenizer"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "regularization-and-tuning",
+    "cnn"
+  ]
+}

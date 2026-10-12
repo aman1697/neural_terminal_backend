@@ -1,0 +1,75 @@
+{
+  "id": "dl-lstm-gru",
+  "title": "LSTM and GRU",
+  "category": "Sequence Models",
+  "difficulty": "intermediate",
+  "estimatedTime": "3h",
+  "prerequisites": [
+    "dl-rnn"
+  ],
+  "tags": [
+    "lstm",
+    "gru",
+    "gating"
+  ],
+  "overview": "Gated recurrent cells control what to remember and forget, giving gradients a more stable path through time. LSTM and GRU are the standard recurrent building blocks.",
+  "objectives": [
+    "Describe the LSTM gates and cell state",
+    "Compare LSTM with GRU",
+    "Pick between them for a task"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "LSTM cell state",
+      "body": "A separate cell state c_t is updated additively, which helps gradients survive long spans."
+    },
+    {
+      "title": "Gates",
+      "body": "Forget, input and output gates, each a sigmoid, decide what to erase, write and expose."
+    },
+    {
+      "title": "GRU",
+      "body": "Merges the cell and hidden state and uses only update and reset gates, so it has fewer parameters."
+    },
+    {
+      "title": "Practice",
+      "body": "Performance is often similar; GRU is lighter, LSTM sometimes better on long sequences."
+    }
+  ],
+  "pseudocode": "f = sigmoid(Wf @ [h, x] + bf)\ni = sigmoid(Wi @ [h, x] + bi)\no = sigmoid(Wo @ [h, x] + bo)\ng = tanh(Wg @ [h, x] + bg)\nc = f * c + i * g\nh = o * tanh(c)",
+  "playground": {
+    "language": "python",
+    "starterCode": "import numpy as np\nrng = np.random.default_rng(0)\nsig = lambda z: 1 / (1 + np.exp(-z))\nd, hdim = 3, 4\nW = {k: rng.normal(size=(d + hdim, hdim)) * 0.4 for k in \"fiog\"}\nh = np.zeros(hdim); c = np.zeros(hdim)\nfor x in rng.normal(size=(3, d)):\n    z = np.concatenate([x, h])\n    f, i, o = sig(z @ W[\"f\"]), sig(z @ W[\"i\"]), sig(z @ W[\"o\"])\n    g = np.tanh(z @ W[\"g\"])\n    c = f * c + i * g\n    h = o * np.tanh(c)\nprint(\"h:\", np.round(h, 3))\nprint(\"c:\", np.round(c, 3))"
+  },
+  "output": {
+    "mockResult": "h: [-0.195  0.182 -0.03   0.31 ]\nc: [-0.386  0.519 -0.042  0.96 ]",
+    "visual": "matrix"
+  },
+  "quiz": [
+    {
+      "question": "Which LSTM gate decides what to discard from the cell state?",
+      "options": [
+        "Input gate",
+        "Forget gate",
+        "Output gate",
+        "Reset gate"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "Compared with LSTM, a GRU has:",
+      "options": [
+        "More gates",
+        "A separate cell state",
+        "No gating",
+        "Fewer parameters"
+      ],
+      "answer": 3
+    }
+  ],
+  "relatedTopicIds": [
+    "dl-rnn",
+    "dl-seq2seq-attention"
+  ]
+}

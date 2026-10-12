@@ -1,0 +1,75 @@
+{
+  "id": "ai-nlp-basics",
+  "title": "Natural Language Processing Basics",
+  "category": "Language and Perception",
+  "difficulty": "beginner",
+  "estimatedTime": "2h 30m",
+  "prerequisites": [
+    "ai-intelligent-agents"
+  ],
+  "tags": [
+    "nlp",
+    "tokenization",
+    "text"
+  ],
+  "overview": "Cover how text is turned into numbers and how classic NLP tasks such as classification and tagging are approached.",
+  "objectives": [
+    "Tokenize and normalize text",
+    "Build bag-of-words and TF-IDF style representations",
+    "Name common NLP tasks"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Preprocessing",
+      "body": "Text is split into tokens and often lowercased; stopword removal and stemming are optional steps depending on the task."
+    },
+    {
+      "title": "Representations",
+      "body": "Bag-of-words counts tokens, while TF-IDF down-weights words that appear in many documents."
+    },
+    {
+      "title": "Core tasks",
+      "body": "Typical tasks include classification, named entity recognition, part-of-speech tagging, translation, and summarization."
+    },
+    {
+      "title": "Embeddings",
+      "body": "Dense word vectors place words with similar usage near each other, replacing sparse count vectors in many systems."
+    }
+  ],
+  "pseudocode": "tokens = tokenize(lowercase(text))\nvocab = build_vocab(corpus)\nvector = [count(tokens, w) for w in vocab]\nlabel = classifier.predict(vector)",
+  "playground": {
+    "language": "python",
+    "starterCode": "from collections import Counter\ndoc = 'the cat sat on the mat'\ntokens = doc.lower().split()\ncounts = Counter(tokens)\nprint(counts.most_common(2))\nprint(len(set(tokens)), 'unique tokens')"
+  },
+  "output": {
+    "mockResult": "[('the', 2), ('cat', 1)]\n5 unique tokens",
+    "visual": "histogram"
+  },
+  "quiz": [
+    {
+      "question": "TF-IDF reduces the weight of:",
+      "options": [
+        "Rare words",
+        "Words common across many documents",
+        "Capitalized words",
+        "Numbers only"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "Named entity recognition identifies:",
+      "options": [
+        "Sentence length",
+        "People, places, and organizations",
+        "Grammar errors only",
+        "Word frequency"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "ai-llm-basics",
+    "ai-ml-in-ai"
+  ]
+}

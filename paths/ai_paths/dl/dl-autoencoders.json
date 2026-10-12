@@ -1,0 +1,76 @@
+{
+  "id": "dl-autoencoders",
+  "title": "Autoencoders",
+  "category": "Generative Models",
+  "difficulty": "intermediate",
+  "estimatedTime": "2h 30m",
+  "prerequisites": [
+    "dl-mlp-backprop",
+    "dl-loss-functions"
+  ],
+  "tags": [
+    "autoencoder",
+    "representation",
+    "unsupervised"
+  ],
+  "overview": "An autoencoder compresses inputs into a low-dimensional code and reconstructs them. The bottleneck forces the network to learn useful structure without labels.",
+  "objectives": [
+    "Build an encoder and decoder with a bottleneck",
+    "Use reconstruction loss for representation learning",
+    "Describe denoising and sparse variants"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Encoder and decoder",
+      "body": "The encoder maps x to a code z; the decoder maps z back to a reconstruction x_hat."
+    },
+    {
+      "title": "Reconstruction loss",
+      "body": "Training minimizes the difference between x and x_hat, such as MSE."
+    },
+    {
+      "title": "Bottleneck",
+      "body": "A code smaller than the input prevents the trivial identity mapping."
+    },
+    {
+      "title": "Variants",
+      "body": "Denoising autoencoders reconstruct clean inputs from corrupted ones; applications include anomaly detection."
+    }
+  ],
+  "pseudocode": "z = encoder(x)\nx_hat = decoder(z)\nloss = mean((x - x_hat)**2)\nloss.backward(); optimizer.step()",
+  "playground": {
+    "language": "python",
+    "starterCode": "import numpy as np\nrng = np.random.default_rng(0)\nZ = rng.normal(size=(200, 2))\nX = Z @ rng.normal(size=(2, 6))            # 6-d data lying on a 2-d subspace\nWe = rng.normal(size=(6, 2)) * 0.3; Wd = rng.normal(size=(2, 6)) * 0.3\nfor step in range(2001):\n    code = X @ We; rec = code @ Wd\n    err = rec - X\n    if step % 500 == 0: print(step, round(float((err ** 2).mean()), 4))\n    gWd = code.T @ err * 2 / err.size\n    gWe = X.T @ (err @ Wd.T) * 2 / err.size\n    Wd -= 0.1 * gWd; We -= 0.1 * gWe"
+  },
+  "output": {
+    "mockResult": "0 3.3043\n500 0.0\n1000 0.0\n1500 0.0\n2000 0.0",
+    "visual": "loss"
+  },
+  "quiz": [
+    {
+      "question": "Why must the autoencoder have a bottleneck?",
+      "options": [
+        "To reduce training data",
+        "To avoid learning a trivial identity map",
+        "To enable dropout",
+        "To speed up the decoder"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "An autoencoder is trained with:",
+      "options": [
+        "Class labels only",
+        "Rewards",
+        "Reconstruction loss and no labels",
+        "Adversarial discriminators only"
+      ],
+      "answer": 2
+    }
+  ],
+  "relatedTopicIds": [
+    "dl-vae",
+    "dl-self-supervised-learning"
+  ]
+}

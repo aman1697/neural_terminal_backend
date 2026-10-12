@@ -1,0 +1,75 @@
+{
+  "id": "ai-local-search",
+  "title": "Local Search and Optimization",
+  "category": "Search and Planning",
+  "difficulty": "intermediate",
+  "estimatedTime": "3h",
+  "prerequisites": [
+    "ai-informed-search"
+  ],
+  "tags": [
+    "hill-climbing",
+    "annealing",
+    "genetic-algorithms"
+  ],
+  "overview": "Optimize objective functions by moving through neighboring states, without tracking full paths.",
+  "objectives": [
+    "Implement hill climbing and recognize local maxima",
+    "Explain simulated annealing's temperature schedule",
+    "Describe selection, crossover, and mutation in genetic algorithms"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Hill climbing",
+      "body": "Repeatedly moves to the best neighbor and stops at a peak, which may only be a local optimum."
+    },
+    {
+      "title": "Random restarts",
+      "body": "Running hill climbing from many starting points raises the chance of finding a global optimum."
+    },
+    {
+      "title": "Simulated annealing",
+      "body": "Accepts worse moves with probability exp(-delta/T) and lowers T over time, allowing escape from local optima."
+    },
+    {
+      "title": "Genetic algorithms",
+      "body": "Maintain a population evolved through fitness-based selection, crossover, and mutation."
+    }
+  ],
+  "pseudocode": "state = random_state()\nfor step in range(N):\n    nxt = random_neighbor(state)\n    delta = value(nxt) - value(state)\n    if delta > 0 or random() < exp(delta / T):\n        state = nxt\n    T = cool(T)",
+  "playground": {
+    "language": "python",
+    "starterCode": "def f(x): return -(x-3)**2 + 9\nx = 0.0\nfor _ in range(100):\n    best = max([x-0.1, x, x+0.1], key=f)\n    if best == x: break\n    x = best\nprint(round(x,1), round(f(x),1))"
+  },
+  "output": {
+    "mockResult": "3.0 9.0",
+    "visual": "curve"
+  },
+  "quiz": [
+    {
+      "question": "Simulated annealing can escape local optima because it:",
+      "options": [
+        "Always restarts",
+        "Sometimes accepts worse moves",
+        "Uses a heuristic",
+        "Sorts the frontier"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "Hill climbing may fail by:",
+      "options": [
+        "Getting stuck at local maxima",
+        "Running out of mutations",
+        "Using too many agents",
+        "Requiring a goal test"
+      ],
+      "answer": 0
+    }
+  ],
+  "relatedTopicIds": [
+    "ai-informed-search",
+    "ai-adversarial-search"
+  ]
+}

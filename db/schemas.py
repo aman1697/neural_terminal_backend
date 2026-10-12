@@ -2,7 +2,7 @@ import uuid
 from datetime import datetime
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, EmailStr, Field
+from pydantic import BaseModel, ConfigDict, EmailStr, Field, model_validator
 
 Track = Literal["ai", "ml", "dl"]
 
@@ -97,3 +97,25 @@ class NoteOut(BaseModel):
 	content: str
 	created_at: datetime
 	updated_at: datetime
+
+
+class PracticeUpdate(BaseModel):
+	code: str | None = Field(default=None, max_length=20000)
+	solved: bool | None = None
+
+	@model_validator(mode="after")
+	def _require_at_least_one(self):
+		if self.code is None and self.solved is None:
+			raise ValueError("Provide at least one of 'code' or 'solved'")
+		return self
+
+
+class PracticeSummary(BaseModel):
+	problem_id: str
+	solved: bool
+	solved_at: datetime | None = None
+	updated_at: datetime
+
+
+class PracticeRecord(PracticeSummary):
+	code: str

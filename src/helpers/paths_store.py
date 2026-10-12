@@ -2,7 +2,7 @@ import asyncio
 
 from fastapi import HTTPException
 
-from src.helpers.constants import AI_PATH, DL_PATH, ML_PATH
+from src.helpers.constants import AI_PATH, DL_PATH, LEARNING_PATHS, ML_PATH
 from src.helpers.utils import read_json_file
 
 TRACK_FILES = {
@@ -12,6 +12,7 @@ TRACK_FILES = {
 }
 
 _cache: dict[str, list] = {}
+_topic_cache: dict[tuple[str, str], dict] = {}
 _lock = asyncio.Lock()
 
 
@@ -46,6 +47,7 @@ async def load_all(refresh: bool = False) -> dict[str, list]:
 		payload = await _load_all_from_disk()
 		_cache.clear()
 		_cache.update(payload)
+		_topic_cache.clear()
 		return _cache
 
 
@@ -58,3 +60,28 @@ async def load_track(track: str, refresh: bool = False) -> list:
 async def topic_exists(track: str, topic_id: str) -> bool:
 	topics = await load_track(track)
 	return any(topic.get("id") == topic_id for topic in topics)
+
+
+async def load_topic(track: str, topic_id: str, refresh: bool = False) -> dict:
+	# Only ids listed in the track index are served, so topic_id never reaches the filesystem unchecked.
+	topics = await load_track(track, refresh)
+	if not any(topic.get("id") == topic_id for topic in topics):
+		raise HTTPException(
+			status_code=404,
+			detail=f"Topic '{topic_id}' not found in track '{track}'",
+		)
+
+	key = (track, topic_id)
+	if key in _topic_cache:
+		return _topic_cache[key]
+
+	path = LEARNING_PATHS / track / f"{topic_id}.json"
+	try:
+		topic = await asyncio.to_thread(read_json_file, path)
+	except Exception as exc:
+		raise HTTPException(status_code=500, detail=f"Failed to load topic '{topic_id}': {exc}")
+	if not topic:
+		raise HTTPException(status_code=500, detail=f"Content for topic '{topic_id}' is missing")
+
+	_topic_cache[key] = topic
+	return topic

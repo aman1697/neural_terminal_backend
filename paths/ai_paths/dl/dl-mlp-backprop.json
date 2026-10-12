@@ -1,0 +1,85 @@
+{
+  "id": "dl-mlp-backprop",
+  "title": "Multilayer Perceptron and Backpropagation",
+  "category": "Foundations",
+  "difficulty": "beginner",
+  "estimatedTime": "3h",
+  "prerequisites": [
+    "dl-perceptron"
+  ],
+  "tags": [
+    "mlp",
+    "backpropagation",
+    "gradients"
+  ],
+  "overview": "Stacking layers of neurons with nonlinearities lets a network model complex functions. Backpropagation applies the chain rule to compute the gradient of the loss for every weight efficiently.",
+  "objectives": [
+    "Run a forward pass through a two-layer network",
+    "Derive gradients with the chain rule",
+    "Implement backpropagation by hand in NumPy"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Forward pass",
+      "body": "Each layer computes h = f(W x + b) and feeds its result to the next layer."
+    },
+    {
+      "title": "Loss",
+      "body": "A scalar loss compares the network output with the target."
+    },
+    {
+      "title": "Backward pass",
+      "body": "Gradients flow from the loss back through each layer, reusing cached forward activations."
+    },
+    {
+      "title": "Update",
+      "body": "Parameters move opposite to their gradient: W -= lr * dL/dW."
+    }
+  ],
+  "pseudocode": "h = relu(X @ W1 + b1)\ny_hat = h @ W2 + b2\nL = mean((y_hat - y)**2)\ndy = 2*(y_hat - y)/N\ndW2 = h.T @ dy\ndh = (dy @ W2.T) * (h > 0)\ndW1 = X.T @ dh",
+  "playground": {
+    "language": "python",
+    "starterCode": "import numpy as np\nrng = np.random.default_rng(0)\nX = rng.normal(size=(64, 3)); y = X.sum(axis=1, keepdims=True)\nW1 = rng.normal(size=(3, 8)) * 0.5; b1 = np.zeros(8)\nW2 = rng.normal(size=(8, 1)) * 0.5; b2 = np.zeros(1)\nfor step in range(301):\n    h = np.maximum(0, X @ W1 + b1)\n    pred = h @ W2 + b2\n    loss = np.mean((pred - y) ** 2)\n    dy = 2 * (pred - y) / len(X)\n    dW2 = h.T @ dy; db2 = dy.sum(0)\n    dh = (dy @ W2.T) * (h > 0)\n    dW1 = X.T @ dh; db1 = dh.sum(0)\n    for p, g in ((W1, dW1), (b1, db1), (W2, dW2), (b2, db2)):\n        p -= 0.05 * g\n    if step % 100 == 0:\n        print(step, round(float(loss), 4))"
+  },
+  "output": {
+    "mockResult": "0 1.0261\n100 0.0134\n200 0.0048\n300 0.0031",
+    "visual": "loss"
+  },
+  "quiz": [
+    {
+      "question": "Backpropagation is an efficient application of:",
+      "options": [
+        "The chain rule",
+        "Matrix inversion",
+        "Random search",
+        "The central limit theorem"
+      ],
+      "answer": 0
+    },
+    {
+      "question": "Why are forward activations cached during training?",
+      "options": [
+        "To reduce parameters",
+        "They are needed to compute gradients in the backward pass",
+        "To apply dropout",
+        "To speed up inference only"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "Without nonlinear activations, a deep stack of linear layers is equivalent to:",
+      "options": [
+        "A CNN",
+        "A single linear layer",
+        "A transformer",
+        "An ensemble"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "dl-activation-functions",
+    "dl-loss-functions"
+  ]
+}

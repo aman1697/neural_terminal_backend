@@ -12,6 +12,12 @@ class Settings(BaseSettings):
 	cloudflare_api_token: str
 	cloudflare_api_base_url: str = "https://api.cloudflare.com/client/v4"
 
+	# Cloudflare R2 (S3-compatible object storage). Configured but not used by any code yet.
+	r2_access_key_id: str = ""
+	r2_secret_access_key: str = ""
+	r2_bucket_name: str = ""
+	r2_public_base_url: str = ""
+
 	server_port: int = 3000
 	ai_api_key: str = ""
 
@@ -38,6 +44,10 @@ class Settings(BaseSettings):
 	@property
 	def cors_origins(self) -> list[str]:
 		return [origin.strip() for origin in self.cors_allowed_origins.split(",") if origin.strip()]
+
+	@property
+	def r2_endpoint_url(self) -> str:
+		return f"https://{self.cloudflare_account_id}.r2.cloudflarestorage.com"
 
 	@property
 	def d1_query_url(self) -> str:

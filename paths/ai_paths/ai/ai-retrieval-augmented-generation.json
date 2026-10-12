@@ -1,0 +1,75 @@
+{
+  "id": "ai-retrieval-augmented-generation",
+  "title": "Retrieval-Augmented Generation",
+  "category": "Modern AI",
+  "difficulty": "advanced",
+  "estimatedTime": "3h",
+  "prerequisites": [
+    "ai-llm-basics"
+  ],
+  "tags": [
+    "rag",
+    "embeddings",
+    "retrieval"
+  ],
+  "overview": "Ground language model answers in external documents by retrieving relevant passages at query time.",
+  "objectives": [
+    "Explain chunking, embedding, and vector search",
+    "Assemble a retrieval-augmented prompt",
+    "Evaluate retrieval quality and faithfulness"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Indexing",
+      "body": "Documents are split into chunks, embedded as vectors, and stored in an index."
+    },
+    {
+      "title": "Retrieval",
+      "body": "The query is embedded and the nearest chunks, often by cosine similarity, are fetched."
+    },
+    {
+      "title": "Generation",
+      "body": "Retrieved passages are placed in the prompt so the model can answer from them and cite sources."
+    },
+    {
+      "title": "Evaluation",
+      "body": "Check whether the right passages were retrieved and whether the answer stays faithful to them."
+    }
+  ],
+  "pseudocode": "chunks = split(docs)\nindex = [(embed(c), c) for c in chunks]\nq = embed(question)\ntop = sorted(index, key=lambda e: -cosine(q, e[0]))[:k]\nanswer = llm(question, context=top)",
+  "playground": {
+    "language": "python",
+    "starterCode": "import numpy as np\ndocs = {'cats': np.array([1.0, 0.1]), 'cars': np.array([0.1, 1.0])}\nq = np.array([0.9, 0.2])\ncos = lambda a, b: a @ b / (np.linalg.norm(a) * np.linalg.norm(b))\nbest = max(docs, key=lambda k: cos(q, docs[k]))\nprint('retrieved:', best)"
+  },
+  "output": {
+    "mockResult": "retrieved: cats",
+    "visual": "heatmap"
+  },
+  "quiz": [
+    {
+      "question": "RAG mainly helps reduce:",
+      "options": [
+        "Tokenization cost",
+        "Training cost to zero",
+        "Ungrounded answers",
+        "Context length to zero"
+      ],
+      "answer": 2
+    },
+    {
+      "question": "Nearest chunks are commonly found with:",
+      "options": [
+        "Alphabetical order",
+        "Vector similarity",
+        "Random sampling",
+        "File size"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "ai-llm-basics",
+    "ai-agents-tool-use"
+  ]
+}

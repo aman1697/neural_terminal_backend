@@ -1,0 +1,71 @@
+{
+  "id": "linear-algebra",
+  "title": "Linear Algebra for ML",
+  "category": "Math",
+  "difficulty": "beginner",
+  "estimatedTime": "3h",
+  "prerequisites": [
+    "python-for-ml"
+  ],
+  "tags": [
+    "vectors",
+    "matrices",
+    "eigenvalues"
+  ],
+  "overview": "Understand vectors, matrices, matrix multiplication, and decomposition used by almost all ML algorithms.",
+  "objectives": [
+    "Interpret vectors and dot products",
+    "Track matrix shapes correctly",
+    "Understand eigenvectors in PCA"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Vector math",
+      "body": "Represent features and compute similarity."
+    },
+    {
+      "title": "Matrix operations",
+      "body": "Apply transformations and solve systems."
+    },
+    {
+      "title": "Decomposition",
+      "body": "Use eigen and singular value decomposition intuition."
+    }
+  ],
+  "pseudocode": "y = W @ x + b",
+  "playground": {
+    "language": "python",
+    "starterCode": "import numpy as np\nA = np.array([[1,2],[3,4]])\nx = np.array([1,1])\nprint(A @ x)"
+  },
+  "output": {
+    "mockResult": "[3 7]",
+    "visual": "tensor"
+  },
+  "quiz": [
+    {
+      "question": "(m x n) @ (n x p) output shape is:",
+      "options": [
+        "(m x p)",
+        "(n x p)",
+        "(m x n)",
+        "Invalid always"
+      ],
+      "answer": 0
+    },
+    {
+      "question": "Orthogonal vectors have dot product:",
+      "options": [
+        "1",
+        "0",
+        "-1",
+        "Undefined"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "statistics-probability",
+    "gradient-descent"
+  ]
+}

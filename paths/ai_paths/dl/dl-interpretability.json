@@ -1,0 +1,86 @@
+{
+  "id": "dl-interpretability",
+  "title": "Interpretability of Deep Networks",
+  "category": "Advanced Architectures",
+  "difficulty": "intermediate",
+  "estimatedTime": "3h",
+  "prerequisites": [
+    "dl-cnn",
+    "dl-transformers"
+  ],
+  "tags": [
+    "interpretability",
+    "saliency",
+    "explainability"
+  ],
+  "overview": "Interpretability methods help us understand why a network produced a prediction. Gradient-based attributions, attention inspection and probing each give partial, imperfect evidence.",
+  "objectives": [
+    "Compute a gradient saliency map",
+    "Describe integrated gradients and Grad-CAM",
+    "Recognize the limits of explanations"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Saliency",
+      "body": "The gradient of the output with respect to the input shows which input features locally change the score most."
+    },
+    {
+      "title": "Integrated gradients",
+      "body": "Accumulates gradients along a path from a baseline to the input, satisfying a completeness axiom."
+    },
+    {
+      "title": "Grad-CAM",
+      "body": "Weights convolutional feature maps by their gradients to localize image regions behind a class score."
+    },
+    {
+      "title": "Caveats",
+      "body": "Explanations can be unstable or misleading; attention weights are not guaranteed to be faithful explanations, so validate with perturbation tests."
+    }
+  ],
+  "pseudocode": "x.requires_grad = True\nscore = model(x)[target_class]\nscore.backward()\nsaliency = abs(x.grad)\n# integrated gradients\nig = (x - base) * mean(grad(model, base + a*(x - base)) for a in alphas)",
+  "playground": {
+    "language": "python",
+    "starterCode": "import numpy as np\nw = np.array([2.0, -1.0, 0.0, 0.5])\nx = np.array([1.0, 3.0, 5.0, -2.0])\nscore = lambda v: np.tanh(v @ w)\neps = 1e-5\ngrad = np.array([(score(x + eps * e) - score(x - eps * e)) / (2 * eps) for e in np.eye(4)])\nprint(\"score:\", round(float(score(x)), 4))\nprint(\"saliency |grad|:\", np.round(np.abs(grad), 4))"
+  },
+  "output": {
+    "mockResult": "score: -0.964\nsaliency |grad|: [0.1413 0.0707 0.     0.0353]",
+    "visual": "heatmap"
+  },
+  "quiz": [
+    {
+      "question": "A gradient saliency map highlights:",
+      "options": [
+        "Training samples",
+        "Layer widths",
+        "Optimizer momentum",
+        "Input features to which the output is locally sensitive"
+      ],
+      "answer": 3
+    },
+    {
+      "question": "Which statement about attention weights is most accurate?",
+      "options": [
+        "They always explain the prediction exactly",
+        "They are not guaranteed to be faithful explanations",
+        "They are the same as gradients",
+        "They only exist in CNNs"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "Grad-CAM is mainly applied to:",
+      "options": [
+        "Tokenizers",
+        "Replay buffers",
+        "Convolutional feature maps",
+        "Optimizer states"
+      ],
+      "answer": 2
+    }
+  ],
+  "relatedTopicIds": [
+    "dl-cnn",
+    "dl-transformers"
+  ]
+}

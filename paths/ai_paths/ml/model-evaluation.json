@@ -1,0 +1,71 @@
+{
+  "id": "model-evaluation",
+  "title": "Model Evaluation and Validation",
+  "category": "Fundamentals",
+  "difficulty": "intermediate",
+  "estimatedTime": "3h",
+  "prerequisites": [
+    "logistic-regression"
+  ],
+  "tags": [
+    "metrics",
+    "cross-validation",
+    "overfitting"
+  ],
+  "overview": "Evaluate models correctly with train validation test splits, metrics, and cross validation.",
+  "objectives": [
+    "Choose correct metrics by task",
+    "Detect overfitting and underfitting",
+    "Use robust validation workflows"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Metric selection",
+      "body": "Use RMSE, F1, AUC, or task specific metrics."
+    },
+    {
+      "title": "Validation",
+      "body": "Apply holdout and k fold strategies."
+    },
+    {
+      "title": "Error analysis",
+      "body": "Inspect failure cases for model improvement."
+    }
+  ],
+  "pseudocode": "scores = cross_validate(model, X, y, cv=5)",
+  "playground": {
+    "language": "python",
+    "starterCode": "from sklearn.model_selection import cross_val_score\nfrom sklearn.linear_model import LogisticRegression\nX = [[0],[1],[2],[3],[4],[5]]\ny = [0,0,0,1,1,1]\nprint(cross_val_score(LogisticRegression(), X, y, cv=3))"
+  },
+  "output": {
+    "mockResult": "[1. 1. 1.]",
+    "visual": "curve"
+  },
+  "quiz": [
+    {
+      "question": "F1 is harmonic mean of:",
+      "options": [
+        "Precision and recall",
+        "Accuracy and recall",
+        "TPR and FPR",
+        "MSE and MAE"
+      ],
+      "answer": 0
+    },
+    {
+      "question": "Cross validation estimates:",
+      "options": [
+        "Inference cost only",
+        "Generalization",
+        "Data size",
+        "GPU model"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "tree-ensembles",
+    "unsupervised-learning"
+  ]
+}

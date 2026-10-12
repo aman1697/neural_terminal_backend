@@ -2,7 +2,7 @@ from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from api.rate_limit import limit_by_ip, parse_limit
-from api.routes import auth, learning, users
+from api.routes import auth, learning, practice, users
 from config.settings import settings
 from src.helpers import paths_store
 
@@ -16,7 +16,7 @@ app.add_middleware(
 	CORSMiddleware,
 	allow_origins=settings.cors_origins,
 	allow_credentials=True,
-	allow_methods=["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
+	allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
 	allow_headers=["Authorization", "Content-Type"],
 	expose_headers=["Retry-After"],
 )
@@ -30,3 +30,4 @@ async def get_paths(refresh: bool = False):
 app.include_router(auth.router)
 app.include_router(users.router)
 app.include_router(learning.router)
+app.include_router(practice.router)

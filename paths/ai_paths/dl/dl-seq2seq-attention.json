@@ -1,0 +1,75 @@
+{
+  "id": "dl-seq2seq-attention",
+  "title": "Sequence-to-Sequence and Attention",
+  "category": "Sequence Models",
+  "difficulty": "intermediate",
+  "estimatedTime": "3h",
+  "prerequisites": [
+    "dl-lstm-gru"
+  ],
+  "tags": [
+    "seq2seq",
+    "attention",
+    "encoder-decoder"
+  ],
+  "overview": "Encoder-decoder models map one sequence to another, such as translation. Attention lets the decoder look back at all encoder states instead of one fixed vector.",
+  "objectives": [
+    "Explain the encoder-decoder pattern",
+    "Compute attention weights with softmax",
+    "Describe why attention removes the fixed-vector bottleneck"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Encoder-decoder",
+      "body": "The encoder reads the input into states; the decoder generates output tokens one at a time."
+    },
+    {
+      "title": "Bottleneck",
+      "body": "Compressing a whole sentence into one vector loses information for long inputs."
+    },
+    {
+      "title": "Attention",
+      "body": "At each step the decoder scores every encoder state, softmaxes the scores and takes the weighted sum as context."
+    },
+    {
+      "title": "Alignment",
+      "body": "Attention weights often reveal which input positions matter for each output token."
+    }
+  ],
+  "pseudocode": "scores = [dot(dec_h, enc_h[i]) for i in range(T)]\nalpha = softmax(scores)\ncontext = sum(alpha[i] * enc_h[i] for i in range(T))\nnext_token = decoder_step(dec_h, context)",
+  "playground": {
+    "language": "python",
+    "starterCode": "import numpy as np\nenc = np.array([[1.0, 0.0], [0.0, 1.0], [1.0, 1.0]])  # 3 encoder states\ndec = np.array([1.0, 0.0])                            # decoder query\nscores = enc @ dec\nalpha = np.exp(scores) / np.exp(scores).sum()\ncontext = alpha @ enc\nprint(\"scores:\", scores)\nprint(\"attention weights:\", np.round(alpha, 3))\nprint(\"context:\", np.round(context, 3))"
+  },
+  "output": {
+    "mockResult": "scores: [1. 0. 1.]\nattention weights: [0.422 0.155 0.422]\ncontext: [0.845 0.578]",
+    "visual": "heatmap"
+  },
+  "quiz": [
+    {
+      "question": "The main problem attention solves in seq2seq is:",
+      "options": [
+        "Overfitting",
+        "Slow optimizers",
+        "Fixed-size context bottleneck",
+        "Label noise"
+      ],
+      "answer": 2
+    },
+    {
+      "question": "Attention weights are produced by:",
+      "options": [
+        "A ReLU",
+        "Max pooling",
+        "Batch norm",
+        "A softmax over scores"
+      ],
+      "answer": 3
+    }
+  ],
+  "relatedTopicIds": [
+    "dl-lstm-gru",
+    "dl-transformers"
+  ]
+}

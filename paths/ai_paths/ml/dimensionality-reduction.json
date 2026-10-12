@@ -1,0 +1,71 @@
+{
+  "id": "dimensionality-reduction",
+  "title": "Dimensionality Reduction",
+  "category": "Core ML",
+  "difficulty": "intermediate",
+  "estimatedTime": "2h 30m",
+  "prerequisites": [
+    "unsupervised-learning"
+  ],
+  "tags": [
+    "pca",
+    "svd",
+    "manifold"
+  ],
+  "overview": "Reduce feature space for visualization, noise reduction, and faster training with PCA and related techniques.",
+  "objectives": [
+    "Apply PCA for projection",
+    "Explain variance retention",
+    "Use reduced features in downstream models"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "PCA",
+      "body": "Project onto principal components."
+    },
+    {
+      "title": "SVD",
+      "body": "Factorize matrices into low rank structure."
+    },
+    {
+      "title": "Usage",
+      "body": "Use reduced dimensions to denoise and speed up models."
+    }
+  ],
+  "pseudocode": "X_centered = X - mean(X)\nZ = X_centered @ W_k",
+  "playground": {
+    "language": "python",
+    "starterCode": "from sklearn.decomposition import PCA\nX = [[1,2],[2,3],[3,4]]\nprint(PCA(n_components=1).fit_transform(X))"
+  },
+  "output": {
+    "mockResult": "projected_values",
+    "visual": "scatter"
+  },
+  "quiz": [
+    {
+      "question": "PCA is primarily used for:",
+      "options": [
+        "Classification labels",
+        "Dimensionality reduction",
+        "Tokenization",
+        "Regular expressions"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "Principal components capture:",
+      "options": [
+        "Least variance",
+        "Most variance",
+        "No variance",
+        "Random noise only"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "gradient-descent",
+    "neural-networks-basics"
+  ]
+}

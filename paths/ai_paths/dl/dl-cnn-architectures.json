@@ -1,0 +1,75 @@
+{
+  "id": "dl-cnn-architectures",
+  "title": "Classic CNN Architectures: LeNet, VGG, ResNet",
+  "category": "Computer Vision",
+  "difficulty": "intermediate",
+  "estimatedTime": "3h",
+  "prerequisites": [
+    "dl-cnn"
+  ],
+  "tags": [
+    "lenet",
+    "vgg",
+    "resnet"
+  ],
+  "overview": "The history of CNN design shows how depth, small filters and skip connections made image models both deeper and easier to train.",
+  "objectives": [
+    "Describe the design idea of LeNet, VGG and ResNet",
+    "Explain how residual connections ease optimization",
+    "Build a residual block"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "LeNet",
+      "body": "An early small CNN of alternating convolution and pooling layers followed by dense layers, used for digit recognition."
+    },
+    {
+      "title": "VGG",
+      "body": "Shows that stacking many 3x3 convolutions is an effective, uniform way to add depth."
+    },
+    {
+      "title": "ResNet",
+      "body": "Adds identity shortcuts so each block learns a residual F(x) and outputs x + F(x), giving gradients a direct path."
+    },
+    {
+      "title": "Bottlenecks",
+      "body": "1x1 convolutions reduce and restore channels to keep deep blocks cheap."
+    }
+  ],
+  "pseudocode": "def residual_block(x):\n    out = relu(bn(conv3x3(x)))\n    out = bn(conv3x3(out))\n    return relu(out + x)   # skip connection",
+  "playground": {
+    "language": "python",
+    "starterCode": "import numpy as np\nrng = np.random.default_rng(0)\nx = rng.normal(size=(1, 8))\nW1 = rng.normal(size=(8, 8)) * 0.1\nW2 = rng.normal(size=(8, 8)) * 0.1\nrelu = lambda a: np.maximum(0, a)\nF = relu(x @ W1) @ W2\ny = relu(x + F)  # residual block\nprint(\"input norm: \", round(float(np.linalg.norm(x)), 3))\nprint(\"residual norm:\", round(float(np.linalg.norm(F)), 3))\nprint(\"output norm:\", round(float(np.linalg.norm(y)), 3))"
+  },
+  "output": {
+    "mockResult": "input norm:  1.863\nresidual norm: 0.103\noutput norm: 1.833",
+    "visual": "graph"
+  },
+  "quiz": [
+    {
+      "question": "A residual block outputs:",
+      "options": [
+        "F(x) only",
+        "x + F(x)",
+        "x * F(x)",
+        "F(F(x))"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "What did VGG popularize?",
+      "options": [
+        "Gated recurrent cells",
+        "Self-attention",
+        "Stacks of 3x3 convolutions",
+        "Dropout"
+      ],
+      "answer": 2
+    }
+  ],
+  "relatedTopicIds": [
+    "dl-cnn",
+    "dl-transfer-learning"
+  ]
+}

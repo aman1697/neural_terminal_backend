@@ -1,0 +1,86 @@
+{
+  "id": "ai-llm-basics",
+  "title": "Large Language Models",
+  "category": "Modern AI",
+  "difficulty": "advanced",
+  "estimatedTime": "3h 30m",
+  "prerequisites": [
+    "ai-nlp-basics",
+    "ai-ml-in-ai"
+  ],
+  "tags": [
+    "llm",
+    "transformers",
+    "generative-ai"
+  ],
+  "overview": "Understand how transformer-based language models are trained to predict tokens and how they are adapted for use.",
+  "objectives": [
+    "Describe tokenization and next-token prediction",
+    "Explain self-attention at a high level",
+    "Compare pretraining, fine-tuning, and prompting"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Next-token prediction",
+      "body": "LLMs are pretrained on large text corpora to predict the next token, learning broad statistical patterns of language."
+    },
+    {
+      "title": "Transformers",
+      "body": "Self-attention lets each token weigh other tokens in the context, enabling parallel training."
+    },
+    {
+      "title": "Adaptation",
+      "body": "Models are adapted by instruction fine-tuning, preference-based training, and prompting with examples."
+    },
+    {
+      "title": "Limitations",
+      "body": "LLMs can produce fluent but incorrect statements, called hallucinations, and are bounded by their context window."
+    }
+  ],
+  "pseudocode": "tokens = tokenize(prompt)\nwhile not stop:\n    logits = model(tokens)\n    probs = softmax(logits[-1] / temperature)\n    tokens.append(sample(probs))",
+  "playground": {
+    "language": "python",
+    "starterCode": "import numpy as np\nlogits = np.array([2.0, 1.0, 0.1])\nfor T in (1.0, 0.5):\n    p = np.exp(logits / T); p /= p.sum()\n    print(T, p.round(2))"
+  },
+  "output": {
+    "mockResult": "1.0 [0.66 0.24 0.1 ]\n0.5 [0.86 0.12 0.02]",
+    "visual": "distribution"
+  },
+  "quiz": [
+    {
+      "question": "Self-attention allows a token to:",
+      "options": [
+        "Update model weights",
+        "Look at other tokens in context",
+        "Skip embeddings",
+        "Access the internet"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "Lower sampling temperature makes output:",
+      "options": [
+        "More random",
+        "Longer",
+        "More deterministic",
+        "Multilingual"
+      ],
+      "answer": 2
+    },
+    {
+      "question": "A hallucination is:",
+      "options": [
+        "A tokenizer error",
+        "A GPU fault",
+        "A training stage",
+        "A fluent but false output"
+      ],
+      "answer": 3
+    }
+  ],
+  "relatedTopicIds": [
+    "ai-agents-tool-use",
+    "ai-retrieval-augmented-generation"
+  ]
+}

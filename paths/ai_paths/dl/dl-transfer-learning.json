@@ -1,0 +1,75 @@
+{
+  "id": "dl-transfer-learning",
+  "title": "Transfer Learning and Fine-Tuning",
+  "category": "Computer Vision",
+  "difficulty": "intermediate",
+  "estimatedTime": "2h 30m",
+  "prerequisites": [
+    "dl-cnn-architectures"
+  ],
+  "tags": [
+    "transfer-learning",
+    "fine-tuning",
+    "pretrained"
+  ],
+  "overview": "Reusing a network pretrained on a large dataset gives strong features with little labeled data. You can freeze the backbone or fine-tune it with a small learning rate.",
+  "objectives": [
+    "Choose between feature extraction and fine-tuning",
+    "Replace and train a new classification head",
+    "Set learning rates for pretrained versus new layers"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Pretrained features",
+      "body": "Early layers learn general features that transfer across tasks."
+    },
+    {
+      "title": "Feature extraction",
+      "body": "Freeze the backbone and train only a new head; best for tiny datasets."
+    },
+    {
+      "title": "Fine-tuning",
+      "body": "Unfreeze some or all layers and train with a small learning rate, often smaller for the backbone than the head."
+    },
+    {
+      "title": "Domain gap",
+      "body": "The further the target data is from pretraining data, the more layers you should adapt."
+    }
+  ],
+  "pseudocode": "model = load_pretrained()\nfor p in model.backbone.parameters(): p.requires_grad = False\nmodel.head = Linear(feat_dim, num_classes)\ntrain(model.head)\n# optional: unfreeze backbone, lr = 1e-5",
+  "playground": {
+    "language": "python",
+    "starterCode": "import torch, torch.nn as nn\nbackbone = nn.Sequential(nn.Linear(16, 32), nn.ReLU())  # stands in for a pretrained model\nhead = nn.Linear(32, 3)\nfor p in backbone.parameters():\n    p.requires_grad = False\nparams = [p for p in list(backbone.parameters()) + list(head.parameters()) if p.requires_grad]\nprint(\"trainable parameters:\", sum(p.numel() for p in params))\nprint(\"frozen parameters:\", sum(p.numel() for p in backbone.parameters()))"
+  },
+  "output": {
+    "mockResult": "trainable parameters: 99\nfrozen parameters: 544",
+    "visual": "pipeline"
+  },
+  "quiz": [
+    {
+      "question": "With a very small target dataset, a safe first approach is:",
+      "options": [
+        "Train from scratch",
+        "Use a huge learning rate",
+        "Freeze the backbone and train a new head",
+        "Remove all pretrained layers"
+      ],
+      "answer": 2
+    },
+    {
+      "question": "Why use a smaller learning rate for pretrained layers?",
+      "options": [
+        "To skip backpropagation",
+        "To avoid destroying useful learned features",
+        "To increase model size",
+        "To disable normalization"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "dl-cnn-architectures",
+    "dl-self-supervised-learning"
+  ]
+}

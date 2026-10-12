@@ -1,0 +1,73 @@
+{
+  "id": "ai-what-is-ai",
+  "title": "What Is Artificial Intelligence?",
+  "category": "Foundations",
+  "difficulty": "beginner",
+  "estimatedTime": "1h 30m",
+  "prerequisites": [],
+  "tags": [
+    "overview",
+    "history",
+    "definitions"
+  ],
+  "overview": "Understand how AI is defined, the main approaches to building intelligent systems, and the key eras in the field's history.",
+  "objectives": [
+    "Compare the four classic views of AI: thinking or acting, humanly or rationally",
+    "Describe major eras such as symbolic AI, expert systems, statistical learning, and deep learning",
+    "Distinguish narrow AI from the idea of general intelligence"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Four definitions",
+      "body": "Systems can be defined by whether they think or act, and whether they imitate humans or aim for rational behavior. Modern textbooks favor the rational agent view."
+    },
+    {
+      "title": "Historical eras",
+      "body": "Early work centered on symbolic reasoning and search, followed by knowledge-based expert systems, then statistical machine learning and today's deep learning."
+    },
+    {
+      "title": "Narrow vs general",
+      "body": "Almost every deployed system is narrow: strong at a specific task but not broadly adaptable like a person."
+    },
+    {
+      "title": "Hype cycles",
+      "body": "Periods of optimism have been followed by reduced funding and interest, sometimes called AI winters."
+    }
+  ],
+  "pseudocode": "eras = ordered list of (period, dominant_approach)\nfor era in eras:\n    describe(era.approach, era.strengths, era.limits)\nprint(compare(symbolic, statistical))",
+  "playground": {
+    "language": "python",
+    "starterCode": "eras = [('1950s-70s','symbolic search'),('1980s','expert systems'),('1990s-2000s','statistical learning'),('2010s+','deep learning')]\nfor period, approach in eras:\n    print(period, '->', approach)"
+  },
+  "output": {
+    "mockResult": "1950s-70s -> symbolic search\n1980s -> expert systems\n1990s-2000s -> statistical learning\n2010s+ -> deep learning",
+    "visual": "table"
+  },
+  "quiz": [
+    {
+      "question": "Which view defines AI as agents that do the right thing given what they know?",
+      "options": [
+        "Acting humanly",
+        "Thinking humanly",
+        "Acting rationally",
+        "Thinking mechanically"
+      ],
+      "answer": 2
+    },
+    {
+      "question": "Most AI systems deployed today are best described as:",
+      "options": [
+        "General intelligence",
+        "Narrow AI",
+        "Conscious systems",
+        "Self-programming systems"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "ai-intelligent-agents",
+    "ai-ml-in-ai"
+  ]
+}

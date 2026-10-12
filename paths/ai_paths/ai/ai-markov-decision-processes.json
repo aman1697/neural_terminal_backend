@@ -1,0 +1,75 @@
+{
+  "id": "ai-markov-decision-processes",
+  "title": "Markov Decision Processes",
+  "category": "Learning Agents",
+  "difficulty": "intermediate",
+  "estimatedTime": "3h 30m",
+  "prerequisites": [
+    "ai-probabilistic-reasoning"
+  ],
+  "tags": [
+    "mdp",
+    "bellman",
+    "value-iteration"
+  ],
+  "overview": "Model sequential decision making under uncertainty with states, actions, transition probabilities, and rewards.",
+  "objectives": [
+    "Define an MDP and a policy",
+    "Write the Bellman equation",
+    "Run value iteration"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "MDP definition",
+      "body": "An MDP consists of states, actions, transition probabilities P(s'|s,a), rewards, and a discount factor gamma."
+    },
+    {
+      "title": "Policies and values",
+      "body": "A policy maps states to actions and its value is the expected discounted sum of rewards."
+    },
+    {
+      "title": "Bellman optimality",
+      "body": "V*(s) = max over a of the sum over s' of P(s'|s,a)[R + gamma V*(s')]."
+    },
+    {
+      "title": "Solving MDPs",
+      "body": "Value iteration and policy iteration compute optimal policies when the model is known."
+    }
+  ],
+  "pseudocode": "V = {s: 0 for s in states}\nrepeat until converged:\n    for s in states:\n        V[s] = max(sum(P(s2,s,a) * (R(s,a,s2) + gamma * V[s2]) for s2 in states) for a in actions(s))",
+  "playground": {
+    "language": "python",
+    "starterCode": "gamma = 0.9\nV = {'A': 0.0, 'B': 0.0}\n# A: stay (r=0) or go to B (r=1); B: stay (r=2)\nfor _ in range(100):\n    V['B'] = 2 + gamma * V['B']\n    V['A'] = max(0 + gamma * V['A'], 1 + gamma * V['B'])\nprint({k: round(v, 2) for k, v in V.items()})"
+  },
+  "output": {
+    "mockResult": "{'A': 19.0, 'B': 20.0}",
+    "visual": "curve"
+  },
+  "quiz": [
+    {
+      "question": "The discount factor gamma controls:",
+      "options": [
+        "Exploration rate",
+        "Weight of future rewards",
+        "Number of states",
+        "Learning rate"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "A policy is a mapping from:",
+      "options": [
+        "Rewards to states",
+        "Actions to rewards",
+        "States to actions",
+        "Episodes to goals"
+      ],
+      "answer": 2
+    }
+  ],
+  "relatedTopicIds": [
+    "ai-reinforcement-learning",
+    "ai-automated-planning"
+  ]
+}

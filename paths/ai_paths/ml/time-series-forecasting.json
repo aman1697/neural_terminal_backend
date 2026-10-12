@@ -1,0 +1,72 @@
+{
+  "id": "time-series-forecasting",
+  "title": "Time Series Forecasting",
+  "category": "Applied ML",
+  "difficulty": "intermediate",
+  "estimatedTime": "3h",
+  "prerequisites": [
+    "rnn-lstm",
+    "model-evaluation"
+  ],
+  "tags": [
+    "forecasting",
+    "arima",
+    "sequence"
+  ],
+  "overview": "Forecast temporal data with classical and ML methods while preserving timeline aware validation.",
+  "objectives": [
+    "Build lag and rolling window features",
+    "Use time aware train validation splits",
+    "Evaluate MAE and MAPE for forecasts"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Temporal features",
+      "body": "Create lag and seasonal features."
+    },
+    {
+      "title": "Modeling",
+      "body": "Use baseline, tree, and sequence models."
+    },
+    {
+      "title": "Validation",
+      "body": "Avoid random shuffle in time series."
+    }
+  ],
+  "pseudocode": "for t in range(window, T):\n    X_t = series[t-window:t]\n    y_t = series[t]",
+  "playground": {
+    "language": "python",
+    "starterCode": "series = [10,12,13,15]\nnaive_forecast = series[-1]\nprint(naive_forecast)"
+  },
+  "output": {
+    "mockResult": "15",
+    "visual": "line"
+  },
+  "quiz": [
+    {
+      "question": "For time series validation, use:",
+      "options": [
+        "Random shuffle split",
+        "Time ordered split",
+        "No split",
+        "Only test set"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "Lag feature uses:",
+      "options": [
+        "Future value",
+        "Past value",
+        "Random noise",
+        "Label encoder"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "recommender-systems",
+    "mlops-basics"
+  ]
+}

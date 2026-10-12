@@ -1,0 +1,86 @@
+{
+  "id": "dl-deep-rl",
+  "title": "Deep Reinforcement Learning",
+  "category": "Advanced Architectures",
+  "difficulty": "advanced",
+  "estimatedTime": "4h",
+  "prerequisites": [
+    "dl-mlp-backprop",
+    "dl-optimizers"
+  ],
+  "tags": [
+    "reinforcement-learning",
+    "dqn",
+    "policy-gradient"
+  ],
+  "overview": "Deep reinforcement learning uses neural networks to approximate value functions or policies, learning from rewards through interaction. DQN and policy gradients are two foundational families.",
+  "objectives": [
+    "Define states, actions, rewards and returns",
+    "Write the DQN temporal-difference target",
+    "Explain the REINFORCE policy gradient"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Value-based (DQN)",
+      "body": "A network estimates Q(s, a); the target is r + gamma * max_a' Q_target(s', a')."
+    },
+    {
+      "title": "Stabilization",
+      "body": "Experience replay breaks correlation between samples and a slowly updated target network reduces moving targets."
+    },
+    {
+      "title": "Policy gradient",
+      "body": "REINFORCE increases the log-probability of actions in proportion to the return that followed them."
+    },
+    {
+      "title": "Variance",
+      "body": "Subtracting a baseline, as in actor-critic methods, lowers gradient variance."
+    }
+  ],
+  "pseudocode": "# DQN\ny = r + gamma * (1 - done) * max(Q_target(s_next))\nloss = (Q(s)[a] - y)**2\n# REINFORCE\nG_t = sum_k gamma**k * r_(t+k)\nloss = -log_pi(a_t | s_t) * (G_t - baseline)",
+  "playground": {
+    "language": "python",
+    "starterCode": "import numpy as np\ngamma = 0.9\nrewards = [0.0, 0.0, 1.0]\nreturns = []\nG = 0.0\nfor r in reversed(rewards):\n    G = r + gamma * G\n    returns.insert(0, G)\nprint(\"discounted returns:\", np.round(returns, 3))\nq_next = np.array([0.5, 1.5]); r, done = 1.0, 0\nprint(\"DQN target:\", r + gamma * (1 - done) * q_next.max())"
+  },
+  "output": {
+    "mockResult": "discounted returns: [0.81 0.9  1.  ]\nDQN target: 2.35",
+    "visual": "curve"
+  },
+  "quiz": [
+    {
+      "question": "Why does DQN use a target network?",
+      "options": [
+        "To add more actions",
+        "To make bootstrapped targets more stable",
+        "To skip the replay buffer",
+        "To remove the discount"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "The discounted return G_t is:",
+      "options": [
+        "The immediate reward only",
+        "The maximum reward",
+        "The average Q value",
+        "The sum of future rewards weighted by gamma^k"
+      ],
+      "answer": 3
+    },
+    {
+      "question": "A baseline in policy gradients mainly reduces:",
+      "options": [
+        "Model size",
+        "Action space",
+        "Gradient variance",
+        "Episode length"
+      ],
+      "answer": 2
+    }
+  ],
+  "relatedTopicIds": [
+    "dl-optimizers",
+    "dl-loss-functions"
+  ]
+}

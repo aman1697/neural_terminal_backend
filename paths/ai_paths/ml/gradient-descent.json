@@ -1,0 +1,71 @@
+{
+  "id": "gradient-descent",
+  "title": "Optimization and Gradient Descent",
+  "category": "Optimization",
+  "difficulty": "intermediate",
+  "estimatedTime": "2h",
+  "prerequisites": [
+    "dimensionality-reduction"
+  ],
+  "tags": [
+    "optimization",
+    "sgd",
+    "adam"
+  ],
+  "overview": "Understand how models learn via gradients and why optimizer choice impacts convergence and stability.",
+  "objectives": [
+    "Derive basic update rules",
+    "Compare SGD, momentum, and Adam",
+    "Tune learning rate schedules"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Gradient computation",
+      "body": "Compute direction of steepest ascent."
+    },
+    {
+      "title": "Parameter update",
+      "body": "Move opposite gradient for descent."
+    },
+    {
+      "title": "Adaptive optimization",
+      "body": "Use moment based methods for robustness."
+    }
+  ],
+  "pseudocode": "for step in range(T):\n    g = grad(loss, theta)\n    theta = theta - lr * g",
+  "playground": {
+    "language": "python",
+    "starterCode": "x, lr = 10.0, 0.1\nfor _ in range(10):\n    x -= lr * 2 * (x - 3)\nprint(round(x, 4))"
+  },
+  "output": {
+    "mockResult": "3.752",
+    "visual": "loss"
+  },
+  "quiz": [
+    {
+      "question": "Too high learning rate often leads to:",
+      "options": [
+        "Divergence",
+        "Guaranteed convergence",
+        "No updates",
+        "Better calibration always"
+      ],
+      "answer": 0
+    },
+    {
+      "question": "Adam uses:",
+      "options": [
+        "Only first moment",
+        "Only second moment",
+        "First and second moments",
+        "No gradients"
+      ],
+      "answer": 2
+    }
+  ],
+  "relatedTopicIds": [
+    "neural-networks-basics",
+    "regularization-and-tuning"
+  ]
+}

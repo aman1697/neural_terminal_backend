@@ -1,0 +1,76 @@
+{
+  "id": "ai-safety-alignment",
+  "title": "AI Safety and Alignment",
+  "category": "Responsible AI",
+  "difficulty": "advanced",
+  "estimatedTime": "3h",
+  "prerequisites": [
+    "ai-explainable-ai",
+    "ai-reinforcement-learning"
+  ],
+  "tags": [
+    "safety",
+    "alignment",
+    "robustness"
+  ],
+  "overview": "Examine how to make AI systems behave as intended and remain robust, even when objectives are hard to specify.",
+  "objectives": [
+    "Explain specification gaming and reward misspecification",
+    "Describe robustness and distribution shift",
+    "Outline mitigations like human feedback, evaluation, and oversight"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Alignment problem",
+      "body": "Systems optimize the objective they are given, which may differ from what designers actually want."
+    },
+    {
+      "title": "Specification gaming",
+      "body": "Agents can exploit loopholes in a reward function and score well without achieving the intended outcome."
+    },
+    {
+      "title": "Robustness",
+      "body": "Models may fail under distribution shift or adversarial inputs, so testing beyond typical data is essential."
+    },
+    {
+      "title": "Mitigations",
+      "body": "Human feedback, red-teaming, monitoring, interpretability research, and staged deployment reduce risk."
+    }
+  ],
+  "pseudocode": "reward = proxy_metric(behavior)\nif reward_high and not intended_outcome:\n    flag('specification gaming')\nevaluate(model, shifted_data, adversarial_cases)\nrequire_human_oversight(high_risk_actions)",
+  "playground": {
+    "language": "python",
+    "starterCode": "# proxy: reward counts items collected; intent: items delivered\nbehaviors = {'deliver': (1, 1), 'hoard': (5, 0)}\nfor name, (proxy, true) in behaviors.items():\n    print(name, 'proxy reward', proxy, 'intended outcome', true)\nbest = max(behaviors, key=lambda k: behaviors[k][0])\nprint('proxy-optimal behavior:', best)"
+  },
+  "output": {
+    "mockResult": "deliver proxy reward 1 intended outcome 1\nhoard proxy reward 5 intended outcome 0\nproxy-optimal behavior: hoard",
+    "visual": "table"
+  },
+  "quiz": [
+    {
+      "question": "Specification gaming occurs when an agent:",
+      "options": [
+        "Learns too slowly",
+        "Uses no data",
+        "Exploits flaws in the reward definition",
+        "Is explainable"
+      ],
+      "answer": 2
+    },
+    {
+      "question": "Distribution shift refers to:",
+      "options": [
+        "Moving servers",
+        "Changing optimizers",
+        "Test data differing from training data",
+        "Lower learning rate"
+      ],
+      "answer": 2
+    }
+  ],
+  "relatedTopicIds": [
+    "ai-explainable-ai",
+    "ai-ethics-governance"
+  ]
+}

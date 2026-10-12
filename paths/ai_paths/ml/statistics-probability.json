@@ -1,0 +1,71 @@
+{
+  "id": "statistics-probability",
+  "title": "Statistics and Probability",
+  "category": "Math",
+  "difficulty": "beginner",
+  "estimatedTime": "3h",
+  "prerequisites": [
+    "linear-algebra"
+  ],
+  "tags": [
+    "distributions",
+    "bayes",
+    "expectation"
+  ],
+  "overview": "Learn probability distributions, expectation, variance, and statistical reasoning required for uncertainty and inference.",
+  "objectives": [
+    "Compute mean, variance, and covariance",
+    "Apply Bayes theorem",
+    "Understand sampling and confidence"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Random variables",
+      "body": "Model uncertainty mathematically."
+    },
+    {
+      "title": "Distributions",
+      "body": "Use Bernoulli, Gaussian, and related distributions."
+    },
+    {
+      "title": "Inference",
+      "body": "Estimate and compare hypotheses from samples."
+    }
+  ],
+  "pseudocode": "posterior = likelihood * prior / evidence",
+  "playground": {
+    "language": "python",
+    "starterCode": "p_a = 0.2\np_b_given_a = 0.7\np_b = 0.3\nprint((p_b_given_a * p_a)/p_b)"
+  },
+  "output": {
+    "mockResult": "0.4666666666666667",
+    "visual": "distribution"
+  },
+  "quiz": [
+    {
+      "question": "Variance measures:",
+      "options": [
+        "Center",
+        "Spread",
+        "Class count",
+        "Bias only"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "Bayes theorem updates:",
+      "options": [
+        "Features",
+        "Beliefs using evidence",
+        "Learning rate",
+        "Embeddings"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "data-preprocessing",
+    "model-evaluation"
+  ]
+}

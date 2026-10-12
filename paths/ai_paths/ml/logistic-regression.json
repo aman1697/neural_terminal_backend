@@ -1,0 +1,71 @@
+{
+  "id": "logistic-regression",
+  "title": "Logistic Regression",
+  "category": "Supervised Learning",
+  "difficulty": "beginner",
+  "estimatedTime": "2h 30m",
+  "prerequisites": [
+    "linear-regression"
+  ],
+  "tags": [
+    "classification",
+    "sigmoid",
+    "cross-entropy"
+  ],
+  "overview": "Learn binary classification with logistic regression and probability outputs.",
+  "objectives": [
+    "Model class probabilities",
+    "Optimize cross entropy loss",
+    "Use decision thresholds"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Sigmoid mapping",
+      "body": "Convert scores to probabilities."
+    },
+    {
+      "title": "Log loss",
+      "body": "Penalize confident wrong predictions."
+    },
+    {
+      "title": "Thresholding",
+      "body": "Select threshold based on business objective."
+    }
+  ],
+  "pseudocode": "p = sigmoid(X @ w + b)\ny_hat = (p >= 0.5)",
+  "playground": {
+    "language": "python",
+    "starterCode": "from sklearn.linear_model import LogisticRegression\nX = [[0],[1],[2],[3]]\ny = [0,0,1,1]\nclf = LogisticRegression().fit(X,y)\nprint(clf.predict_proba([[1.5]])[0][1])"
+  },
+  "output": {
+    "mockResult": "0.5",
+    "visual": "decision-boundary"
+  },
+  "quiz": [
+    {
+      "question": "Logistic regression output is usually:",
+      "options": [
+        "Probability",
+        "Distance only",
+        "Cluster id",
+        "Token id"
+      ],
+      "answer": 0
+    },
+    {
+      "question": "Main binary classification loss:",
+      "options": [
+        "MSE",
+        "Cross entropy",
+        "Huber",
+        "Cosine loss"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "model-evaluation",
+    "tree-ensembles"
+  ]
+}

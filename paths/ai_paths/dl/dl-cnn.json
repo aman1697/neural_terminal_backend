@@ -1,0 +1,85 @@
+{
+  "id": "dl-cnn",
+  "title": "Convolutional Neural Networks",
+  "category": "Computer Vision",
+  "difficulty": "intermediate",
+  "estimatedTime": "3h 30m",
+  "prerequisites": [
+    "dl-regularization"
+  ],
+  "tags": [
+    "cnn",
+    "convolution",
+    "vision"
+  ],
+  "overview": "Convolutional layers slide small shared filters over an image, exploiting locality and translation structure. They need far fewer parameters than fully connected layers on images.",
+  "objectives": [
+    "Compute convolution output shapes",
+    "Explain weight sharing, stride, padding and pooling",
+    "Understand receptive fields"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Convolution",
+      "body": "Each filter computes a dot product over a local patch, producing a feature map."
+    },
+    {
+      "title": "Shape arithmetic",
+      "body": "Output size = floor((n + 2p - k) / s) + 1 per spatial dimension."
+    },
+    {
+      "title": "Pooling",
+      "body": "Max or average pooling downsamples feature maps and adds small translation tolerance."
+    },
+    {
+      "title": "Hierarchy",
+      "body": "Early layers detect edges and textures; deeper layers combine them into parts and objects."
+    }
+  ],
+  "pseudocode": "for each output position (i, j):\n    patch = x[i*s : i*s+k, j*s : j*s+k]\n    out[i, j] = sum(patch * kernel) + bias\nout_size = (n + 2*p - k) // s + 1",
+  "playground": {
+    "language": "python",
+    "starterCode": "import numpy as np\nimg = np.arange(36, dtype=float).reshape(6, 6)\nkernel = np.array([[1, 0, -1], [1, 0, -1], [1, 0, -1]], dtype=float)  # vertical edge\nk, s = 3, 1\nn = (img.shape[0] - k) // s + 1\nout = np.zeros((n, n))\nfor i in range(n):\n    for j in range(n):\n        out[i, j] = (img[i*s:i*s+k, j*s:j*s+k] * kernel).sum()\nprint(\"output shape:\", out.shape)\nprint(out)"
+  },
+  "output": {
+    "mockResult": "output shape: (4, 4)\n[[-6. -6. -6. -6.]\n [-6. -6. -6. -6.]\n [-6. -6. -6. -6.]\n [-6. -6. -6. -6.]]",
+    "visual": "image"
+  },
+  "quiz": [
+    {
+      "question": "A 32x32 input, 5x5 kernel, stride 1, no padding gives output width:",
+      "options": [
+        "27",
+        "28",
+        "30",
+        "32"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "Weight sharing in convolutions means:",
+      "options": [
+        "Each pixel has its own weights",
+        "Filters are not learned",
+        "The same filter is applied at every position",
+        "Layers share biases only"
+      ],
+      "answer": 2
+    },
+    {
+      "question": "Max pooling mainly provides:",
+      "options": [
+        "Upsampling",
+        "Normalization",
+        "Regularization by dropout",
+        "Downsampling with small translation invariance"
+      ],
+      "answer": 3
+    }
+  ],
+  "relatedTopicIds": [
+    "dl-cnn-architectures",
+    "dl-transfer-learning"
+  ]
+}

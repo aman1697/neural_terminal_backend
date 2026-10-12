@@ -1,0 +1,69 @@
+{
+  "id": "ml-introduction",
+  "title": "Introduction to Machine Learning",
+  "category": "Foundations",
+  "difficulty": "beginner",
+  "estimatedTime": "1h 30m",
+  "prerequisites": [],
+  "tags": [
+    "overview",
+    "supervised",
+    "unsupervised"
+  ],
+  "overview": "Learn what machine learning is, where it is used, and how the full ML workflow looks from data to deployment.",
+  "objectives": [
+    "Differentiate AI, ML, and deep learning",
+    "Identify common ML problem types",
+    "Understand a beginner friendly ML roadmap"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Problem framing",
+      "body": "Translate business questions into ML tasks."
+    },
+    {
+      "title": "Data and labels",
+      "body": "Understand features, targets, and dataset quality."
+    },
+    {
+      "title": "Model lifecycle",
+      "body": "Learn train, evaluate, deploy, and monitor loop."
+    }
+  ],
+  "pseudocode": "task = identify_problem_type(problem)\ndata = collect_and_clean()\nmodel = train(task, data)\nmetric = evaluate(model)",
+  "playground": {
+    "language": "python",
+    "starterCode": "print('ML roadmap: data -> model -> evaluation -> deployment')"
+  },
+  "output": {
+    "mockResult": "ML roadmap: data -> model -> evaluation -> deployment",
+    "visual": "pipeline"
+  },
+  "quiz": [
+    {
+      "question": "Spam detection is usually:",
+      "options": [
+        "Regression",
+        "Classification",
+        "Clustering",
+        "Dimensionality reduction"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "A key ML lifecycle step after deployment is:",
+      "options": [
+        "Monitoring",
+        "Ignoring drift",
+        "Removing logs",
+        "Skipping evaluation"
+      ],
+      "answer": 0
+    }
+  ],
+  "relatedTopicIds": [
+    "python-for-ml",
+    "linear-algebra"
+  ]
+}

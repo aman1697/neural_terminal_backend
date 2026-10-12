@@ -38,6 +38,11 @@ async def get_track(track: str, refresh: bool = False):
 	return await paths_store.load_track(track, refresh)
 
 
+@router.get("/paths/{track}/{topic_id}")
+async def get_topic(track: str, topic_id: str, refresh: bool = False):
+	return await paths_store.load_topic(track, topic_id, refresh)
+
+
 @router.post("/progress", response_model=ProgressOut)
 async def set_progress(
 	body: ProgressSet,

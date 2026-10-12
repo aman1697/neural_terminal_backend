@@ -1,0 +1,71 @@
+{
+  "id": "regularization-and-tuning",
+  "title": "Regularization and Hyperparameter Tuning",
+  "category": "Deep Learning",
+  "difficulty": "intermediate",
+  "estimatedTime": "2h 30m",
+  "prerequisites": [
+    "neural-networks-basics"
+  ],
+  "tags": [
+    "dropout",
+    "batchnorm",
+    "hyperparameters"
+  ],
+  "overview": "Improve generalization with regularization and systematic hyperparameter search.",
+  "objectives": [
+    "Apply dropout and weight decay",
+    "Tune batch size and learning rate",
+    "Use early stopping and validation tracking"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Regularization",
+      "body": "Penalize complexity and reduce overfit."
+    },
+    {
+      "title": "Normalization",
+      "body": "Stabilize deep network training."
+    },
+    {
+      "title": "Search",
+      "body": "Run grid, random, or Bayesian tuning."
+    }
+  ],
+  "pseudocode": "best = None\nfor lr in [1e-2, 1e-3]:\n    train_model(lr)",
+  "playground": {
+    "language": "python",
+    "starterCode": "print('try lr in [1e-2, 1e-3, 1e-4] and compare val loss')"
+  },
+  "output": {
+    "mockResult": "best_lr=0.001",
+    "visual": "loss"
+  },
+  "quiz": [
+    {
+      "question": "Early stopping helps reduce:",
+      "options": [
+        "Underfitting",
+        "Overfitting",
+        "Data collection",
+        "Token count"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "Dropout randomly:",
+      "options": [
+        "Changes labels",
+        "Drops activations",
+        "Adds features",
+        "Adds data leakage"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "cnn",
+    "rnn-lstm"
+  ]
+}

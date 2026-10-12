@@ -1,0 +1,86 @@
+{
+  "id": "dl-distributed-mixed-precision",
+  "title": "Distributed and Mixed-Precision Training",
+  "category": "Production",
+  "difficulty": "advanced",
+  "estimatedTime": "3h 30m",
+  "prerequisites": [
+    "dl-optimizers",
+    "dl-model-compression"
+  ],
+  "tags": [
+    "distributed",
+    "mixed-precision",
+    "scaling"
+  ],
+  "overview": "Large models need many GPUs and efficient numerics. Data and model parallelism split the work, while mixed precision uses 16-bit math to save memory and time.",
+  "objectives": [
+    "Compare data, tensor and pipeline parallelism",
+    "Explain loss scaling in fp16 training",
+    "Use gradient accumulation to emulate large batches"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Data parallelism",
+      "body": "Each device holds a model copy and processes a shard of the batch; gradients are averaged with all-reduce."
+    },
+    {
+      "title": "Model parallelism",
+      "body": "Layers (pipeline) or individual matrices (tensor) are split across devices when the model does not fit on one."
+    },
+    {
+      "title": "Mixed precision",
+      "body": "Compute in fp16 or bf16 while keeping fp32 master weights; fp16 needs loss scaling to avoid gradient underflow, bf16 usually does not."
+    },
+    {
+      "title": "Accumulation",
+      "body": "Summing gradients over several micro-batches before stepping simulates a larger batch on limited memory."
+    }
+  ],
+  "pseudocode": "for step, batch in enumerate(loader):\n    with autocast(dtype=bf16):\n        loss = model(batch) / accum_steps\n    loss.backward()\n    if (step + 1) % accum_steps == 0:\n        all_reduce(grads); optimizer.step(); optimizer.zero_grad()",
+  "playground": {
+    "language": "python",
+    "starterCode": "import numpy as np\ng = np.float32(1e-9)\nprint(\"fp32 gradient:\", g)\nprint(\"fp16 gradient:\", np.float16(g))           # underflows to 0\nscale = np.float32(2 ** 16)\ng16 = np.float16(g * scale)\nprint(\"scaled fp16:\", g16, \"-> unscaled:\", np.float32(g16) / scale)\nshards = [np.array([1.0, 2.0]), np.array([3.0, 4.0])]\nprint(\"all-reduce mean:\", np.mean(shards, axis=0))"
+  },
+  "output": {
+    "mockResult": "fp32 gradient: 1e-09\nfp16 gradient: 0.0\nscaled fp16: 6.557e-05 -> unscaled: 1.0004442e-09\nall-reduce mean: [2. 3.]",
+    "visual": "pipeline"
+  },
+  "quiz": [
+    {
+      "question": "In data parallelism, gradients are combined by:",
+      "options": [
+        "Concatenating models",
+        "Dropping some devices",
+        "Quantizing labels",
+        "All-reduce averaging"
+      ],
+      "answer": 3
+    },
+    {
+      "question": "Loss scaling in fp16 training prevents:",
+      "options": [
+        "Overfitting",
+        "Gradient underflow",
+        "Vanishing batch size",
+        "Tokenizer errors"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "Gradient accumulation lets you:",
+      "options": [
+        "Remove the optimizer",
+        "Skip backprop",
+        "Simulate a larger batch size",
+        "Increase model depth"
+      ],
+      "answer": 2
+    }
+  ],
+  "relatedTopicIds": [
+    "dl-model-compression",
+    "dl-optimizers"
+  ]
+}

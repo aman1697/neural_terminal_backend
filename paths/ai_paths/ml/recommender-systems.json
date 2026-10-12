@@ -1,0 +1,72 @@
+{
+  "id": "recommender-systems",
+  "title": "Recommender Systems",
+  "category": "Applied ML",
+  "difficulty": "intermediate",
+  "estimatedTime": "2h 30m",
+  "prerequisites": [
+    "tree-ensembles",
+    "dimensionality-reduction"
+  ],
+  "tags": [
+    "collaborative-filtering",
+    "ranking",
+    "implicit-feedback"
+  ],
+  "overview": "Learn recommendation basics with collaborative filtering, matrix factorization, and ranking metrics.",
+  "objectives": [
+    "Understand user item interaction matrices",
+    "Compare content and collaborative approaches",
+    "Evaluate ranking quality"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Collaborative filtering",
+      "body": "Recommend from similar users and items."
+    },
+    {
+      "title": "Matrix factorization",
+      "body": "Learn latent embeddings for users and items."
+    },
+    {
+      "title": "Ranking evaluation",
+      "body": "Measure precision at k and NDCG."
+    }
+  ],
+  "pseudocode": "score(u, i) = dot(P[u], Q[i])",
+  "playground": {
+    "language": "python",
+    "starterCode": "print('recommend top_k items by predicted score')"
+  },
+  "output": {
+    "mockResult": "top_k_items",
+    "visual": "matrix"
+  },
+  "quiz": [
+    {
+      "question": "Collaborative filtering relies on:",
+      "options": [
+        "Only item text",
+        "Interaction patterns",
+        "Only timestamps",
+        "Only images"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "A ranking metric is:",
+      "options": [
+        "MSE",
+        "NDCG",
+        "R2",
+        "RMSE only"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "mlops-basics",
+    "responsible-ai"
+  ]
+}

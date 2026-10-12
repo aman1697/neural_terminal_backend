@@ -1,0 +1,75 @@
+{
+  "id": "ai-reinforcement-learning",
+  "title": "Reinforcement Learning Basics",
+  "category": "Learning Agents",
+  "difficulty": "advanced",
+  "estimatedTime": "4h",
+  "prerequisites": [
+    "ai-markov-decision-processes"
+  ],
+  "tags": [
+    "reinforcement-learning",
+    "q-learning",
+    "exploration"
+  ],
+  "overview": "Learn how agents improve behavior from reward feedback when the environment model is unknown.",
+  "objectives": [
+    "Explain the exploration-exploitation trade-off",
+    "Implement tabular Q-learning",
+    "Contrast model-free and model-based methods"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Learning from rewards",
+      "body": "The agent interacts with an environment and adjusts its policy to maximize cumulative reward."
+    },
+    {
+      "title": "Q-learning",
+      "body": "Updates Q(s,a) toward r + gamma max Q(s',a'), an off-policy temporal-difference method."
+    },
+    {
+      "title": "Exploration",
+      "body": "Strategies like epsilon-greedy balance trying new actions against using the best known one."
+    },
+    {
+      "title": "Deep RL",
+      "body": "Neural networks approximate value functions or policies when state spaces are too large for tables."
+    }
+  ],
+  "pseudocode": "for episode in range(N):\n    s = reset()\n    while not done:\n        a = epsilon_greedy(Q, s)\n        s2, r, done = step(a)\n        Q[s][a] += alpha * (r + gamma * max(Q[s2]) - Q[s][a])\n        s = s2",
+  "playground": {
+    "language": "python",
+    "starterCode": "import random\nrandom.seed(0)\nQ = [[0.0, 0.0] for _ in range(4)]  # states 0..3, actions: 0=left 1=right\nfor _ in range(300):\n    s = 0\n    while s != 3:\n        a = random.randint(0, 1)\n        s2 = min(s+1, 3) if a == 1 else max(s-1, 0)\n        r = 1 if s2 == 3 else 0\n        Q[s][a] += 0.5 * (r + 0.9 * max(Q[s2]) - Q[s][a])\n        s = s2\nprint(['right' if q[1] > q[0] else 'left' for q in Q[:3]])"
+  },
+  "output": {
+    "mockResult": "['right', 'right', 'right']",
+    "visual": "line"
+  },
+  "quiz": [
+    {
+      "question": "Q-learning is considered off-policy because it:",
+      "options": [
+        "Never explores",
+        "Needs a model",
+        "Learns the greedy policy while acting differently",
+        "Uses labels"
+      ],
+      "answer": 2
+    },
+    {
+      "question": "Epsilon-greedy balances:",
+      "options": [
+        "Bias and variance",
+        "Exploration and exploitation",
+        "Speed and memory",
+        "States and actions"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "ai-markov-decision-processes",
+    "ai-ml-in-ai"
+  ]
+}

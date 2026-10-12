@@ -1,0 +1,71 @@
+{
+  "id": "rnn-lstm",
+  "title": "Sequence Models: RNN and LSTM",
+  "category": "Deep Learning",
+  "difficulty": "intermediate",
+  "estimatedTime": "3h",
+  "prerequisites": [
+    "regularization-and-tuning"
+  ],
+  "tags": [
+    "sequence",
+    "lstm",
+    "nlp"
+  ],
+  "overview": "Model sequences with recurrent networks and understand how LSTM gates help long term dependencies.",
+  "objectives": [
+    "Understand recurrent computation",
+    "Explain vanishing gradients",
+    "Use LSTM for sequence tasks"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Recurrence",
+      "body": "Reuse hidden state across time steps."
+    },
+    {
+      "title": "LSTM gates",
+      "body": "Control write, keep, and read operations."
+    },
+    {
+      "title": "Applications",
+      "body": "Apply to text and time sequence modeling."
+    }
+  ],
+  "pseudocode": "for t in sequence:\n    h, c = lstm_cell(x[t], h, c)",
+  "playground": {
+    "language": "python",
+    "starterCode": "import torch, torch.nn as nn\nl = nn.LSTM(input_size=16, hidden_size=32, batch_first=True)\nout, _ = l(torch.randn(4,10,16))\nprint(out.shape)"
+  },
+  "output": {
+    "mockResult": "torch.Size([4, 10, 32])",
+    "visual": "tensor"
+  },
+  "quiz": [
+    {
+      "question": "LSTM is designed to reduce:",
+      "options": [
+        "GPU memory",
+        "Vanishing gradient issues",
+        "Dataset size",
+        "Matrix multiplications"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "RNNs are useful for:",
+      "options": [
+        "Sequences",
+        "Only static tabular data",
+        "Only clustering",
+        "Only PCA"
+      ],
+      "answer": 0
+    }
+  ],
+  "relatedTopicIds": [
+    "transformers",
+    "time-series-forecasting"
+  ]
+}

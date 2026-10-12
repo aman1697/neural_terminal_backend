@@ -1,0 +1,68 @@
+{
+  "id": "capstone-project",
+  "title": "End to End ML Capstone",
+  "category": "Project",
+  "difficulty": "advanced",
+  "estimatedTime": "8h",
+  "prerequisites": [
+    "responsible-ai"
+  ],
+  "tags": [
+    "project",
+    "portfolio",
+    "end-to-end"
+  ],
+  "overview": "Consolidate learning by completing one end to end project from data ingestion to deployment and monitoring.",
+  "objectives": [
+    "Frame a real world ML problem",
+    "Build, compare, and deploy models",
+    "Document results for portfolio"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Scoping",
+      "body": "Define objective, metric, and constraints."
+    },
+    {
+      "title": "Implementation",
+      "body": "Run full data to deployment workflow."
+    },
+    {
+      "title": "Communication",
+      "body": "Publish report with tradeoffs and lessons."
+    }
+  ],
+  "pseudocode": "problem -> data -> features -> models -> evaluation -> deployment -> monitoring",
+  "playground": {
+    "language": "python",
+    "starterCode": "print('build one complete ML project and publish the report')"
+  },
+  "output": {
+    "mockResult": "portfolio_ready_project",
+    "visual": "pipeline"
+  },
+  "quiz": [
+    {
+      "question": "Capstone goal is to:",
+      "options": [
+        "Memorize formulas only",
+        "Ship an end to end ML solution",
+        "Avoid evaluation",
+        "Skip deployment"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "A good capstone report includes:",
+      "options": [
+        "Only code",
+        "Metrics, tradeoffs, and risks",
+        "No assumptions",
+        "No reproducibility"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": []
+}

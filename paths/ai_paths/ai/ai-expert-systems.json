@@ -1,0 +1,75 @@
+{
+  "id": "ai-expert-systems",
+  "title": "Expert Systems and Rule-Based AI",
+  "category": "Knowledge and Reasoning",
+  "difficulty": "beginner",
+  "estimatedTime": "2h",
+  "prerequisites": [
+    "ai-intelligent-agents"
+  ],
+  "tags": [
+    "expert-systems",
+    "rules",
+    "inference"
+  ],
+  "overview": "Learn how knowledge bases of if-then rules and an inference engine capture expert decision making.",
+  "objectives": [
+    "Describe the knowledge base and inference engine",
+    "Contrast forward and backward chaining",
+    "Identify strengths and limits of rule-based systems"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Components",
+      "body": "An expert system separates domain knowledge (rules and facts) from a general inference engine."
+    },
+    {
+      "title": "Forward chaining",
+      "body": "Starts from known facts and fires rules until new conclusions stop appearing."
+    },
+    {
+      "title": "Backward chaining",
+      "body": "Starts from a goal and works back to find facts that would support it."
+    },
+    {
+      "title": "Limits",
+      "body": "Rule bases are costly to build and maintain, are brittle outside their domain, and handle uncertainty poorly without extensions."
+    }
+  ],
+  "pseudocode": "facts = initial_facts\nrepeat:\n    for rule in rules:\n        if rule.conditions <= facts and rule.conclusion not in facts:\n            facts.add(rule.conclusion)\nuntil no new facts",
+  "playground": {
+    "language": "python",
+    "starterCode": "rules = [({'fever','cough'},'flu_suspected'),({'flu_suspected'},'see_doctor')]\nfacts = {'fever','cough'}\nchanged = True\nwhile changed:\n    changed = False\n    for cond, concl in rules:\n        if cond <= facts and concl not in facts:\n            facts.add(concl); changed = True\nprint(sorted(facts))"
+  },
+  "output": {
+    "mockResult": "['cough', 'fever', 'flu_suspected', 'see_doctor']",
+    "visual": "tree"
+  },
+  "quiz": [
+    {
+      "question": "Forward chaining proceeds from:",
+      "options": [
+        "Goal to facts",
+        "Facts to conclusions",
+        "Output to input only",
+        "Random rules"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "A key weakness of classic expert systems is:",
+      "options": [
+        "Brittleness outside their domain",
+        "No explanations possible",
+        "Inability to store rules",
+        "Requiring GPUs"
+      ],
+      "answer": 0
+    }
+  ],
+  "relatedTopicIds": [
+    "ai-logic-knowledge",
+    "ai-what-is-ai"
+  ]
+}

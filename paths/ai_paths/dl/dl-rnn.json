@@ -1,0 +1,76 @@
+{
+  "id": "dl-rnn",
+  "title": "Recurrent Neural Networks",
+  "category": "Sequence Models",
+  "difficulty": "intermediate",
+  "estimatedTime": "3h",
+  "prerequisites": [
+    "dl-mlp-backprop",
+    "dl-regularization"
+  ],
+  "tags": [
+    "rnn",
+    "sequence",
+    "bptt"
+  ],
+  "overview": "Recurrent networks process sequences one step at a time while carrying a hidden state. They share weights across time but struggle with long-range dependencies.",
+  "objectives": [
+    "Unroll an RNN over a sequence",
+    "Explain backpropagation through time",
+    "Recognize vanishing and exploding gradients"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Hidden state",
+      "body": "h_t = tanh(W_x x_t + W_h h_(t-1) + b) summarizes everything seen so far."
+    },
+    {
+      "title": "Weight sharing",
+      "body": "The same parameters are applied at every time step, so sequence length can vary."
+    },
+    {
+      "title": "BPTT",
+      "body": "Gradients are propagated back through the unrolled steps, multiplying by W_h repeatedly."
+    },
+    {
+      "title": "Gradient problems",
+      "body": "Repeated multiplication makes gradients vanish or explode; clipping controls explosions."
+    }
+  ],
+  "pseudocode": "h = zeros(hidden)\nfor x_t in sequence:\n    h = tanh(Wx @ x_t + Wh @ h + b)\n    outputs.append(h)\n# gradient clipping\nif norm(g) > c: g *= c / norm(g)",
+  "playground": {
+    "language": "python",
+    "starterCode": "import numpy as np\nrng = np.random.default_rng(0)\nWx = rng.normal(size=(4, 8)) * 0.3\nWh = rng.normal(size=(8, 8)) * 0.3\nh = np.zeros(8)\nseq = rng.normal(size=(5, 4))\nfor t, x in enumerate(seq):\n    h = np.tanh(x @ Wx + h @ Wh)\n    print(\"step\", t, \"hidden norm\", round(float(np.linalg.norm(h)), 3))"
+  },
+  "output": {
+    "mockResult": "step 0 hidden norm 1.154\nstep 1 hidden norm 1.113\nstep 2 hidden norm 1.436\nstep 3 hidden norm 0.941\nstep 4 hidden norm 1.091",
+    "visual": "line"
+  },
+  "quiz": [
+    {
+      "question": "What is shared across time steps in an RNN?",
+      "options": [
+        "The hidden state",
+        "The inputs",
+        "The gradients",
+        "The weights"
+      ],
+      "answer": 3
+    },
+    {
+      "question": "Gradient clipping mainly addresses:",
+      "options": [
+        "Vanishing gradients",
+        "Exploding gradients",
+        "Overfitting",
+        "Class imbalance"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "dl-lstm-gru",
+    "dl-seq2seq-attention"
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "id": "ai-ethics-governance",
+  "title": "AI Ethics, Fairness and Governance",
+  "category": "Responsible AI",
+  "difficulty": "intermediate",
+  "estimatedTime": "3h",
+  "prerequisites": [
+    "ai-ml-in-ai"
+  ],
+  "tags": [
+    "ethics",
+    "fairness",
+    "governance"
+  ],
+  "overview": "Understand the social impacts of AI, how bias arises, how fairness is measured, and how organizations govern AI use.",
+  "objectives": [
+    "Identify sources of bias in data and models",
+    "Compute simple group fairness metrics",
+    "Describe governance practices such as impact assessments and documentation"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Sources of bias",
+      "body": "Bias can enter through unrepresentative data, label choices, proxy features, and deployment context."
+    },
+    {
+      "title": "Fairness metrics",
+      "body": "Demographic parity compares positive rates across groups; other criteria compare error rates, and they can conflict."
+    },
+    {
+      "title": "Governance",
+      "body": "Practices include risk assessment, model and data documentation, human oversight, auditing, and incident response."
+    },
+    {
+      "title": "Regulation and privacy",
+      "body": "Laws and standards increasingly require transparency, data protection, and risk-based controls for AI uses."
+    }
+  ],
+  "pseudocode": "for group in groups:\n    rate[group] = positives(group) / total(group)\ngap = max(rate.values()) - min(rate.values())\nif gap > tolerance: investigate_and_mitigate()",
+  "playground": {
+    "language": "python",
+    "starterCode": "approved = {'A': [1,1,0,1], 'B': [1,0,0,0]}\nrates = {g: sum(v)/len(v) for g, v in approved.items()}\nprint(rates)\nprint('parity gap:', max(rates.values()) - min(rates.values()))"
+  },
+  "output": {
+    "mockResult": "{'A': 0.75, 'B': 0.25}\nparity gap: 0.5",
+    "visual": "histogram"
+  },
+  "quiz": [
+    {
+      "question": "Demographic parity compares:",
+      "options": [
+        "Model size",
+        "Training loss",
+        "Positive outcome rates across groups",
+        "Token counts"
+      ],
+      "answer": 2
+    },
+    {
+      "question": "Fairness criteria:",
+      "options": [
+        "Are always compatible",
+        "Can sometimes conflict with each other",
+        "Replace governance",
+        "Remove bias fully"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "ai-explainable-ai",
+    "ai-safety-alignment"
+  ]
+}

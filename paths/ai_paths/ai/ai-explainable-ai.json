@@ -1,0 +1,75 @@
+{
+  "id": "ai-explainable-ai",
+  "title": "Explainable AI",
+  "category": "Responsible AI",
+  "difficulty": "intermediate",
+  "estimatedTime": "2h 30m",
+  "prerequisites": [
+    "ai-ml-in-ai"
+  ],
+  "tags": [
+    "xai",
+    "interpretability",
+    "transparency"
+  ],
+  "overview": "Learn why model decisions need explanation and survey methods for interpreting predictions.",
+  "objectives": [
+    "Distinguish interpretable models from post-hoc explanations",
+    "Describe feature importance and local explanations",
+    "Recognize limits of explanation methods"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Why explain",
+      "body": "Explanations support debugging, trust, regulatory compliance, and detecting spurious correlations."
+    },
+    {
+      "title": "Interpretable models",
+      "body": "Linear models and small trees can be read directly, often at some cost in predictive power."
+    },
+    {
+      "title": "Post-hoc methods",
+      "body": "Permutation importance, partial dependence, and local surrogate methods estimate how inputs affect outputs."
+    },
+    {
+      "title": "Caveats",
+      "body": "Explanations can be unstable or misleading and should be validated, not treated as ground truth."
+    }
+  ],
+  "pseudocode": "base = score(model, X, y)\nfor feature in features:\n    Xp = shuffle_column(X, feature)\n    importance[feature] = base - score(model, Xp, y)",
+  "playground": {
+    "language": "python",
+    "starterCode": "import numpy as np\nrng = np.random.default_rng(0)\nX = rng.normal(size=(200, 2))\ny = (X[:,0] > 0).astype(int)\npred = lambda M: (M[:,0] > 0).astype(int)\nbase = (pred(X) == y).mean()\nfor j in range(2):\n    Xp = X.copy(); rng.shuffle(Xp[:,j])\n    print('feature', j, 'accuracy drop:', round(base - (pred(Xp)==y).mean(), 2))"
+  },
+  "output": {
+    "mockResult": "feature 0 accuracy drop: 0.52\nfeature 1 accuracy drop: 0.0",
+    "visual": "bar"
+  },
+  "quiz": [
+    {
+      "question": "Permutation importance measures:",
+      "options": [
+        "Drop in score after shuffling a feature",
+        "Number of parameters",
+        "Training time",
+        "Label noise"
+      ],
+      "answer": 0
+    },
+    {
+      "question": "A drawback of post-hoc explanations is that they may:",
+      "options": [
+        "Always be exact",
+        "Remove bias",
+        "Be unfaithful to the model",
+        "Need no data"
+      ],
+      "answer": 2
+    }
+  ],
+  "relatedTopicIds": [
+    "ai-ethics-governance",
+    "ai-safety-alignment"
+  ]
+}

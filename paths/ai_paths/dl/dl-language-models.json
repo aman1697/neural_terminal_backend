@@ -1,0 +1,75 @@
+{
+  "id": "dl-language-models",
+  "title": "BERT and GPT Style Language Models",
+  "category": "Advanced Architectures",
+  "difficulty": "intermediate",
+  "estimatedTime": "3h 30m",
+  "prerequisites": [
+    "dl-transformers"
+  ],
+  "tags": [
+    "bert",
+    "gpt",
+    "language-model"
+  ],
+  "overview": "Pretrained transformer language models learn from large text corpora. BERT-style encoders predict masked tokens for understanding tasks, while GPT-style decoders predict the next token for generation.",
+  "objectives": [
+    "Contrast masked and causal language modeling",
+    "Explain pretraining followed by fine-tuning or prompting",
+    "Describe tokenization and sampling"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Encoder models",
+      "body": "BERT-style models use bidirectional attention and a masked-token objective, producing contextual embeddings for classification and tagging."
+    },
+    {
+      "title": "Decoder models",
+      "body": "GPT-style models use causal attention and are trained to predict the next token, which also enables text generation."
+    },
+    {
+      "title": "Tokenization",
+      "body": "Subword tokenizers split text into pieces so rare words are still representable."
+    },
+    {
+      "title": "Decoding",
+      "body": "Generation can use greedy, beam search, or sampling with temperature and top-k or top-p."
+    }
+  ],
+  "pseudocode": "# causal LM loss\nlogits = model(tokens[:, :-1])\nloss = cross_entropy(logits, tokens[:, 1:])\n# sampling\np = softmax(logits[-1] / temperature)\nnext = sample(p)",
+  "playground": {
+    "language": "python",
+    "starterCode": "import numpy as np\nlogits = np.array([2.0, 1.0, 0.2, -1.0])\nvocab = [\"the\", \"cat\", \"sat\", \"mat\"]\nfor T in (0.5, 1.0, 2.0):\n    p = np.exp(logits / T); p /= p.sum()\n    print(\"T=%.1f\" % T, dict(zip(vocab, np.round(p, 2).tolist())))"
+  },
+  "output": {
+    "mockResult": "T=0.5 {'the': 0.86, 'cat': 0.12, 'sat': 0.02, 'mat': 0.0}\nT=1.0 {'the': 0.63, 'cat': 0.23, 'sat': 0.1, 'mat': 0.03}\nT=2.0 {'the': 0.45, 'cat': 0.27, 'sat': 0.18, 'mat': 0.1}",
+    "visual": "distribution"
+  },
+  "quiz": [
+    {
+      "question": "Which objective trains a GPT-style model?",
+      "options": [
+        "Predict masked tokens bidirectionally",
+        "Contrast image pairs",
+        "Predict the next token",
+        "Reconstruct pixels"
+      ],
+      "answer": 2
+    },
+    {
+      "question": "Raising the sampling temperature makes the output distribution:",
+      "options": [
+        "Sharper and more deterministic",
+        "Flatter and more random",
+        "Identical to greedy",
+        "Zero for all tokens"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "dl-transformers",
+    "dl-model-compression"
+  ]
+}

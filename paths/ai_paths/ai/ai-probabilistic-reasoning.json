@@ -1,0 +1,85 @@
+{
+  "id": "ai-probabilistic-reasoning",
+  "title": "Probabilistic Reasoning and Bayesian Networks",
+  "category": "Knowledge and Reasoning",
+  "difficulty": "advanced",
+  "estimatedTime": "4h",
+  "prerequisites": [
+    "ai-logic-knowledge"
+  ],
+  "tags": [
+    "bayes",
+    "bayesian-networks",
+    "uncertainty"
+  ],
+  "overview": "Reason under uncertainty using probability, Bayes' rule, and graphical models that encode conditional independence.",
+  "objectives": [
+    "Apply Bayes' rule",
+    "Read a Bayesian network's structure and factorization",
+    "Perform inference by enumeration"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Bayes' rule",
+      "body": "P(H|E) = P(E|H)P(H)/P(E) updates beliefs when evidence arrives."
+    },
+    {
+      "title": "Bayesian networks",
+      "body": "A directed acyclic graph with conditional probability tables factorizes a joint distribution compactly."
+    },
+    {
+      "title": "Conditional independence",
+      "body": "A node is independent of its non-descendants given its parents, which cuts the number of parameters."
+    },
+    {
+      "title": "Inference",
+      "body": "Exact inference uses enumeration or variable elimination, while approximate methods use sampling."
+    }
+  ],
+  "pseudocode": "P(X1..Xn) = prod_i P(Xi | parents(Xi))\ndef query(X, e):\n    dist = {x: sum_hidden(joint(x, e, h)) for x in values(X)}\n    return normalize(dist)",
+  "playground": {
+    "language": "python",
+    "starterCode": "p_d = 0.01; sens = 0.9; fpr = 0.05\np_pos = sens*p_d + fpr*(1-p_d)\nprint(round(sens*p_d/p_pos, 3))"
+  },
+  "output": {
+    "mockResult": "0.154",
+    "visual": "graph"
+  },
+  "quiz": [
+    {
+      "question": "Bayes' rule is used to:",
+      "options": [
+        "Sort data",
+        "Prune game trees",
+        "Update belief given evidence",
+        "Cluster text"
+      ],
+      "answer": 2
+    },
+    {
+      "question": "A Bayesian network is:",
+      "options": [
+        "An undirected cycle graph",
+        "A DAG with conditional probability tables",
+        "A neural net only",
+        "A rule list"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "Why is a positive test for a rare disease often still unlikely to mean disease?",
+      "options": [
+        "Tests are random",
+        "Bayes fails",
+        "Sensitivity is zero",
+        "The prior probability is low"
+      ],
+      "answer": 3
+    }
+  ],
+  "relatedTopicIds": [
+    "ai-markov-decision-processes",
+    "ai-ml-in-ai"
+  ]
+}

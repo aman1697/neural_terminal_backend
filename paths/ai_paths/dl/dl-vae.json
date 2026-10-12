@@ -1,0 +1,75 @@
+{
+  "id": "dl-vae",
+  "title": "Variational Autoencoders",
+  "category": "Generative Models",
+  "difficulty": "advanced",
+  "estimatedTime": "3h",
+  "prerequisites": [
+    "dl-autoencoders"
+  ],
+  "tags": [
+    "vae",
+    "latent",
+    "generative"
+  ],
+  "overview": "A VAE learns a probabilistic latent space: the encoder outputs a distribution rather than a point. Sampling from the prior then lets the decoder generate new data.",
+  "objectives": [
+    "Explain the ELBO with its reconstruction and KL terms",
+    "Use the reparameterization trick",
+    "Generate samples from the latent prior"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Probabilistic encoder",
+      "body": "The encoder outputs a mean and log-variance defining a Gaussian q(z|x)."
+    },
+    {
+      "title": "Reparameterization",
+      "body": "Sample z = mu + sigma * eps with eps ~ N(0, I) so gradients flow through the sampling step."
+    },
+    {
+      "title": "ELBO",
+      "body": "The loss combines reconstruction error with KL(q(z|x) || N(0, I)), which regularizes the latent space."
+    },
+    {
+      "title": "Generation",
+      "body": "Draw z from N(0, I) and decode it to produce a new sample."
+    }
+  ],
+  "pseudocode": "mu, logvar = encoder(x)\neps = randn_like(mu)\nz = mu + exp(0.5*logvar) * eps\nrecon = decoder(z)\nkl = -0.5 * sum(1 + logvar - mu**2 - exp(logvar))\nloss = recon_loss(recon, x) + kl",
+  "playground": {
+    "language": "python",
+    "starterCode": "import numpy as np\nmu = np.array([0.5, -1.0]); logvar = np.array([0.0, -2.0])\nkl = -0.5 * np.sum(1 + logvar - mu ** 2 - np.exp(logvar))\nprint(\"KL to N(0, I):\", round(float(kl), 4))\nrng = np.random.default_rng(0)\neps = rng.normal(size=(5000, 2))\nz = mu + np.exp(0.5 * logvar) * eps\nprint(\"sample mean:\", np.round(z.mean(0), 2))\nprint(\"sample std: \", np.round(z.std(0), 2))"
+  },
+  "output": {
+    "mockResult": "KL to N(0, I): 1.1927\nsample mean: [ 0.51 -1.  ]\nsample std:  [1.01 0.36]",
+    "visual": "distribution"
+  },
+  "quiz": [
+    {
+      "question": "The reparameterization trick lets us:",
+      "options": [
+        "Skip the decoder",
+        "Avoid the KL term",
+        "Backpropagate through sampling",
+        "Use larger batches"
+      ],
+      "answer": 2
+    },
+    {
+      "question": "The KL term in the VAE loss pushes q(z|x) toward:",
+      "options": [
+        "A one-hot vector",
+        "The data distribution",
+        "Zero variance",
+        "The prior N(0, I)"
+      ],
+      "answer": 3
+    }
+  ],
+  "relatedTopicIds": [
+    "dl-autoencoders",
+    "dl-gans"
+  ]
+}

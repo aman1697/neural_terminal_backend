@@ -1,0 +1,71 @@
+{
+  "id": "unsupervised-learning",
+  "title": "Unsupervised Learning",
+  "category": "Core ML",
+  "difficulty": "intermediate",
+  "estimatedTime": "3h",
+  "prerequisites": [
+    "model-evaluation"
+  ],
+  "tags": [
+    "clustering",
+    "kmeans",
+    "anomaly-detection"
+  ],
+  "overview": "Learn pattern discovery without labels using clustering, density methods, and anomaly detection.",
+  "objectives": [
+    "Apply k means and hierarchical clustering",
+    "Evaluate cluster quality",
+    "Use unsupervised methods for exploration"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "K means",
+      "body": "Partition points by nearest centroid."
+    },
+    {
+      "title": "Hierarchical",
+      "body": "Build nested grouping structure."
+    },
+    {
+      "title": "Anomaly detection",
+      "body": "Detect unusual samples without explicit labels."
+    }
+  ],
+  "pseudocode": "centroids = init()\nrepeat:\n    assign_points()\n    recompute_centroids()",
+  "playground": {
+    "language": "python",
+    "starterCode": "from sklearn.cluster import KMeans\nX = [[1,1],[1,2],[8,8],[9,8]]\nprint(KMeans(n_clusters=2, random_state=0).fit_predict(X))"
+  },
+  "output": {
+    "mockResult": "[1 1 0 0]",
+    "visual": "scatter"
+  },
+  "quiz": [
+    {
+      "question": "Unsupervised learning usually has:",
+      "options": [
+        "No labels",
+        "Only labels",
+        "Only images",
+        "Only time series"
+      ],
+      "answer": 0
+    },
+    {
+      "question": "K means optimizes:",
+      "options": [
+        "Cross entropy",
+        "Within cluster distance",
+        "Language fluency",
+        "Token count"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "dimensionality-reduction",
+    "time-series-forecasting"
+  ]
+}

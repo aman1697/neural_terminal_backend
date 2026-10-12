@@ -80,7 +80,7 @@ async def delete_me(
 		raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Password is incorrect")
 
 	user_id = str(user.id)
-	for table in ("notes", "bookmarks", "progress"):
+	for table in ("notes", "bookmarks", "progress", "practice_progress"):
 		await db.execute(f"DELETE FROM {table} WHERE user_id = ?", [user_id])
 	await db.execute("DELETE FROM users WHERE id = ?", [user_id])
 

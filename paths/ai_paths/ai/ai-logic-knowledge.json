@@ -1,0 +1,75 @@
+{
+  "id": "ai-logic-knowledge",
+  "title": "Logic and Knowledge Representation",
+  "category": "Knowledge and Reasoning",
+  "difficulty": "intermediate",
+  "estimatedTime": "3h 30m",
+  "prerequisites": [
+    "ai-expert-systems"
+  ],
+  "tags": [
+    "logic",
+    "propositional",
+    "first-order"
+  ],
+  "overview": "Represent facts about the world in formal logic and derive new conclusions through inference.",
+  "objectives": [
+    "Distinguish propositional and first-order logic",
+    "Explain entailment, soundness, and completeness",
+    "Apply resolution or model checking to small knowledge bases"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Propositional logic",
+      "body": "Statements are true or false and combine with AND, OR, NOT, and implication."
+    },
+    {
+      "title": "First-order logic",
+      "body": "Adds objects, predicates, and quantifiers, enabling statements like 'all humans are mortal'."
+    },
+    {
+      "title": "Entailment and inference",
+      "body": "KB entails a sentence if it is true in every model of KB; sound inference procedures only derive entailed sentences."
+    },
+    {
+      "title": "Knowledge representation",
+      "body": "Ontologies, semantic networks, and knowledge graphs organize concepts and relationships for reasoning."
+    }
+  ],
+  "pseudocode": "def entails(KB, query, symbols):\n    for model in all_models(symbols):\n        if satisfies(model, KB) and not satisfies(model, query):\n            return False\n    return True",
+  "playground": {
+    "language": "python",
+    "starterCode": "from itertools import product\ndef entails():\n    for p, q in product([False, True], repeat=2):\n        kb = (not p or q) and p\n        if kb and not q: return False\n    return True\nprint('KB {P->Q, P} entails Q:', entails())"
+  },
+  "output": {
+    "mockResult": "KB {P->Q, P} entails Q: True",
+    "visual": "table"
+  },
+  "quiz": [
+    {
+      "question": "Sound inference only derives sentences that are:",
+      "options": [
+        "Entailed by the KB",
+        "Short",
+        "Quantified",
+        "Probable"
+      ],
+      "answer": 0
+    },
+    {
+      "question": "First-order logic adds to propositional logic:",
+      "options": [
+        "Probabilities",
+        "Gradients",
+        "Objects and quantifiers",
+        "Rewards"
+      ],
+      "answer": 2
+    }
+  ],
+  "relatedTopicIds": [
+    "ai-expert-systems",
+    "ai-probabilistic-reasoning"
+  ]
+}

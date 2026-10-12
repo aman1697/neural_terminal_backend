@@ -1,0 +1,75 @@
+{
+  "id": "ai-adversarial-search",
+  "title": "Adversarial Search and Game Playing",
+  "category": "Search and Planning",
+  "difficulty": "intermediate",
+  "estimatedTime": "3h",
+  "prerequisites": [
+    "ai-informed-search"
+  ],
+  "tags": [
+    "minimax",
+    "alpha-beta",
+    "games"
+  ],
+  "overview": "Choose moves in competitive two-player games by searching game trees under the assumption of an optimal opponent.",
+  "objectives": [
+    "Compute minimax values on a game tree",
+    "Apply alpha-beta pruning",
+    "Use evaluation functions and depth limits"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Minimax",
+      "body": "MAX picks the child with the highest value and MIN picks the lowest, so values propagate up from terminal states."
+    },
+    {
+      "title": "Alpha-beta pruning",
+      "body": "Skips branches that cannot affect the final decision, returning the same value as minimax with fewer nodes."
+    },
+    {
+      "title": "Evaluation functions",
+      "body": "When the tree is too deep, search stops at a depth limit and estimates positions heuristically."
+    },
+    {
+      "title": "Beyond minimax",
+      "body": "Monte Carlo tree search samples playouts and is used in very large games."
+    }
+  ],
+  "pseudocode": "def minimax(s, maximizing):\n    if terminal(s): return utility(s)\n    vals = [minimax(c, not maximizing) for c in children(s)]\n    return max(vals) if maximizing else min(vals)",
+  "playground": {
+    "language": "python",
+    "starterCode": "tree = [[3,12],[2,4],[14,1]]\nvals = [min(branch) for branch in tree]\nprint('MIN values:', vals)\nprint('MAX picks:', max(vals))"
+  },
+  "output": {
+    "mockResult": "MIN values: [3, 2, 1]\nMAX picks: 3",
+    "visual": "tree"
+  },
+  "quiz": [
+    {
+      "question": "In minimax, the MIN player:",
+      "options": [
+        "Maximizes own value",
+        "Minimizes the MAX player's outcome",
+        "Picks randomly",
+        "Skips moves"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "Alpha-beta pruning changes the minimax result:",
+      "options": [
+        "Always",
+        "Never; it only saves work",
+        "Only in draws",
+        "Only for MIN"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "ai-local-search",
+    "ai-constraint-satisfaction"
+  ]
+}

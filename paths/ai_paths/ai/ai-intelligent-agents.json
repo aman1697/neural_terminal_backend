@@ -1,0 +1,85 @@
+{
+  "id": "ai-intelligent-agents",
+  "title": "Intelligent Agents and Environments",
+  "category": "Foundations",
+  "difficulty": "beginner",
+  "estimatedTime": "2h",
+  "prerequisites": [
+    "ai-what-is-ai"
+  ],
+  "tags": [
+    "agents",
+    "environments",
+    "rationality"
+  ],
+  "overview": "Model an AI system as an agent that perceives an environment through sensors and acts through actuators to maximize a performance measure.",
+  "objectives": [
+    "Describe the percept-action loop",
+    "Classify environments (observable, deterministic, episodic, static, discrete)",
+    "Compare reflex, model-based, goal-based, and utility-based agents"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Percepts and actions",
+      "body": "An agent maps its percept history to an action; the agent program implements this mapping."
+    },
+    {
+      "title": "Rationality",
+      "body": "A rational agent chooses the action expected to maximize its performance measure given its knowledge and percepts."
+    },
+    {
+      "title": "Environment properties",
+      "body": "Properties such as partial observability or stochasticity determine how hard the design problem is."
+    },
+    {
+      "title": "Agent types",
+      "body": "Simple reflex agents use condition-action rules, while goal and utility agents reason about future outcomes."
+    }
+  ],
+  "pseudocode": "loop:\n    percept = sense(environment)\n    state = update_state(state, action, percept)\n    action = choose(state, rules_or_goals)\n    act(environment, action)",
+  "playground": {
+    "language": "python",
+    "starterCode": "def reflex_vacuum(percept):\n    location, status = percept\n    if status == 'dirty':\n        return 'suck'\n    return 'right' if location == 'A' else 'left'\n\nfor p in [('A','dirty'),('A','clean'),('B','clean')]:\n    print(p, '->', reflex_vacuum(p))"
+  },
+  "output": {
+    "mockResult": "('A', 'dirty') -> suck\n('A', 'clean') -> right\n('B', 'clean') -> left",
+    "visual": "pipeline"
+  },
+  "quiz": [
+    {
+      "question": "A thermostat that reacts only to the current temperature is best a:",
+      "options": [
+        "Utility-based agent",
+        "Simple reflex agent",
+        "Learning agent",
+        "Goal-based planner"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "An environment where the agent cannot see the full state is:",
+      "options": [
+        "Fully observable",
+        "Deterministic",
+        "Partially observable",
+        "Episodic"
+      ],
+      "answer": 2
+    },
+    {
+      "question": "A rational agent maximizes:",
+      "options": [
+        "Its computation speed",
+        "Expected performance measure",
+        "The number of rules",
+        "Human likeness"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "ai-what-is-ai",
+    "ai-problem-solving-search"
+  ]
+}

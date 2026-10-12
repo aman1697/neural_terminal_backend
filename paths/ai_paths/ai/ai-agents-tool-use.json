@@ -1,0 +1,75 @@
+{
+  "id": "ai-agents-tool-use",
+  "title": "AI Agents and Tool Use",
+  "category": "Modern AI",
+  "difficulty": "advanced",
+  "estimatedTime": "3h",
+  "prerequisites": [
+    "ai-llm-basics"
+  ],
+  "tags": [
+    "agents",
+    "tool-use",
+    "llm"
+  ],
+  "overview": "Build LLM-driven agents that plan, call external tools, observe results, and iterate toward a goal.",
+  "objectives": [
+    "Describe the reason-act-observe loop",
+    "Define tools with clear schemas",
+    "Add guardrails and stopping conditions"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Agent loop",
+      "body": "The model proposes an action, the system executes a tool, and the observation is fed back until the task is done."
+    },
+    {
+      "title": "Tool definitions",
+      "body": "Each tool has a name, description, and typed arguments so the model can request it reliably."
+    },
+    {
+      "title": "Memory and planning",
+      "body": "Agents keep context across steps and may decompose a goal into sub-tasks."
+    },
+    {
+      "title": "Safeguards",
+      "body": "Step limits, argument validation, permission checks, and human approval for risky actions limit damage from errors."
+    }
+  ],
+  "pseudocode": "history = [goal]\nfor step in range(MAX_STEPS):\n    action = llm(history, tools)\n    if action.type == 'final': return action.answer\n    result = run_tool(action.name, action.args)\n    history.append(result)",
+  "playground": {
+    "language": "python",
+    "starterCode": "tools = {'add': lambda a, b: a + b, 'mul': lambda a, b: a * b}\nplan = [('add', 2, 3), ('mul', 5, 4)]\nresult = None\nfor name, *args in plan:\n    result = tools[name](*args)\n    print(name, args, '->', result)"
+  },
+  "output": {
+    "mockResult": "add [2, 3] -> 5\nmul [5, 4] -> 20",
+    "visual": "pipeline"
+  },
+  "quiz": [
+    {
+      "question": "In an agent loop, tool results are:",
+      "options": [
+        "Discarded",
+        "Used to retrain weights",
+        "Fed back as observations",
+        "Hidden from the model"
+      ],
+      "answer": 2
+    },
+    {
+      "question": "A sensible safeguard is:",
+      "options": [
+        "Unlimited steps",
+        "Argument validation and step limits",
+        "Disabling logs",
+        "Auto-approving all actions"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "ai-llm-basics",
+    "ai-multi-agent-systems"
+  ]
+}

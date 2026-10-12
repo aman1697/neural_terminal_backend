@@ -1,0 +1,71 @@
+{
+  "id": "responsible-ai",
+  "title": "Responsible AI and Ethics",
+  "category": "Production",
+  "difficulty": "intermediate",
+  "estimatedTime": "2h",
+  "prerequisites": [
+    "mlops-basics"
+  ],
+  "tags": [
+    "fairness",
+    "bias",
+    "privacy",
+    "explainability"
+  ],
+  "overview": "Build safe and trustworthy systems by evaluating fairness, robustness, privacy, and explainability.",
+  "objectives": [
+    "Identify common bias sources",
+    "Apply fairness and privacy checks",
+    "Communicate model limitations clearly"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Bias analysis",
+      "body": "Measure performance across groups."
+    },
+    {
+      "title": "Privacy",
+      "body": "Protect sensitive data in training and serving."
+    },
+    {
+      "title": "Explainability",
+      "body": "Provide human interpretable model insights."
+    }
+  ],
+  "pseudocode": "for group in groups:\n    report_metric(group)",
+  "playground": {
+    "language": "python",
+    "starterCode": "print('compare precision/recall across demographic groups')"
+  },
+  "output": {
+    "mockResult": "group_metrics_report",
+    "visual": "table"
+  },
+  "quiz": [
+    {
+      "question": "Fairness checks should be done:",
+      "options": [
+        "Only after incident",
+        "Throughout lifecycle",
+        "Never",
+        "Only in research"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "Explainability helps with:",
+      "options": [
+        "Trust and debugging",
+        "Data corruption",
+        "Faster disks",
+        "Shorter tokens"
+      ],
+      "answer": 0
+    }
+  ],
+  "relatedTopicIds": [
+    "capstone-project"
+  ]
+}

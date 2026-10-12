@@ -1,0 +1,71 @@
+{
+  "id": "data-preprocessing",
+  "title": "Data Collection and Preprocessing",
+  "category": "Fundamentals",
+  "difficulty": "beginner",
+  "estimatedTime": "3h 30m",
+  "prerequisites": [
+    "statistics-probability"
+  ],
+  "tags": [
+    "cleaning",
+    "missing-values",
+    "scaling"
+  ],
+  "overview": "Prepare real world data by cleaning records, handling missing values, encoding categories, and scaling numeric features.",
+  "objectives": [
+    "Clean and validate raw data",
+    "Prevent leakage during preprocessing",
+    "Build repeatable data pipelines"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Cleaning",
+      "body": "Handle duplicates, nulls, and invalid values."
+    },
+    {
+      "title": "Transforms",
+      "body": "Encode and scale features consistently."
+    },
+    {
+      "title": "Split discipline",
+      "body": "Fit preprocessors on train set only."
+    }
+  ],
+  "pseudocode": "X_train, X_test = split(X)\nscaler.fit(X_train)\nX_train = scaler.transform(X_train)\nX_test = scaler.transform(X_test)",
+  "playground": {
+    "language": "python",
+    "starterCode": "from sklearn.preprocessing import StandardScaler\nX = [[1,2],[3,4],[5,6]]\nprint(StandardScaler().fit_transform(X))"
+  },
+  "output": {
+    "mockResult": "scaled_matrix",
+    "visual": "table"
+  },
+  "quiz": [
+    {
+      "question": "To avoid leakage, fit scaler on:",
+      "options": [
+        "All data",
+        "Train only",
+        "Test only",
+        "Validation only"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "One hot encoding handles:",
+      "options": [
+        "Images",
+        "Text only",
+        "Categorical columns",
+        "Outliers"
+      ],
+      "answer": 2
+    }
+  ],
+  "relatedTopicIds": [
+    "feature-engineering",
+    "exploratory-data-analysis"
+  ]
+}

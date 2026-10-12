@@ -1,0 +1,76 @@
+{
+  "id": "dl-self-supervised-learning",
+  "title": "Self-Supervised and Contrastive Learning",
+  "category": "Advanced Architectures",
+  "difficulty": "advanced",
+  "estimatedTime": "3h",
+  "prerequisites": [
+    "dl-cnn-architectures",
+    "dl-autoencoders"
+  ],
+  "tags": [
+    "self-supervised",
+    "contrastive",
+    "representation"
+  ],
+  "overview": "Self-supervised learning builds training signals from the data itself, so large unlabeled datasets can teach useful representations. Contrastive methods pull together views of the same example and push apart others.",
+  "objectives": [
+    "Explain pretext tasks and why they need no labels",
+    "Compute an InfoNCE style contrastive loss",
+    "Evaluate representations with linear probes"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Pretext tasks",
+      "body": "Masked prediction, next-token prediction and augmentation matching create supervision without human labels."
+    },
+    {
+      "title": "Contrastive loss",
+      "body": "Two augmented views of one image form a positive pair; other images in the batch act as negatives."
+    },
+    {
+      "title": "InfoNCE",
+      "body": "A softmax over similarities encourages the positive pair to score higher than all negatives, usually with a temperature."
+    },
+    {
+      "title": "Evaluation",
+      "body": "Freeze the encoder and train a linear classifier (linear probe) to measure representation quality."
+    }
+  ],
+  "pseudocode": "za, zb = normalize(f(aug1(x))), normalize(f(aug2(x)))\nsim = za @ zb.T / tau\nloss = cross_entropy(sim, arange(B))",
+  "playground": {
+    "language": "python",
+    "starterCode": "import numpy as np\nrng = np.random.default_rng(0)\nza = rng.normal(size=(4, 8)); zb = za + 0.1 * rng.normal(size=(4, 8))  # second view\nza /= np.linalg.norm(za, axis=1, keepdims=True)\nzb /= np.linalg.norm(zb, axis=1, keepdims=True)\nsim = za @ zb.T / 0.1\nlogp = sim - np.log(np.exp(sim).sum(1, keepdims=True))\nloss = -np.mean(np.diag(logp))\nprint(\"positive pair similarity:\", np.round(np.diag(za @ zb.T), 2))\nprint(\"InfoNCE loss:\", round(float(loss), 4))"
+  },
+  "output": {
+    "mockResult": "positive pair similarity: [1.   0.99 0.99 0.99]\nInfoNCE loss: 0.0008",
+    "visual": "matrix"
+  },
+  "quiz": [
+    {
+      "question": "In contrastive learning, a positive pair is:",
+      "options": [
+        "Two different classes",
+        "An image and its label",
+        "Two views of the same example",
+        "Two random noise vectors"
+      ],
+      "answer": 2
+    },
+    {
+      "question": "A linear probe evaluates:",
+      "options": [
+        "Training speed",
+        "Memory use",
+        "Label noise",
+        "Frozen representation quality"
+      ],
+      "answer": 3
+    }
+  ],
+  "relatedTopicIds": [
+    "dl-autoencoders",
+    "dl-transfer-learning"
+  ]
+}

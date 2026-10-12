@@ -1,0 +1,76 @@
+{
+  "id": "ai-multi-agent-systems",
+  "title": "Multi-Agent Systems",
+  "category": "Modern AI",
+  "difficulty": "advanced",
+  "estimatedTime": "3h",
+  "prerequisites": [
+    "ai-agents-tool-use",
+    "ai-reinforcement-learning"
+  ],
+  "tags": [
+    "multi-agent",
+    "coordination",
+    "game-theory"
+  ],
+  "overview": "Study settings where several agents interact, cooperating, competing, or negotiating.",
+  "objectives": [
+    "Differentiate cooperative, competitive, and mixed settings",
+    "Use Nash equilibrium on a simple game",
+    "Describe coordination patterns for LLM-based agent teams"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Interaction types",
+      "body": "Agents may share goals, have opposing goals, or a mix, which changes how they should reason about each other."
+    },
+    {
+      "title": "Game theory",
+      "body": "A Nash equilibrium is a joint strategy where no agent gains by changing only its own choice."
+    },
+    {
+      "title": "Coordination",
+      "body": "Communication protocols, role assignment, and auctions distribute work among agents."
+    },
+    {
+      "title": "Challenges",
+      "body": "Non-stationary environments, credit assignment, and emergent behaviors make multi-agent learning difficult."
+    }
+  ],
+  "pseudocode": "for round in range(R):\n    actions = [agent.act(obs[i]) for i, agent in enumerate(agents)]\n    obs, rewards = env.step(actions)\n    for agent, r in zip(agents, rewards): agent.learn(r)",
+  "playground": {
+    "language": "python",
+    "starterCode": "# Prisoner's dilemma payoffs (row, col); C=cooperate, D=defect\npay = {('C','C'):(3,3),('C','D'):(0,5),('D','C'):(5,0),('D','D'):(1,1)}\nfor a in 'CD':\n    for b in 'CD':\n        ra = all(pay[(a,b)][0] >= pay[(x,b)][0] for x in 'CD')\n        cb = all(pay[(a,b)][1] >= pay[(a,y)][1] for y in 'CD')\n        if ra and cb: print('Nash equilibrium:', a, b)"
+  },
+  "output": {
+    "mockResult": "Nash equilibrium: D D",
+    "visual": "matrix"
+  },
+  "quiz": [
+    {
+      "question": "A Nash equilibrium means:",
+      "options": [
+        "All agents win equally",
+        "Rewards are zero",
+        "Agents share memory",
+        "No agent benefits from a unilateral change"
+      ],
+      "answer": 3
+    },
+    {
+      "question": "A common difficulty in multi-agent learning is:",
+      "options": [
+        "Non-stationary environments",
+        "Too few agents always",
+        "No rewards ever",
+        "Fixed policies"
+      ],
+      "answer": 0
+    }
+  ],
+  "relatedTopicIds": [
+    "ai-agents-tool-use",
+    "ai-reinforcement-learning"
+  ]
+}

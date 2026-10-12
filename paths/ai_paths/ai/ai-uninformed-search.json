@@ -1,0 +1,85 @@
+{
+  "id": "ai-uninformed-search",
+  "title": "Uninformed Search: BFS, DFS, UCS",
+  "category": "Search and Planning",
+  "difficulty": "beginner",
+  "estimatedTime": "2h 30m",
+  "prerequisites": [
+    "ai-problem-solving-search"
+  ],
+  "tags": [
+    "bfs",
+    "dfs",
+    "ucs"
+  ],
+  "overview": "Study search strategies that use only the problem definition, without any estimate of distance to the goal.",
+  "objectives": [
+    "Implement breadth-first and depth-first search",
+    "Explain uniform-cost search for weighted graphs",
+    "Compare memory use and optimality of each strategy"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Breadth-first",
+      "body": "Uses a FIFO queue and expands the shallowest node first; it finds the fewest-step solution but may use lots of memory."
+    },
+    {
+      "title": "Depth-first",
+      "body": "Uses a stack and goes deep first; it needs little memory but is not complete on infinite or cyclic spaces without checks."
+    },
+    {
+      "title": "Uniform-cost",
+      "body": "Expands the node with the lowest path cost using a priority queue, giving optimal solutions for nonnegative costs."
+    },
+    {
+      "title": "Iterative deepening",
+      "body": "Repeats depth-limited DFS with increasing limits to combine low memory with BFS-like completeness."
+    }
+  ],
+  "pseudocode": "BFS: frontier = queue([start])\nDFS: frontier = stack([start])\nUCS: frontier = priority_queue(key=path_cost)\nwhile frontier:\n    n = frontier.pop()\n    if goal(n): return n",
+  "playground": {
+    "language": "python",
+    "starterCode": "from collections import deque\ngraph = {'A':['B','C'],'B':['D'],'C':['D','E'],'D':['F'],'E':['F'],'F':[]}\ndef bfs(start, goal):\n    q = deque([[start]]); seen = {start}\n    while q:\n        path = q.popleft()\n        if path[-1] == goal: return path\n        for n in graph[path[-1]]:\n            if n not in seen:\n                seen.add(n); q.append(path + [n])\nprint(bfs('A','F'))"
+  },
+  "output": {
+    "mockResult": "['A', 'B', 'D', 'F']",
+    "visual": "tree"
+  },
+  "quiz": [
+    {
+      "question": "Which strategy guarantees the fewest steps with unit costs?",
+      "options": [
+        "Depth-first search",
+        "Breadth-first search",
+        "Greedy search",
+        "Hill climbing"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "Uniform-cost search orders the frontier by:",
+      "options": [
+        "Depth",
+        "Heuristic value",
+        "Path cost so far",
+        "Alphabet"
+      ],
+      "answer": 2
+    },
+    {
+      "question": "DFS is attractive mainly because it:",
+      "options": [
+        "Is always optimal",
+        "Uses little memory",
+        "Never loops",
+        "Needs a heuristic"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "ai-informed-search",
+    "ai-problem-solving-search"
+  ]
+}

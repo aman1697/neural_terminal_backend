@@ -1,0 +1,73 @@
+{
+  "id": "linear-regression",
+  "title": "Linear Regression",
+  "category": "Supervised Learning",
+  "difficulty": "beginner",
+  "estimatedTime": "2h 30m",
+  "prerequisites": [
+    "feature-engineering"
+  ],
+  "tags": [
+    "regression",
+    "mse",
+    "baseline"
+  ],
+  "overview": "Start supervised learning with linear regression for continuous prediction tasks.",
+  "objectives": [
+    "Fit and interpret a regression model",
+    "Understand MSE loss",
+    "Use regularized linear models"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Model equation",
+      "body": "Predict target as weighted feature sum.",
+      "equation": "y_hat = w^T x + b"
+    },
+    {
+      "title": "Loss",
+      "body": "Minimize squared residual errors.",
+      "equation": "L = mean((y - y_hat)^2)"
+    },
+    {
+      "title": "Regularization",
+      "body": "Apply ridge or lasso when needed."
+    }
+  ],
+  "pseudocode": "model.fit(X_train, y_train)\ny_pred = model.predict(X_test)",
+  "playground": {
+    "language": "python",
+    "starterCode": "from sklearn.linear_model import LinearRegression\nX = [[1],[2],[3]]\ny = [2,4,6]\nprint(LinearRegression().fit(X,y).coef_)"
+  },
+  "output": {
+    "mockResult": "[2.]",
+    "visual": "line"
+  },
+  "quiz": [
+    {
+      "question": "Linear regression predicts:",
+      "options": [
+        "Categories",
+        "Continuous values",
+        "Clusters",
+        "Embeddings only"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "Ridge adds:",
+      "options": [
+        "L1 penalty",
+        "L2 penalty",
+        "No penalty",
+        "Dropout"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "logistic-regression",
+    "model-evaluation"
+  ]
+}

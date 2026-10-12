@@ -1,0 +1,72 @@
+{
+  "id": "transformers",
+  "title": "Attention and Transformers",
+  "category": "Deep Learning",
+  "difficulty": "advanced",
+  "estimatedTime": "4h",
+  "prerequisites": [
+    "rnn-lstm",
+    "cnn"
+  ],
+  "tags": [
+    "attention",
+    "transformer",
+    "llm"
+  ],
+  "overview": "Study modern sequence modeling with attention and transformer blocks used in language and multimodal models.",
+  "objectives": [
+    "Compute scaled dot product attention",
+    "Explain multi head attention",
+    "Understand masking and positional encoding"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "QKV projections",
+      "body": "Project embeddings to query, key, value."
+    },
+    {
+      "title": "Self attention",
+      "body": "Let each token attend to all others."
+    },
+    {
+      "title": "Transformer block",
+      "body": "Stack attention and feed forward with residuals."
+    }
+  ],
+  "pseudocode": "scores = Q @ K.T / sqrt(dk)\nweights = softmax(scores)\nout = weights @ V",
+  "playground": {
+    "language": "python",
+    "starterCode": "import torch\nq = torch.randn(4,8)\nk = torch.randn(4,8)\nprint((q @ k.T).shape)"
+  },
+  "output": {
+    "mockResult": "torch.Size([4, 4])",
+    "visual": "heatmap"
+  },
+  "quiz": [
+    {
+      "question": "Attention weights per row after softmax sum to:",
+      "options": [
+        "0",
+        "1",
+        "d_k",
+        "n^2"
+      ],
+      "answer": 1
+    },
+    {
+      "question": "Transformers replaced much of:",
+      "options": [
+        "Attention",
+        "Recurrence",
+        "Optimization",
+        "Embeddings"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "generative-models",
+    "rlhf"
+  ]
+}

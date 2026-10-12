@@ -1,0 +1,85 @@
+{
+  "id": "ai-informed-search",
+  "title": "Informed Search: Heuristics and A*",
+  "category": "Search and Planning",
+  "difficulty": "intermediate",
+  "estimatedTime": "3h",
+  "prerequisites": [
+    "ai-uninformed-search"
+  ],
+  "tags": [
+    "a-star",
+    "heuristics",
+    "greedy"
+  ],
+  "overview": "Use heuristic estimates of remaining cost to guide search toward the goal efficiently.",
+  "objectives": [
+    "Explain greedy best-first search and its weaknesses",
+    "Use f(n)=g(n)+h(n) in A*",
+    "Define admissible and consistent heuristics"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Heuristic function",
+      "body": "h(n) estimates the cost from node n to the nearest goal, injecting domain knowledge into search."
+    },
+    {
+      "title": "Greedy best-first",
+      "body": "Orders by h(n) alone; it is fast but neither complete in general nor optimal."
+    },
+    {
+      "title": "A* search",
+      "body": "Orders by g(n)+h(n), balancing cost so far with estimated cost to go."
+    },
+    {
+      "title": "Optimality",
+      "body": "A* returns an optimal solution when h is admissible (never overestimates), and with a graph-search explored set when h is also consistent."
+    }
+  ],
+  "pseudocode": "frontier = priority_queue([(h(start), start)])\ng = {start: 0}\nwhile frontier:\n    f, n = frontier.pop_min()\n    if goal(n): return path(n)\n    for m, c in neighbors(n):\n        if g[n] + c < g.get(m, inf):\n            g[m] = g[n] + c\n            frontier.push((g[m] + h(m), m))",
+  "playground": {
+    "language": "python",
+    "starterCode": "import heapq\ngrid = ['..#.', '..#.', '....']\ndef h(p, g): return abs(p[0]-g[0]) + abs(p[1]-g[1])\ndef astar(s, g):\n    pq = [(h(s,g), 0, s)]; best = {s: 0}\n    while pq:\n        f, c, p = heapq.heappop(pq)\n        if p == g: return c\n        for d in [(0,1),(1,0),(0,-1),(-1,0)]:\n            q = (p[0]+d[0], p[1]+d[1])\n            if 0<=q[0]<3 and 0<=q[1]<4 and grid[q[0]][q[1]]=='.' and c+1 < best.get(q, 99):\n                best[q] = c+1; heapq.heappush(pq, (c+1+h(q,g), c+1, q))\nprint('shortest path cost:', astar((0,0),(0,3)))"
+  },
+  "output": {
+    "mockResult": "shortest path cost: 7",
+    "visual": "grid"
+  },
+  "quiz": [
+    {
+      "question": "An admissible heuristic:",
+      "options": [
+        "Never overestimates true cost",
+        "Always equals true cost",
+        "Ignores the goal",
+        "Is always zero"
+      ],
+      "answer": 0
+    },
+    {
+      "question": "A* orders nodes by:",
+      "options": [
+        "h(n)",
+        "g(n)",
+        "g(n)+h(n)",
+        "Depth only"
+      ],
+      "answer": 2
+    },
+    {
+      "question": "Greedy best-first search is:",
+      "options": [
+        "Always optimal",
+        "Fast but possibly suboptimal",
+        "Always slower than BFS",
+        "Uninformed"
+      ],
+      "answer": 1
+    }
+  ],
+  "relatedTopicIds": [
+    "ai-uninformed-search",
+    "ai-local-search"
+  ]
+}

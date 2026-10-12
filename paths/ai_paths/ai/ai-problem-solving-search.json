@@ -1,0 +1,75 @@
+{
+  "id": "ai-problem-solving-search",
+  "title": "Problem Solving as Search",
+  "category": "Search and Planning",
+  "difficulty": "beginner",
+  "estimatedTime": "2h",
+  "prerequisites": [
+    "ai-intelligent-agents"
+  ],
+  "tags": [
+    "search",
+    "state-space",
+    "formulation"
+  ],
+  "overview": "Formulate tasks as search problems with states, actions, transition models, goal tests, and path costs.",
+  "objectives": [
+    "Define a problem formally",
+    "Represent a state space as a graph or tree",
+    "Evaluate algorithms by completeness, optimality, time, and space"
+  ],
+  "paper": null,
+  "method": [
+    {
+      "title": "Formulation",
+      "body": "A search problem has an initial state, available actions, a transition model, a goal test, and a step cost."
+    },
+    {
+      "title": "State space",
+      "body": "States are nodes and actions are edges; the search tree unrolls this graph from the initial state."
+    },
+    {
+      "title": "Frontier and explored set",
+      "body": "The frontier holds nodes awaiting expansion and an explored set avoids revisiting states."
+    },
+    {
+      "title": "Evaluation criteria",
+      "body": "Algorithms are judged by completeness, optimality, and time and space complexity."
+    }
+  ],
+  "pseudocode": "frontier = [initial_state]\nexplored = set()\nwhile frontier:\n    node = frontier.pop(by_strategy)\n    if goal_test(node): return path(node)\n    explored.add(node)\n    frontier += expand(node)",
+  "playground": {
+    "language": "python",
+    "starterCode": "graph = {'S':['A','B'],'A':['G'],'B':['A'],'G':[]}\ndef successors(s):\n    return graph[s]\nprint('S ->', successors('S'))\nprint('goal reached from A:', 'G' in successors('A'))"
+  },
+  "output": {
+    "mockResult": "S -> ['A', 'B']\ngoal reached from A: True",
+    "visual": "graph"
+  },
+  "quiz": [
+    {
+      "question": "Which is NOT part of a formal search problem?",
+      "options": [
+        "Goal test",
+        "Transition model",
+        "Neural network weights",
+        "Path cost"
+      ],
+      "answer": 2
+    },
+    {
+      "question": "An explored set mainly helps to:",
+      "options": [
+        "Avoid repeated states",
+        "Raise heuristic accuracy",
+        "Shrink the goal",
+        "Randomize actions"
+      ],
+      "answer": 0
+    }
+  ],
+  "relatedTopicIds": [
+    "ai-uninformed-search",
+    "ai-informed-search"
+  ]
+}
