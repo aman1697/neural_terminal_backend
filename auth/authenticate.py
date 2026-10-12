@@ -15,6 +15,10 @@ from db.models import User
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
 
+def _unauthorized(detail: str) -> HTTPException:
+	return HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=detail)
+
+
 class Authenticator:
 	@staticmethod
 	def _prehash(password: str) -> bytes:
@@ -62,16 +66,27 @@ class Authenticator:
 				token, settings.jwt_secret_key, algorithms=[settings.jwt_algorithm]
 			)
 		except JWTError:
-			raise HTTPException(
-				status_code=status.HTTP_401_UNAUTHORIZED,
-				detail="Invalid or expired token",
-			)
+			raise _unauthorized("Invalid or expired token")
 		if payload.get("type") != expected_type:
-			raise HTTPException(
-				status_code=status.HTTP_401_UNAUTHORIZED,
-				detail="Invalid token type",
-			)
+			raise _unauthorized("Invalid token type")
 		return payload
+
+	@staticmethod
+	async def is_revoked(db: D1Client, jti: str) -> bool:
+		rows = await db.execute("SELECT jti FROM revoked_tokens WHERE jti = ?", [jti])
+		return bool(rows)
+
+	@staticmethod
+	async def revoke_token(db: D1Client, payload: dict) -> None:
+		expires_at = datetime.fromtimestamp(payload["exp"], tz=timezone.utc).isoformat()
+		await db.execute(
+			"INSERT OR IGNORE INTO revoked_tokens (jti, expires_at) VALUES (?, ?)",
+			[payload["jti"], expires_at],
+		)
+		await db.execute(
+			"DELETE FROM revoked_tokens WHERE expires_at < ?",
+			[datetime.now(timezone.utc).isoformat()],
+		)
 
 	@staticmethod
 	async def get_user_by_email(db: D1Client, email: str) -> User | None:
@@ -84,13 +99,28 @@ class Authenticator:
 		return User.from_row(rows[0]) if rows else None
 
 	@classmethod
+	async def resolve_user(cls, db: D1Client, payload: dict) -> User:
+		try:
+			user_id = uuid.UUID(payload.get("sub"))
+		except (TypeError, ValueError):
+			raise _unauthorized("Invalid token payload")
+
+		user = await cls.get_user_by_id(db, user_id)
+		if user is None or not user.is_active:
+			raise _unauthorized("User not found or inactive")
+
+		# Tokens issued before a password change must stop working.
+		changed = user.password_changed_at
+		if changed is not None and int(payload.get("iat", 0)) < int(changed.timestamp()):
+			raise _unauthorized("Token no longer valid, please log in again")
+
+		return user
+
+	@classmethod
 	async def authenticate_user(cls, db: D1Client, email: str, password: str) -> User:
 		user = await cls.get_user_by_email(db, email)
 		if user is None or not cls.verify_password(password, user.hashed_password):
-			raise HTTPException(
-				status_code=status.HTTP_401_UNAUTHORIZED,
-				detail="Invalid email or password",
-			)
+			raise _unauthorized("Invalid email or password")
 		if not user.is_active:
 			raise HTTPException(
 				status_code=status.HTTP_403_FORBIDDEN,
@@ -103,23 +133,4 @@ async def get_current_user(
 	token: str = Depends(oauth2_scheme), db: D1Client = Depends(get_db)
 ) -> User:
 	payload = Authenticator.decode_token(token, expected_type="access")
-
-	subject = payload.get("sub")
-	if subject is None:
-		raise HTTPException(
-			status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token payload"
-		)
-
-	try:
-		user_id = uuid.UUID(subject)
-	except ValueError:
-		raise HTTPException(
-			status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token payload"
-		)
-
-	user = await Authenticator.get_user_by_id(db, user_id)
-	if user is None or not user.is_active:
-		raise HTTPException(
-			status_code=status.HTTP_401_UNAUTHORIZED, detail="User not found or inactive"
-		)
-	return user
+	return await Authenticator.resolve_user(db, payload)

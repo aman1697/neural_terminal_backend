@@ -1,7 +1,10 @@
 import uuid
 from datetime import datetime
+from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, EmailStr, Field
+
+Track = Literal["ai", "ml", "dl"]
 
 
 class SignupRequest(BaseModel):
@@ -24,6 +27,10 @@ class RefreshRequest(BaseModel):
 	refresh_token: str
 
 
+class LogoutRequest(BaseModel):
+	refresh_token: str
+
+
 class UserOut(BaseModel):
 	model_config = ConfigDict(from_attributes=True)
 
@@ -31,3 +38,62 @@ class UserOut(BaseModel):
 	email: EmailStr
 	is_active: bool
 	created_at: datetime
+	name: str | None = None
+	bio: str | None = None
+
+
+class UpdateProfileRequest(BaseModel):
+	name: str | None = Field(default=None, max_length=100)
+	bio: str | None = Field(default=None, max_length=500)
+
+
+class ChangePasswordRequest(BaseModel):
+	current_password: str
+	new_password: str = Field(min_length=8, max_length=128)
+
+
+class DeleteAccountRequest(BaseModel):
+	password: str
+
+
+class ProgressSet(BaseModel):
+	track: Track
+	topic_id: str = Field(min_length=1, max_length=200)
+	status: Literal["started", "completed"]
+
+
+class ProgressOut(BaseModel):
+	track: Track
+	topic_id: str
+	status: Literal["started", "completed"]
+	updated_at: datetime
+
+
+class BookmarkCreate(BaseModel):
+	track: Track
+	topic_id: str = Field(min_length=1, max_length=200)
+
+
+class BookmarkOut(BaseModel):
+	track: Track
+	topic_id: str
+	created_at: datetime
+
+
+class NoteCreate(BaseModel):
+	track: Track
+	topic_id: str = Field(min_length=1, max_length=200)
+	content: str = Field(min_length=1, max_length=5000)
+
+
+class NoteUpdate(BaseModel):
+	content: str = Field(min_length=1, max_length=5000)
+
+
+class NoteOut(BaseModel):
+	id: str
+	track: Track
+	topic_id: str
+	content: str
+	created_at: datetime
+	updated_at: datetime
